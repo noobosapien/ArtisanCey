@@ -109,7 +109,9 @@ export default function Layout({ title, description, children }) {
               </IconButton>
             }
           >
-            Free shipping for orders over $75!
+            <Typography variant="body2" component="p">
+              Free shipping for orders over $75!
+            </Typography>
           </Alert>
         </Collapse>
       </Stack>
@@ -180,9 +182,7 @@ export default function Layout({ title, description, children }) {
 
       <Container>{children}</Container>
 
-      <footer>
-        <Typography>All rights reserved.</Typography>
-      </footer>
+      <footer>{/* <Typography>All rights reserved.</Typography> */}</footer>
     </>
   );
 }

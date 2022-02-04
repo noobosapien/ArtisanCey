@@ -2,6 +2,8 @@ import { styled } from '@mui/material/styles';
 import { Button, Collapse, Paper, Stack } from '@mui/material';
 import React, { useState } from 'react';
 import { Box } from '@mui/system';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 const CustomBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('xl')]: {
@@ -10,27 +12,27 @@ const CustomBox = styled(Box)(({ theme }) => ({
     marginTop: '2%',
   },
   [theme.breakpoints.down('xl')]: {
-    height: '4rem',
+    height: '5rem',
     background: theme.palette.common.black,
     marginTop: '2%',
   },
   [theme.breakpoints.down('lg')]: {
-    height: '4rem',
+    height: '5rem',
     background: theme.palette.common.black,
     marginTop: '2%',
   },
   [theme.breakpoints.down('md')]: {
-    height: '4rem',
+    height: '5rem',
     background: theme.palette.common.black,
     marginTop: '2%',
   },
   [theme.breakpoints.down('sm')]: {
-    height: '3rem',
+    height: '5rem',
     background: theme.palette.common.black,
     marginTop: '2%',
   },
   [theme.breakpoints.down('xs')]: {
-    height: '3rem',
+    height: '5rem',
     background: theme.palette.common.black,
     marginTop: '1%',
   },
@@ -47,7 +49,27 @@ const PaperDrop = styled(Paper)(({ theme }) => ({
 }));
 
 export default function TopMenu() {
-  const [openMenu, setOpenMenu] = useState(true);
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const theme = useTheme();
+
+  const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
+  const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
+  const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
+  const matchesLG = useMediaQuery(theme.breakpoints.down('lg'));
+  const matchesXL = useMediaQuery(theme.breakpoints.down('xl'));
+
+  const collapsedSize = matchesXS
+    ? 10
+    : matchesSM
+    ? 20
+    : matchesMD
+    ? 30
+    : matchesLG
+    ? 30
+    : matchesXL
+    ? 40
+    : 40;
 
   const handlePaperClick = (e) => {
     setOpenMenu(!openMenu);
@@ -55,7 +77,7 @@ export default function TopMenu() {
 
   return (
     <>
-      <Collapse in={openMenu} collapsedSize={10}>
+      <Collapse in={openMenu} collapsedSize={collapsedSize}>
         <CustomBox>
           <Stack></Stack>
         </CustomBox>

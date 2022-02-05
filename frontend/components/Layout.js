@@ -98,6 +98,7 @@ export default function Layout({ title, description, children }) {
             iconMapping={{ success: <LocalShippingIcon /> }}
             action={
               <IconButton
+                disableRipple
                 aria-label="close"
                 color="inherit"
                 size="small"

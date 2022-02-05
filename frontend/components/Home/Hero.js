@@ -58,7 +58,7 @@ export default function Hero() {
         >
           <Grid item>
             <Typography variant="h3" component="h1">
-              Shell Bowls
+              Coconut Shell Bowls
             </Typography>
           </Grid>
           <Grid item>

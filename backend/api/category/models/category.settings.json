@@ -2,24 +2,29 @@
   "kind": "collectionType",
   "collectionName": "categories",
   "info": {
-    "name": "category"
+    "name": "Category"
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
-    "slug": {
-      "type": "uid",
-      "targetField": "name"
+    "description": {
+      "type": "text"
+    },
+    "filteroptions": {
+      "type": "json"
     },
     "products": {
-      "via": "categories",
-      "collection": "product",
-      "dominant": true
+      "via": "category",
+      "collection": "product"
     }
   }
 }

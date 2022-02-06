@@ -181,7 +181,9 @@ export default function Layout({ title, description, children }) {
 
       <TopMenu />
 
-      <Container>{children}</Container>
+      {/* <Container> */}
+      {children}
+      {/* </Container> */}
 
       <footer>{/* <Typography>All rights reserved.</Typography> */}</footer>
     </>

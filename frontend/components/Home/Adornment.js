@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import AdornmentSVG from '../../public/adornment2.svg';
+import AdornmentSVG from '../../public/adornment.svg';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -16,15 +16,15 @@ export default function Adornment() {
   const matchesXL = useMediaQuery(theme.breakpoints.down('xl'));
 
   const imgHeight = matchesXS
-    ? '20rem'
+    ? '10rem'
     : matchesSM
-    ? '20rem'
+    ? '10rem'
     : matchesMD
-    ? '20rem'
+    ? '10rem'
     : matchesLG
-    ? '20rem'
+    ? '10rem'
     : matchesXL
-    ? '20rem'
+    ? '10rem'
     : '20rem';
 
   return (

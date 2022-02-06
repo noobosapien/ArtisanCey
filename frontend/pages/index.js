@@ -1,7 +1,8 @@
-import { Grid } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import Head from 'next/head';
 import Image from 'next/image';
 import Adornment from '../components/Home/Adornment';
+import Carousel from '../components/Home/Carousel';
 import Hero from '../components/Home/Hero';
 import Layout from '../components/Layout';
 import styles from '../styles/Home.module.css';
@@ -14,6 +15,7 @@ export default function Home() {
     >
       <Hero />
       <Adornment />
+      <Carousel />
     </Layout>
   );
 }

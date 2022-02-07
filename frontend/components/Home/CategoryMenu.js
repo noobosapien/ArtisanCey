@@ -47,7 +47,7 @@ const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: 'relative',
   height: 200,
   [theme.breakpoints.down('sm')]: {
-    width: '50% !important', // Overrides inline-style
+    width: '100% !important', // Overrides inline-style
     height: '200',
   },
   '&:hover, &.Mui-focusVisible': {

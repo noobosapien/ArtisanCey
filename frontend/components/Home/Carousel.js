@@ -1,8 +1,5 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import des1 from '../../public/des1.png';
-import des2 from '../../public/des2.png';
-import des3 from '../../public/des3.png';
 import { styled } from '@mui/system';
 import {
   Button,
@@ -12,6 +9,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  Rating,
   Typography,
 } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -20,27 +18,27 @@ import { useTheme } from '@mui/material/styles';
 const CustomImg = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down('xl')]: {
     width: '187.5px',
-    height: '350px',
+    // height: '350px',
   },
 
   [theme.breakpoints.down('lg')]: {
     width: '187.5px',
-    height: '350px',
+    // height: '350px',
   },
 
   [theme.breakpoints.down('md')]: {
     width: '187.5px',
-    height: '350px',
+    // height: '350px',
   },
 
   [theme.breakpoints.down('sm')]: {
     width: '150px',
-    height: '200px',
+    // height: '200px',
   },
 
   [theme.breakpoints.down('xs')]: {
     width: '150px',
-    height: '200px',
+    // height: '200px',
   },
 
   position: 'absolute',
@@ -78,13 +76,12 @@ export default function Carousel({ products }) {
       item.image = product.images[0].url;
       item.name = product.name;
       item.height = product.images[0].height;
+      item.price = product.price;
       // item.slug = product.slug
 
       slides.push(item);
     });
   }
-
-  console.log(slides);
 
   useEffect(() => {
     matchesXS
@@ -98,8 +95,6 @@ export default function Carousel({ products }) {
       : matchesXL
       ? setZTranslate(100)
       : setZTranslate(100);
-
-    console.log(matchesXS, matchesSM, matchesMD, matchesLG, matchesXL);
   }, [matchesXS, matchesSM, matchesMD, matchesLG, matchesXL]);
 
   useEffect(() => {
@@ -175,12 +170,21 @@ export default function Carousel({ products }) {
                 <CardMedia component="img" image={slides[0].image} />
                 <CardContent>
                   <Typography>{slides[0].name}</Typography>
+                  <Rating
+                    name="product1"
+                    size="small"
+                    defaultValue={4.5}
+                    precision={0.5}
+                    readOnly
+                  />
+                  <Typography>(14 ratings)</Typography>
+                  <Typography>${slides[0].price}0</Typography>
                 </CardContent>
               </CardActionArea>
 
               <CardActions>
                 <Button size="small" variant="contained">
-                  Go to product
+                  Add to cart
                 </Button>
               </CardActions>
             </CustomImg>
@@ -196,12 +200,21 @@ export default function Carousel({ products }) {
                 <CardMedia component="img" image={slides[1].image} />
                 <CardContent>
                   <Typography>{slides[1].name}</Typography>
+                  <Rating
+                    name="product2"
+                    size="small"
+                    defaultValue={4.5}
+                    precision={0.5}
+                    readOnly
+                  />
+                  <Typography>(14 ratings)</Typography>
+                  <Typography>${slides[0].price}0</Typography>
                 </CardContent>
               </CardActionArea>
 
               <CardActions>
                 <Button size="small" variant="contained">
-                  Go to product
+                  Add to cart
                 </Button>
               </CardActions>
             </CustomImg>
@@ -217,12 +230,21 @@ export default function Carousel({ products }) {
                 <CardMedia component="img" image={slides[2].image} />
                 <CardContent>
                   <Typography>{slides[2].name}</Typography>
+                  <Rating
+                    name="product3"
+                    size="small"
+                    defaultValue={4.5}
+                    precision={0.5}
+                    readOnly
+                  />
+                  <Typography>(14 ratings)</Typography>
+                  <Typography>${slides[0].price}0</Typography>
                 </CardContent>
               </CardActionArea>
 
               <CardActions>
                 <Button size="small" variant="contained">
-                  Go to product
+                  Add to cart
                 </Button>
               </CardActions>
             </CustomImg>

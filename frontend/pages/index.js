@@ -7,7 +7,7 @@ import Hero from '../components/Home/Hero';
 import Layout from '../components/Layout';
 import styles from '../styles/Home.module.css';
 
-export default function Home() {
+export default function Home({ featured }) {
   return (
     <Layout
       title="Artisan Cey"
@@ -15,7 +15,18 @@ export default function Home() {
     >
       <Hero />
       <Adornment />
-      <Carousel />
+      <Carousel products={featured} />
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  const res = await fetch('https://cms.artisancey.com/products?featured=true');
+  const featured = await res.json();
+
+  return {
+    props: {
+      featured,
+    },
+  };
 }

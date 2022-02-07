@@ -4,20 +4,53 @@ import des1 from '../../public/des1.png';
 import des2 from '../../public/des2.png';
 import des3 from '../../public/des3.png';
 import { styled } from '@mui/system';
-import { Button, Card, Grid, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
 const CustomImg = styled(Card)(({ theme }) => ({
+  [theme.breakpoints.down('xl')]: {
+    width: '187.5px',
+    height: '350px',
+  },
+
+  [theme.breakpoints.down('lg')]: {
+    width: '187.5px',
+    height: '350px',
+  },
+
+  [theme.breakpoints.down('md')]: {
+    width: '187.5px',
+    height: '350px',
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    width: '150px',
+    height: '200px',
+  },
+
+  [theme.breakpoints.down('xs')]: {
+    width: '150px',
+    height: '200px',
+  },
+
   position: 'absolute',
-  width: '200px',
-  height: '240px',
+
   left: '10px',
   top: '10px',
   transition: 'transform 1s ease',
 }));
 
-export default function Carousel() {
+export default function Carousel({ products }) {
   const theme = useTheme();
 
   const [rotation1, setRotation1] = useState(0);
@@ -36,6 +69,23 @@ export default function Carousel() {
   const matchesLG = useMediaQuery(theme.breakpoints.down('lg'));
   const matchesXL = useMediaQuery(theme.breakpoints.down('xl'));
 
+  const slides = [];
+
+  if (products instanceof Array && products.length > 0) {
+    products.forEach((product) => {
+      var item = {};
+
+      item.image = product.images[0].url;
+      item.name = product.name;
+      item.height = product.images[0].height;
+      // item.slug = product.slug
+
+      slides.push(item);
+    });
+  }
+
+  console.log(slides);
+
   useEffect(() => {
     matchesXS
       ? setZTranslate(100)
@@ -48,6 +98,8 @@ export default function Carousel() {
       : matchesXL
       ? setZTranslate(100)
       : setZTranslate(100);
+
+    console.log(matchesXS, matchesSM, matchesMD, matchesLG, matchesXL);
   }, [matchesXS, matchesSM, matchesMD, matchesLG, matchesXL]);
 
   useEffect(() => {
@@ -98,7 +150,7 @@ export default function Carousel() {
       <Grid item>
         <div
           style={{
-            marginLeft: '22%',
+            marginLeft: '10%',
             marginTop: '10%',
             width: '210px',
             height: '140px',
@@ -113,23 +165,67 @@ export default function Carousel() {
             }}
           >
             <CustomImg
+              elevation={10}
               style={{
-                transform: `perspective(400px) rotateY(${rotation1}deg) translateZ(${zTranslate}px)`,
+                transform: `perspective(1000px) rotateY(${rotation1}deg) translateZ(${zTranslate}px)`,
                 zIndex: z1,
               }}
-            />
+            >
+              <CardActionArea>
+                <CardMedia component="img" image={slides[0].image} />
+                <CardContent>
+                  <Typography>{slides[0].name}</Typography>
+                </CardContent>
+              </CardActionArea>
+
+              <CardActions>
+                <Button size="small" variant="contained">
+                  Go to product
+                </Button>
+              </CardActions>
+            </CustomImg>
+
             <CustomImg
+              elevation={10}
               style={{
-                transform: `perspective(400px) rotateY(${rotation2}deg) translateZ(${zTranslate}px)`,
+                transform: `perspective(1000px) rotateY(${rotation2}deg) translateZ(${zTranslate}px)`,
                 zIndex: z2,
               }}
-            />
+            >
+              <CardActionArea>
+                <CardMedia component="img" image={slides[1].image} />
+                <CardContent>
+                  <Typography>{slides[1].name}</Typography>
+                </CardContent>
+              </CardActionArea>
+
+              <CardActions>
+                <Button size="small" variant="contained">
+                  Go to product
+                </Button>
+              </CardActions>
+            </CustomImg>
+
             <CustomImg
+              elevation={10}
               style={{
-                transform: `perspective(400px) rotateY(${rotation3}deg) translateZ(${zTranslate}px)`,
+                transform: `perspective(1000px) rotateY(${rotation3}deg) translateZ(${zTranslate}px)`,
                 zIndex: z3,
               }}
-            />
+            >
+              <CardActionArea>
+                <CardMedia component="img" image={slides[2].image} />
+                <CardContent>
+                  <Typography>{slides[2].name}</Typography>
+                </CardContent>
+              </CardActionArea>
+
+              <CardActions>
+                <Button size="small" variant="contained">
+                  Go to product
+                </Button>
+              </CardActions>
+            </CustomImg>
           </div>
         </div>
       </Grid>

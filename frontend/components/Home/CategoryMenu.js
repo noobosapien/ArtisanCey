@@ -134,7 +134,6 @@ export default function CategoryMenu() {
         [theme.breakpoints.down('xs')]: {
           marginTop: '35%',
         },
-        // marginTop: '30%',
       })}
     >
       <Grid item>
@@ -146,7 +145,6 @@ export default function CategoryMenu() {
           sx={(theme) => ({
             display: 'flex',
             flexWrap: 'wrap',
-            // minWidth: 250,
             [theme.breakpoints.up('xl')]: { minWidth: 1000 },
             [theme.breakpoints.down('xl')]: { minWidth: 1000 },
             [theme.breakpoints.down('lg')]: { minWidth: 800 },

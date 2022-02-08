@@ -6,6 +6,7 @@ import Carousel from '../components/Home/Carousel';
 import CategoryMenu from '../components/Home/CategoryMenu';
 import Hero from '../components/Home/Hero';
 import LatestProducts from '../components/Home/LatestProducts';
+import Satisfaction from '../components/Home/Satisfaction';
 import Layout from '../components/Layout';
 import styles from '../styles/Home.module.css';
 
@@ -20,6 +21,7 @@ export default function Home({ featured }) {
       <Carousel products={featured} />
       <CategoryMenu />
       <LatestProducts />
+      <Satisfaction />
     </Layout>
   );
 }

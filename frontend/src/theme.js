@@ -6,6 +6,7 @@ const black = '#474747';
 const lightGray = '#787878';
 const gray = '#5c5c5c';
 const darkGray = '#454545';
+const lightBrown = '#B1AB7D';
 // Create a theme instance.
 const theme = createTheme({
   palette: {
@@ -26,6 +27,7 @@ const theme = createTheme({
       gray,
       darkGray,
       lightGray,
+      lightBrown,
     },
   },
 
@@ -57,16 +59,16 @@ const theme = createTheme({
       color: black,
     },
     h5: {
-      fontFamily: 'Rancho',
+      fontFamily: 'Ranga',
       fontSize: '1.4rem',
       // fontWeight: 700,
       fontStyle: 'italic',
       color: lightGray,
     },
     body1: {
-      fontFamily: 'Rancho',
+      fontFamily: 'Ranga',
       fontSize: '1.0rem',
-      color: lightGray,
+      color: darkGray,
     },
     body2: {
       fontFamily: 'Rancho',

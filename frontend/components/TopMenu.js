@@ -39,10 +39,11 @@ const CustomBox = styled(Box)(({ theme }) => ({
 }));
 
 const PaperDrop = styled(Paper)(({ theme }) => ({
+  position: 'absolute',
   width: '1.5rem',
   height: '2rem',
   background: theme.palette.common.greenBlue,
-  // marginTop: '2rem',
+  marginTop: '1rem',
   marginLeft: '1rem',
   borderRadius: '10rem 10rem 5rem 5rem',
   cursor: 'pointer',
@@ -88,9 +89,11 @@ export default function TopMenu() {
           borderLeft: '0.1rem solid #3a8783',
           height: '1rem',
           marginLeft: '1.7rem',
+          marginTop: '0rem',
+          position: 'absolute',
         }}
       ></div>
-      <PaperDrop size="small" onClick={handlePaperClick} />
+      <PaperDrop elevation={16} size="small" onClick={handlePaperClick} />
     </>
   );
 }

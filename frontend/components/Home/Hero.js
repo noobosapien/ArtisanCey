@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import Coconuts from '../../public/coconuts.svg';
 import Candle from '../../public/candle.svg';
+import CoverSVG from '../../public/cover.jpg';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
@@ -89,6 +90,41 @@ function Hero2({ imgWidth, imgHeight, matchesLG }) {
   );
 }
 
+function Hero3({ imgWidth, imgHeight, matchesLG }) {
+  return (
+    <>
+      <Grid
+        container
+        sx={(theme) => ({
+          backgroundImage: `url(${CoverSVG.src})`,
+          backgroundPosition: 'top',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          position: 'absolute',
+          zIndex: -1,
+          width: '100%',
+          height: imgHeight,
+          padding: '25rem 40rem 40rem 40rem',
+          [theme.breakpoints.down('lg')]: {
+            padding: '25rem 10rem 30rem 40rem',
+          },
+          [theme.breakpoints.down('md')]: {
+            padding: '20rem 10rem 26rem 40rem',
+          },
+          [theme.breakpoints.down('sm')]: {
+            padding: '2rem 2rem 20rem 2rem',
+          },
+          [theme.breakpoints.down('xs')]: {
+            padding: '2rem 2rem 10rem 2rem',
+
+            overflow: 'hidden',
+          },
+        })}
+      ></Grid>
+    </>
+  );
+}
+
 export default function Hero() {
   const theme = useTheme();
 
@@ -125,6 +161,13 @@ export default function Hero() {
     : 300;
 
   useEffect(() => {
+    setHeroId(1);
+    setCurrentHero(
+      <Hero1 imgHeight={imgHeight} imgWidth={imgWidth} matchesLg={matchesLG} />
+    );
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       if (heroId === 0) {
         setHeroId(1);
@@ -152,5 +195,8 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [currentHero]);
 
-  return <>{currentHero}</>;
+  // return <>{currentHero}</>;
+  return (
+    <Hero3 imgHeight={imgHeight} imgWidth={imgWidth} matchesLg={matchesLG} />
+  );
 }

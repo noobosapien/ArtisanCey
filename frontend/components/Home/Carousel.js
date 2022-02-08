@@ -11,9 +11,11 @@ import {
   Grid,
   Rating,
   Typography,
+  IconButton,
 } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 const CustomImg = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down('xl')]: {
@@ -42,10 +44,17 @@ const CustomImg = styled(Card)(({ theme }) => ({
   },
 
   position: 'absolute',
-
+  backgroundColor: '#3a8783cc',
+  borderRadius: '2rem',
   left: '10px',
   top: '10px',
   transition: 'transform 1s ease',
+}));
+
+const CustomTyp = styled(Typography)(({ theme }) => ({
+  backgroundColor: '#474747cc',
+  color: '#fff',
+  borderRadius: '2rem',
 }));
 
 export default function Carousel({ products }) {
@@ -127,7 +136,7 @@ export default function Carousel({ products }) {
       setRotation1(rot1);
       setRotation2(rot2);
       setRotation3(rot3);
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [rotation1, rotation2, rotation3]);
@@ -170,22 +179,28 @@ export default function Carousel({ products }) {
               <CardActionArea>
                 <CardMedia component="img" image={slides[0].image} />
                 <CardContent>
-                  <Typography>{slides[0].name}</Typography>
+                  <CustomTyp align="center">{slides[0].name}</CustomTyp>
                   <Rating
                     name="product1"
                     size="small"
                     defaultValue={4.5}
                     precision={0.5}
                     readOnly
+                    sx={{ backgroundColor: '#3a8783cc', borderRadius: '2rem' }}
                   />
-                  <Typography>(14 ratings)</Typography>
-                  <Typography>${slides[0].price}0</Typography>
+                  <CustomTyp align="center">(14 ratings)</CustomTyp>
+                  <CustomTyp align="center">${slides[0].price}0</CustomTyp>
                 </CardContent>
               </CardActionArea>
 
               <CardActions>
-                <Button size="small" variant="contained">
-                  Add to cart
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="secondary"
+                  sx={{ borderRadius: '2rem' }}
+                >
+                  <AddShoppingCartIcon />
                 </Button>
               </CardActions>
             </CustomImg>
@@ -200,22 +215,28 @@ export default function Carousel({ products }) {
               <CardActionArea>
                 <CardMedia component="img" image={slides[1].image} />
                 <CardContent>
-                  <Typography>{slides[1].name}</Typography>
+                  <CustomTyp align="center">{slides[1].name}</CustomTyp>
                   <Rating
                     name="product2"
                     size="small"
                     defaultValue={4.5}
                     precision={0.5}
                     readOnly
+                    sx={{ backgroundColor: '#3a8783cc', borderRadius: '2rem' }}
                   />
-                  <Typography>(14 ratings)</Typography>
-                  <Typography>${slides[0].price}0</Typography>
+                  <CustomTyp align="center">(14 ratings)</CustomTyp>
+                  <CustomTyp align="center">${slides[0].price}0</CustomTyp>
                 </CardContent>
               </CardActionArea>
 
               <CardActions>
-                <Button size="small" variant="contained">
-                  Add to cart
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="secondary"
+                  sx={{ borderRadius: '2rem' }}
+                >
+                  <AddShoppingCartIcon />
                 </Button>
               </CardActions>
             </CustomImg>
@@ -230,22 +251,28 @@ export default function Carousel({ products }) {
               <CardActionArea>
                 <CardMedia component="img" image={slides[2].image} />
                 <CardContent>
-                  <Typography>{slides[2].name}</Typography>
+                  <CustomTyp align="center">{slides[2].name}</CustomTyp>
                   <Rating
                     name="product3"
                     size="small"
                     defaultValue={4.5}
                     precision={0.5}
                     readOnly
+                    sx={{ backgroundColor: '#3a8783cc', borderRadius: '2rem' }}
                   />
-                  <Typography>(14 ratings)</Typography>
-                  <Typography>${slides[0].price}0</Typography>
+                  <CustomTyp align="center">(14 ratings)</CustomTyp>
+                  <CustomTyp align="center">${slides[0].price}0</CustomTyp>
                 </CardContent>
               </CardActionArea>
 
               <CardActions>
-                <Button size="small" variant="contained">
-                  Add to cart
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="secondary"
+                  sx={{ borderRadius: '2rem' }}
+                >
+                  <AddShoppingCartIcon />
                 </Button>
               </CardActions>
             </CustomImg>

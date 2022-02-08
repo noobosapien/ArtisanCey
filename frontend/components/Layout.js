@@ -34,16 +34,16 @@ import TopMenu from './TopMenu';
 
 const LogoButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
-    width: '128px !important',
+    width: '8rem !important',
   },
   [theme.breakpoints.up('sm')]: {
-    width: '160px !important',
+    width: '10rem !important',
   },
   [theme.breakpoints.up('md')]: {
-    width: '192px !important',
+    width: '18rem !important',
   },
   [theme.breakpoints.up('lg')]: {
-    width: '224px !important',
+    width: '24rem !important',
   },
 
   top: '1rem',
@@ -155,7 +155,7 @@ export default function Layout({ title, description, children }) {
             direction="row"
           >
             <Grid item>
-              <LogoButton>
+              <LogoButton disableRipple>
                 <CustomLogo src={Logo} alt="Logo" />
               </LogoButton>
             </Grid>
@@ -163,14 +163,38 @@ export default function Layout({ title, description, children }) {
             <Grid item>
               <Stack direction="row" spacing={1}>
                 <Tooltip title="Search">
-                  <NavButton onClick={openSearchHandler}>
-                    <SearchIcon />
+                  <NavButton onClick={openSearchHandler} size="large">
+                    <SearchIcon
+                      sx={(theme) => ({
+                        [theme.breakpoints.up('lg')]: {
+                          fontSize: '3.0rem',
+                        },
+                        [theme.breakpoints.down('lg')]: {
+                          fontSize: '2.5rem',
+                        },
+                        [theme.breakpoints.down('sm')]: {
+                          fontSize: '1.5rem',
+                        },
+                      })}
+                    />
                   </NavButton>
                 </Tooltip>
 
                 <Tooltip title="Cart">
                   <NavButton>
-                    <ShoppingCartIcon />
+                    <ShoppingCartIcon
+                      sx={(theme) => ({
+                        [theme.breakpoints.up('lg')]: {
+                          fontSize: '3.0rem',
+                        },
+                        [theme.breakpoints.down('lg')]: {
+                          fontSize: '2.5rem',
+                        },
+                        [theme.breakpoints.down('sm')]: {
+                          fontSize: '1.5rem',
+                        },
+                      })}
+                    />
                   </NavButton>
                 </Tooltip>
               </Stack>
@@ -181,11 +205,16 @@ export default function Layout({ title, description, children }) {
 
       <TopMenu />
 
-      {/* <Container> */}
       {children}
-      {/* </Container> */}
 
-      <footer>{/* <Typography>All rights reserved.</Typography> */}</footer>
+      <footer
+        style={{
+          backgroundColor: '#C3E6D3',
+          marginTop: '15%',
+        }}
+      >
+        <Typography>All rights reserved.</Typography>
+      </footer>
     </>
   );
 }

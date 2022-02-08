@@ -25,7 +25,9 @@ export default function Adornment() {
     ? '10rem'
     : matchesXL
     ? '10rem'
-    : '20rem';
+    : '10rem';
+
+  // const imgHeight = '100%';
 
   return (
     <>
@@ -38,17 +40,30 @@ export default function Adornment() {
           backgroundRepeat: 'no-repeat',
           width: '100%',
           height: imgHeight,
-          padding: '30rem 10rem 10rem 10rem',
+          padding: '25rem 40rem 40rem 40rem',
+          [theme.breakpoints.up('lg')]: {
+            marginTop: '5rem',
+          },
           [theme.breakpoints.down('lg')]: {
-            padding: '20rem 2rem 2rem 2rem',
+            padding: '25rem 10rem 30rem 40rem',
+            marginTop: '5rem',
+          },
+          [theme.breakpoints.down('md')]: {
+            padding: '20rem 10rem 26rem 40rem',
+            marginTop: '5rem',
+          },
+          [theme.breakpoints.down('sm')]: {
+            padding: '2rem 2rem 20rem 2rem',
+            marginTop: '5rem',
           },
           [theme.breakpoints.down('xs')]: {
+            padding: '2rem 2rem 10rem 2rem',
+            marginTop: '5rem',
+
             overflow: 'hidden',
           },
         })}
-      >
-        <Grid item></Grid>
-      </Grid>
+      ></Grid>
     </>
   );
 }

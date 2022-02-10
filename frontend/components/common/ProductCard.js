@@ -5,6 +5,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Fab,
   Grid,
   IconButton,
   Rating,
@@ -39,8 +40,8 @@ export default function ProductCard() {
     ? '25rem'
     : '25rem';
 
-  const ImageButton = styled(Button)(({ theme }) => ({
-    borderRadius: '50px',
+  const ImageButton = styled(Fab)(({ theme }) => ({
+    // borderRadius: '50px',
   }));
 
   return (
@@ -77,7 +78,7 @@ export default function ProductCard() {
           </CardActionArea>
 
           <CardActions>
-            <ImageButton variant="contained">
+            <ImageButton color="primary" variant="contained">
               <AddShoppingCartIcon />
             </ImageButton>
           </CardActions>

@@ -7,20 +7,12 @@ import {
   AppBar,
   Button,
   Collapse,
-  Container,
   IconButton,
-  Snackbar,
   Stack,
-  Input,
   Toolbar,
   Typography,
-  TextField,
   Grid,
   Tooltip,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Divider,
 } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -31,6 +23,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Box } from '@mui/system';
 import TopMenu from './TopMenu';
+import SearchDialog from './common/SearchDialog';
 
 const LogoButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
@@ -81,10 +74,6 @@ export default function Layout({ title, description, children }) {
     setOpenSearch(true);
   };
 
-  const closeSearchHandler = (e) => {
-    setOpenSearch(false);
-  };
-
   return (
     <>
       <Head>
@@ -117,34 +106,7 @@ export default function Layout({ title, description, children }) {
         </Collapse>
       </Stack>
 
-      <Dialog
-        open={openSearch}
-        onClose={closeSearchHandler}
-        fullWidth
-        maxWidth="sm"
-      >
-        <DialogTitle>Search</DialogTitle>
-        <DialogContent>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'flex-end',
-              marginBottom: '5%',
-            }}
-          >
-            <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-            <TextField
-              fullWidth
-              id="searchField"
-              label="Search..."
-              variant="standard"
-              autoFocus
-            />
-          </Box>
-
-          <Divider />
-        </DialogContent>
-      </Dialog>
+      <SearchDialog openSearch={openSearch} setOpenSearch={setOpenSearch} />
 
       <AppBar position="static" elevation={0} color="transparent">
         <Toolbar disableGutters>

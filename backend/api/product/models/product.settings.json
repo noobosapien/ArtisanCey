@@ -50,6 +50,14 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "slug": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug2": {
+      "type": "string"
     }
   }
 }

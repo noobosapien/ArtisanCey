@@ -27,12 +27,14 @@ export default function Home({ featured }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch('https://cms.artisancey.com/products?featured=true');
-  const featured = await res.json();
+  try {
+    const res = await fetch(process.env.STRAPI_BASE + 'products?featured=true');
+    const featured = await res.json();
 
-  return {
-    props: {
-      featured,
-    },
-  };
+    return {
+      props: {
+        featured,
+      },
+    };
+  } catch (e) {}
 }

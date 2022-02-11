@@ -5,41 +5,47 @@ import { Box } from '@mui/system';
 import des1 from '../../public/shell_bowl.jpg';
 import des2 from '../../public/candle.jpg';
 import des3 from '../../public/bundle.jpg';
-import cups from '../../public/cups.jpg';
 import cutlery from '../../public/cutlery.jpg';
 import figures from '../../public/figures.jpg';
 import vases from '../../public/vases.jpg';
+import NextLink from 'next/link';
 
 const images = [
   {
     url: des1.src,
     title: 'Coconut shell bowls',
     width: '33%',
+    href: '/category/bowls',
   },
   {
     url: des2.src,
     title: 'Coconut candles',
     width: '33%',
+    href: '/category/candles',
   },
   {
     url: des3.src,
     title: 'Bundles',
     width: '33%',
+    href: '/category/bundles',
   },
   {
     url: cutlery.src,
     title: 'Cutlery',
     width: '33%',
+    href: '/category/cutlery',
   },
   {
     url: figures.src,
     title: 'Coconut figures',
     width: '33%',
+    href: '/category/figures',
   },
   {
     url: vases.src,
     title: 'Vases',
     width: '33%',
+    href: '/category/vases',
   },
 ];
 
@@ -155,32 +161,33 @@ export default function CategoryMenu() {
           })}
         >
           {images.map((image) => (
-            <ImageButton
-              focusRipple
-              key={image.title}
-              style={{
-                width: image.width,
-              }}
-            >
-              <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
-              <ImageBackdrop className="MuiImageBackdrop-root" />
-              <Image>
-                <Typography
-                  component="span"
-                  variant="subtitle1"
-                  color="inherit"
-                  sx={{
-                    position: 'relative',
-                    p: 4,
-                    pt: 2,
-                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                  }}
-                >
-                  {image.title}
-                  <ImageMarked className="MuiImageMarked-root" />
-                </Typography>
-              </Image>
-            </ImageButton>
+            <NextLink href={image.href} key={image.title} passHref>
+              <ImageButton
+                focusRipple
+                style={{
+                  width: image.width,
+                }}
+              >
+                <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+                <ImageBackdrop className="MuiImageBackdrop-root" />
+                <Image>
+                  <Typography
+                    component="span"
+                    variant="subtitle1"
+                    color="inherit"
+                    sx={{
+                      position: 'relative',
+                      p: 4,
+                      pt: 2,
+                      pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                    }}
+                  >
+                    {image.title}
+                    <ImageMarked className="MuiImageMarked-root" />
+                  </Typography>
+                </Image>
+              </ImageButton>
+            </NextLink>
           ))}
         </Box>
       </Grid>

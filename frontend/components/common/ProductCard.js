@@ -19,7 +19,16 @@ import { useTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-export default function ProductCard() {
+export default function ProductCard({ product }) {
+  const prod = { img: candle.src, name: 'Name', price: '20' };
+
+  if (product) {
+    prod.img =
+      product.images && product.images[0] ? product.images[0].url : candle.src;
+    prod.name = product.name ? product.name : 'Name';
+    prod.price = product.price ? product.price : '20';
+  }
+
   const theme = useTheme();
 
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
@@ -49,7 +58,7 @@ export default function ProductCard() {
       <Grid item>
         <Card sx={{ width: imgWidth }} elevation={5}>
           <CardActionArea>
-            <CardMedia component="img" image={candle.src} alt="item" />
+            <CardMedia component="img" image={prod.img} alt="item" />
 
             <CardContent>
               <Grid
@@ -59,11 +68,11 @@ export default function ProductCard() {
                 alignItems="center"
               >
                 <Grid item>
-                  <Typography variant="body1">Name</Typography>
+                  <Typography variant="body1">{prod.name}</Typography>
                 </Grid>
 
                 <Grid item>
-                  <Typography variant="subtitle">$20.00</Typography>
+                  <Typography variant="subtitle">${prod.price}.00</Typography>
                 </Grid>
 
                 <Grid item>

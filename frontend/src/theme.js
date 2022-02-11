@@ -7,6 +7,7 @@ const lightGray = '#787878';
 const gray = '#5c5c5c';
 const darkGray = '#454545';
 const lightBrown = '#B1AB7D';
+const orange = '#ff7700';
 // Create a theme instance.
 const theme = createTheme({
   palette: {
@@ -28,6 +29,7 @@ const theme = createTheme({
       darkGray,
       lightGray,
       lightBrown,
+      orange,
     },
   },
 

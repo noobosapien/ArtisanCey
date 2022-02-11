@@ -13,6 +13,7 @@ import {
   Typography,
   Grid,
   Tooltip,
+  Link,
 } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -117,9 +118,11 @@ export default function Layout({ title, description, children }) {
             direction="row"
           >
             <Grid item>
-              <LogoButton disableRipple>
-                <CustomLogo src={Logo} alt="Logo" />
-              </LogoButton>
+              <NextLink href="/" passHref>
+                <LogoButton disableRipple component={Link}>
+                  <CustomLogo src={Logo} alt="Logo" />
+                </LogoButton>
+              </NextLink>
             </Grid>
 
             <Grid item>

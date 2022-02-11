@@ -1,8 +1,24 @@
+import { Grid } from '@mui/material';
+import Image from 'next/image';
 import React from 'react';
 import Layout from '../../components/Layout';
 
 export default function ProductPage(props) {
-  return <Layout></Layout>;
+  const { product } = props;
+
+  const prodInfo = product instanceof Array && product.length ? product[0] : {};
+
+  return (
+    <Layout title={prodInfo.name} description={prodInfo.description}>
+      <Grid container>
+        {prodInfo.images ? (
+          <Grid item>
+            <Image src={prodInfo.images[0].url} width={500} height={500} />
+          </Grid>
+        ) : undefined}
+      </Grid>
+    </Layout>
+  );
 }
 
 export async function getStaticPaths() {
@@ -27,11 +43,11 @@ export async function getStaticProps(context) {
     const { params } = context;
     const { slug } = params;
 
-    var param = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
+    var param = slug.toLowerCase();
 
     const res = await fetch(process.env.STRAPI_BASE + `products?slug=${param}`);
     const product = await res.json();
-    console.log(product);
+
     return {
       props: {
         product,

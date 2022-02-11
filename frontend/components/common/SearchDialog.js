@@ -1,20 +1,48 @@
-import {
-  Box,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  TextField,
-} from '@mui/material';
 import React, { useState } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import SendIcon from '@mui/icons-material/Send';
-import Image from 'next/image';
+
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+
+import { useInput } from '@mui/base';
+import { styled } from '@mui/system';
+import { Grid } from '@mui/material';
+
+const StyledInputElement = styled('input')(
+  ({ theme }) => `
+  width: 100%;
+  font-size: 1.2rem;
+  font-family: Roboto;
+  font-weight: 400;
+  line-height: 1.5;
+  color: ${theme.palette.common.black};
+  background: ${theme.palette.common.white};
+  border: 1px solid ${theme.palette.common.darkBrown};
+  border-radius: 16px;
+  padding: 12px 12px;
+  transition: all 200ms ease;
+
+  &:hover {
+    background: ${theme.palette.common.white};
+    border-color: ${theme.palette.common.darkGray};
+  }
+
+  &:focus {
+    outline: 2px solid ${theme.palette.common.greenBlue};
+    outline-offset: 4px;
+  }
+`
+);
+
+const CustomInput = React.forwardRef(function CustomInput(props, ref) {
+  const { getRootProps, getInputProps } = useInput(props, ref);
+
+  return (
+    <div {...getRootProps()}>
+      <StyledInputElement {...props} {...getInputProps()} />
+    </div>
+  );
+});
 
 export default function SearchDialog({ openSearch, setOpenSearch }) {
   const [searchResults, setSearchResults] = useState([]);
@@ -60,63 +88,36 @@ export default function SearchDialog({ openSearch, setOpenSearch }) {
     }
   };
 
+  const list = () => (
+    <Box sx={{ width: 'auto' }} role="search">
+      <List></List>
+    </Box>
+  );
+
   return (
-    <Dialog
-      open={openSearch}
-      onClose={closeSearchHandler}
-      fullWidth
-      maxWidth="sm"
-    >
-      <DialogTitle>Search</DialogTitle>
-      <DialogContent sx={{}}>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'flex-end',
-            marginBottom: '5%',
-          }}
-        >
-          <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-          <TextField
-            fullWidth
-            id="searchField"
-            label="Search..."
-            variant="standard"
-            autoFocus
-            onChange={handleTextEnter}
-          />
-        </Box>
-
-        <Divider />
-
-        <List
-          sx={{ width: '100%', bgcolor: 'background.paper' }}
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              View all products
-            </ListSubheader>
-          }
-        >
-          {searchResults.map((result) => {
-            return (
-              <ListItemButton key={result.id}>
-                <ListItemIcon>
-                  <Image
-                    src={result.image}
-                    alt={result.name}
-                    width={50}
-                    height={50}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={result.name} />
-                <ListItemText primary={`$${result.price}`} />
-              </ListItemButton>
-            );
-          })}
-        </List>
-      </DialogContent>
-    </Dialog>
+    <>
+      <Drawer
+        anchor={'top'}
+        open={openSearch}
+        onClose={closeSearchHandler}
+        sx={(theme) => ({
+          '& .MuiDrawer-paperAnchorTop': {
+            // background:
+            //   'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(58,135,131,1) 50%, rgba(255,255,255,1) 100%)',
+          },
+        })}
+      >
+        <Grid container justifyContent="space-evenly" sx={{ marginTop: '4%' }}>
+          <Grid item xs={10} sm={10} md={8} lg={6}>
+            <CustomInput
+              aria-label="Search bar"
+              placeholder="Search..."
+              autoFocus
+            />
+          </Grid>
+        </Grid>
+        {list()}
+      </Drawer>
+    </>
   );
 }

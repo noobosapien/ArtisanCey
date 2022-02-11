@@ -18,7 +18,7 @@ export default function Category(props) {
         {products.map((prod) => {
           return (
             <Grid item key={prod.id}>
-              <ProductCard />
+              <ProductCard product={prod} />
             </Grid>
           );
         })}

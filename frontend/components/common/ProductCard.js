@@ -18,15 +18,18 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { useRouter } from 'next/router';
 
 export default function ProductCard({ product }) {
-  const prod = { img: candle.src, name: 'Name', price: '20' };
+  const prod = { img: candle.src, name: 'Name', price: '20', slug: '' };
+  const router = useRouter();
 
   if (product) {
     prod.img =
       product.images && product.images[0] ? product.images[0].url : candle.src;
     prod.name = product.name ? product.name : 'Name';
     prod.price = product.price ? product.price : '20';
+    prod.slug = product.slug ? product.slug : '';
   }
 
   const theme = useTheme();
@@ -53,11 +56,15 @@ export default function ProductCard({ product }) {
     // borderRadius: '50px',
   }));
 
+  const handleGotoProduct = (prod) => (e) => {
+    router.push(`/product/${prod}`);
+  };
+
   return (
     <Grid container justifyContent="center">
       <Grid item>
         <Card sx={{ width: imgWidth }} elevation={5}>
-          <CardActionArea>
+          <CardActionArea onClick={handleGotoProduct(prod.slug)}>
             <CardMedia component="img" image={prod.img} alt="item" />
 
             <CardContent>
@@ -72,7 +79,16 @@ export default function ProductCard({ product }) {
                 </Grid>
 
                 <Grid item>
-                  <Typography variant="subtitle">${prod.price}.00</Typography>
+                  <Typography
+                    variant="subtitle"
+                    sx={(theme) => ({
+                      fontSize: '2rem',
+                      color: theme.palette.common.greenBlue,
+                      fontWeight: '600',
+                    })}
+                  >
+                    ${prod.price}.00
+                  </Typography>
                 </Grid>
 
                 <Grid item>

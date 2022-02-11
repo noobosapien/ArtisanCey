@@ -150,7 +150,7 @@ export default function Carousel({ products }) {
       sx={{ marginTop: '0%' }}
     >
       <Grid item>
-        <Typography variant="h3">Best sellers</Typography>
+        <Typography variant="h3">Most viewed items</Typography>
       </Grid>
       <Grid item>
         <div

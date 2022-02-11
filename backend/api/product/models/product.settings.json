@@ -58,6 +58,18 @@
     },
     "slug2": {
       "type": "string"
+    },
+    "reviews": {
+      "via": "product",
+      "collection": "review"
+    },
+    "rating": {
+      "type": "decimal",
+      "max": 5,
+      "min": 1
+    },
+    "noofreviews": {
+      "type": "integer"
     }
   }
 }

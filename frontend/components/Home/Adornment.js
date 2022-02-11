@@ -33,6 +33,7 @@ export default function Adornment() {
     <>
       <Grid
         container
+        alignItems="flex-end"
         sx={(theme) => ({
           backgroundImage: `url(${AdornmentSVG.src})`,
           backgroundPosition: 'top',

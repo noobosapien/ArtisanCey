@@ -1,14 +1,15 @@
+import axios from 'axios';
+
 export async function getProducts(sort, param, setAllProducts) {
   try {
-    console.log(process.env.STRAPI_BASE);
-    const res = await fetch(
+    const { data } = await axios.get(
       'https://cms.artisancey.com/' +
         `products?category.name=${param}&_sort=${sort.method}:${
           sort.asc ? 'ASC' : 'DESC'
         }`
     );
 
-    const products = await res.json();
+    const products = data;
     // console.log(res);
 
     setAllProducts(products);

@@ -56,9 +56,6 @@
       "required": true,
       "unique": true
     },
-    "slug2": {
-      "type": "string"
-    },
     "reviews": {
       "via": "product",
       "collection": "review"
@@ -70,6 +67,11 @@
     },
     "noofreviews": {
       "type": "integer"
+    },
+    "stock": {
+      "type": "integer",
+      "required": false,
+      "min": 0
     }
   }
 }

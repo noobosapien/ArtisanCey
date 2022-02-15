@@ -189,7 +189,9 @@ export default function Carousel({ products }) {
                     sx={{ backgroundColor: '#3a8783cc', borderRadius: '2rem' }}
                   />
                   <CustomTyp align="center">(14 ratings)</CustomTyp>
-                  <CustomTyp align="center">${slides[0].price}0</CustomTyp>
+                  <CustomTyp align="center" variant="h6">
+                    ${slides[0].price}0
+                  </CustomTyp>
                 </CardContent>
               </CardActionArea>
 
@@ -225,7 +227,9 @@ export default function Carousel({ products }) {
                     sx={{ backgroundColor: '#3a8783cc', borderRadius: '2rem' }}
                   />
                   <CustomTyp align="center">(14 ratings)</CustomTyp>
-                  <CustomTyp align="center">${slides[0].price}0</CustomTyp>
+                  <CustomTyp align="center" variant="h6">
+                    ${slides[0].price}0
+                  </CustomTyp>
                 </CardContent>
               </CardActionArea>
 
@@ -261,7 +265,9 @@ export default function Carousel({ products }) {
                     sx={{ backgroundColor: '#3a8783cc', borderRadius: '2rem' }}
                   />
                   <CustomTyp align="center">(14 ratings)</CustomTyp>
-                  <CustomTyp align="center">${slides[0].price}0</CustomTyp>
+                  <CustomTyp align="center" variant="h6">
+                    ${slides[0].price}0
+                  </CustomTyp>
                 </CardContent>
               </CardActionArea>
 

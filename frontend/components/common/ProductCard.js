@@ -19,9 +19,18 @@ import { useTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useRouter } from 'next/router';
+import { Store } from '../../utils/store';
 
 export default function ProductCard({ product }) {
-  const prod = { img: candle.src, name: 'Name', price: '20', slug: '' };
+  const prod = {
+    img: candle.src,
+    name: 'Name',
+    price: '20',
+    slug: '',
+    noOfReviews: 0,
+    rating: 0,
+    // reviews: [],
+  };
   const router = useRouter();
 
   if (product) {
@@ -30,8 +39,12 @@ export default function ProductCard({ product }) {
     prod.name = product.name ? product.name : 'Name';
     prod.price = product.price ? product.price : '20';
     prod.slug = product.slug ? product.slug : '';
+    prod.noOfReviews = product.noofreviews ? product.noofreviews : 0;
+    prod.rating = product.rating ? product.rating : 0;
+    // prod.reviews = product.reviews ? product.reviews : [];
   }
 
+  console.log(prod);
   const theme = useTheme();
 
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
@@ -56,9 +69,11 @@ export default function ProductCard({ product }) {
     // borderRadius: '50px',
   }));
 
-  const handleGotoProduct = (prod) => (e) => {
-    router.push(`/product/${prod}`);
+  const handleGotoProduct = (slug) => (e) => {
+    router.push(`/product/${slug}`);
   };
+
+  const handleAddToCart = async (e) => {};
 
   return (
     <Grid container justifyContent="center">
@@ -92,11 +107,21 @@ export default function ProductCard({ product }) {
                 </Grid>
 
                 <Grid item>
-                  <Rating disabled size="small" />
+                  <Rating
+                    precision={0.5}
+                    disabled={prod.rating === 0}
+                    readOnly
+                    size="small"
+                    value={prod.rating}
+                  />
                 </Grid>
 
                 <Grid item>
-                  <Typography variant="subtitle">(No reviews yet)</Typography>
+                  <Typography variant="subtitle">
+                    {prod.noOfReviews
+                      ? `(${prod.noOfReviews} reviews)`
+                      : '(No reviews yet)'}
+                  </Typography>
                 </Grid>
               </Grid>
             </CardContent>

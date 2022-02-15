@@ -12,7 +12,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import candle from '../../public/figures.jpg';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -20,9 +20,13 @@ import { styled } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useRouter } from 'next/router';
 import { Store } from '../../utils/store';
+import { getProductInfo } from '../../helpers/getProductInfo';
 
 export default function ProductCard({ product }) {
+  const { state, dispatch } = useContext(Store);
+
   const prod = {
+    id: '',
     img: candle.src,
     name: 'Name',
     price: '20',
@@ -34,6 +38,7 @@ export default function ProductCard({ product }) {
   const router = useRouter();
 
   if (product) {
+    prod.id = product._id ? product._id : '';
     prod.img =
       product.images && product.images[0] ? product.images[0].url : candle.src;
     prod.name = product.name ? product.name : 'Name';
@@ -41,10 +46,11 @@ export default function ProductCard({ product }) {
     prod.slug = product.slug ? product.slug : '';
     prod.noOfReviews = product.noofreviews ? product.noofreviews : 0;
     prod.rating = product.rating ? product.rating : 0;
+    prod.quantity = product.quantity ? product.quantity : 1;
+    prod.stock = product.stock ? product.quantity : 0;
     // prod.reviews = product.reviews ? product.reviews : [];
   }
 
-  console.log(prod);
   const theme = useTheme();
 
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
@@ -73,7 +79,27 @@ export default function ProductCard({ product }) {
     router.push(`/product/${slug}`);
   };
 
-  const handleAddToCart = async (e) => {};
+  const handleAddToCart = async (e) => {
+    const info = await getProductInfo(prod.id);
+
+    if (info instanceof Array && info[0].stock <= 0) {
+      window.alert('Product out of stock');
+      return;
+    }
+
+    const existItem = state.cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+    if (info instanceof Array && info[0].stock <= quantity) {
+      window.alert('Out of stock');
+      return;
+    }
+
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...prod, quantity },
+    });
+  };
 
   return (
     <Grid container justifyContent="center">
@@ -128,7 +154,11 @@ export default function ProductCard({ product }) {
           </CardActionArea>
 
           <CardActions>
-            <ImageButton color="primary" variant="contained">
+            <ImageButton
+              color="primary"
+              variant="contained"
+              onClick={handleAddToCart}
+            >
               <AddShoppingCartIcon />
             </ImageButton>
           </CardActions>

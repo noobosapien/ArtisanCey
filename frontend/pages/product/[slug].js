@@ -27,11 +27,10 @@ export default function ProductPage(props) {
 
   const submitHandler = async ({ rating, name, email, text }) => {
     try {
-      console.log(rating, name, text);
       setShowForm(false);
       const abortController = new AbortController();
       const signal = abortController.signal;
-      await setReview(rating, name, email, text, signal);
+      await setReview(product[0]._id, rating, name, email, text, signal);
     } catch (e) {
       console.log(e);
     }

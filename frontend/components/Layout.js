@@ -14,6 +14,7 @@ import {
   Grid,
   Tooltip,
   Link,
+  Badge,
 } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -21,10 +22,12 @@ import Close from '@mui/icons-material/Close';
 import Logo from '../public/slice1.svg';
 import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Box } from '@mui/system';
 import TopMenu from './TopMenu';
 import SearchDialog from './common/SearchDialog';
+import { useRouter } from 'next/router';
+import { Store } from '../utils/store';
 
 const LogoButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
@@ -68,6 +71,10 @@ const CustomLogo = styled(Image)(({ theme }) => ({
 }));
 
 export default function Layout({ title, description, children }) {
+  const { state, dispatch } = useContext(Store);
+  const router = useRouter();
+
+  const { cart } = state;
   const [openShipping, setOpenShipping] = useState(true);
   const [openSearch, setOpenSearch] = useState(false);
 
@@ -146,20 +153,31 @@ export default function Layout({ title, description, children }) {
                 </Tooltip>
 
                 <Tooltip title="Cart">
-                  <NavButton>
-                    <ShoppingCartIcon
-                      sx={(theme) => ({
-                        [theme.breakpoints.up('lg')]: {
-                          fontSize: '3.0rem',
-                        },
-                        [theme.breakpoints.down('lg')]: {
-                          fontSize: '2.5rem',
-                        },
-                        [theme.breakpoints.down('sm')]: {
-                          fontSize: '1.5rem',
-                        },
-                      })}
-                    />
+                  <NavButton onClick={(e) => router.push('/cart')}>
+                    <Badge
+                      color="primary"
+                      badgeContent={cart.cartItems.length}
+                      showZero
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                      }}
+                      overlap="circular"
+                    >
+                      <ShoppingBagIcon
+                        sx={(theme) => ({
+                          [theme.breakpoints.up('lg')]: {
+                            fontSize: '3.0rem',
+                          },
+                          [theme.breakpoints.down('lg')]: {
+                            fontSize: '2.5rem',
+                          },
+                          [theme.breakpoints.down('sm')]: {
+                            fontSize: '1.5rem',
+                          },
+                        })}
+                      />
+                    </Badge>
                   </NavButton>
                 </Tooltip>
               </Stack>

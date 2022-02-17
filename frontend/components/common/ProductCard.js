@@ -116,7 +116,7 @@ export default function ProductCard({ product }) {
                 alignItems="center"
               >
                 <Grid item>
-                  <Typography variant="body1">{prod.name}</Typography>
+                  <Typography variant="body2">{prod.name}</Typography>
                 </Grid>
 
                 <Grid item>

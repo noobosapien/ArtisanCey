@@ -126,7 +126,14 @@ function Cart() {
                   </ListItem>
 
                   <ListItem>
-                    <Button fullWidth variant="contained" color="primary">
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      onClick={(e) => {
+                        router.push('/checkout');
+                      }}
+                    >
                       Check Out
                     </Button>
                   </ListItem>

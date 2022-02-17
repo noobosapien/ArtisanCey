@@ -2,6 +2,8 @@ import { createTheme } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 
 const greenBlue = '#3a8783';
+const lightAqua = '#bdf2ef66';
+const aqua = '#bdf2ef';
 const black = '#474747';
 const lightGray = '#787878';
 const gray = '#5c5c5c';
@@ -30,6 +32,8 @@ const theme = createTheme({
       lightGray,
       lightBrown,
       orange,
+      lightAqua,
+      aqua,
     },
   },
 
@@ -64,13 +68,12 @@ const theme = createTheme({
       fontFamily: 'Ranga',
       fontSize: '1.4rem',
       // fontWeight: 700,
-      fontStyle: 'italic',
       color: lightGray,
     },
     body1: {
-      fontFamily: 'Ranga',
-      fontSize: '1.0rem',
-      color: darkGray,
+      // fontFamily: 'Ranga',
+      fontSize: '0.8rem',
+      color: gray,
     },
     body2: {
       fontFamily: 'Rancho',
@@ -89,6 +92,9 @@ const theme = createTheme({
         color: '#fff',
         // fontWeight: 400,
       },
+    },
+    '.MuiTextField-root': {
+      fontFamily: 'Roboto',
     },
   },
 });

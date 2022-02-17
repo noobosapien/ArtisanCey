@@ -17,14 +17,14 @@ const StyledInputElement = styled('input')(
   line-height: 1.5;
   color: ${theme.palette.common.black};
   background: ${theme.palette.common.white};
-  border: 1px solid ${theme.palette.common.darkBrown};
+  border: 1px solid ${theme.palette.common.lightAqua};
   border-radius: 16px;
   padding: 12px 12px;
   transition: all 200ms ease;
 
   &:hover {
     background: ${theme.palette.common.white};
-    border-color: ${theme.palette.common.darkGray};
+    border-color: ${theme.palette.common.aqua};
   }
 
   &:focus {

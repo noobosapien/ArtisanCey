@@ -154,16 +154,32 @@ export default function Layout({ title, description, children }) {
 
                 <Tooltip title="Cart">
                   <NavButton onClick={(e) => router.push('/cart')}>
-                    <Badge
-                      color="primary"
-                      badgeContent={cart.cartItems.length}
-                      showZero
-                      anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                      }}
-                      overlap="circular"
-                    >
+                    {cart.cartItems.length ? (
+                      <Badge
+                        color="primary"
+                        badgeContent={cart.cartItems.length}
+                        showZero
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'left',
+                        }}
+                        overlap="circular"
+                      >
+                        <ShoppingBagIcon
+                          sx={(theme) => ({
+                            [theme.breakpoints.up('lg')]: {
+                              fontSize: '3.0rem',
+                            },
+                            [theme.breakpoints.down('lg')]: {
+                              fontSize: '2.5rem',
+                            },
+                            [theme.breakpoints.down('sm')]: {
+                              fontSize: '1.5rem',
+                            },
+                          })}
+                        />
+                      </Badge>
+                    ) : (
                       <ShoppingBagIcon
                         sx={(theme) => ({
                           [theme.breakpoints.up('lg')]: {
@@ -177,7 +193,7 @@ export default function Layout({ title, description, children }) {
                           },
                         })}
                       />
-                    </Badge>
+                    )}
                   </NavButton>
                 </Tooltip>
               </Stack>

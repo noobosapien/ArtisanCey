@@ -5,47 +5,27 @@ import { Box } from '@mui/system';
 import des1 from '../../public/shell_bowl.jpg';
 import des2 from '../../public/candle.jpg';
 import des3 from '../../public/bundle.jpg';
-import cutlery from '../../public/cutlery.jpg';
-import figures from '../../public/figures.jpg';
-import vases from '../../public/vases.jpg';
+
 import NextLink from 'next/link';
 
 const images = [
   {
     url: des1.src,
-    title: 'Coconut shell bowls',
+    title: 'Clean Living',
     width: '33%',
-    href: '/category/bowls',
+    href: '/category/Clean Living',
   },
   {
     url: des2.src,
-    title: 'Coconut candles',
+    title: 'Home Deco',
     width: '33%',
-    href: '/category/candles',
+    href: '/category/Home Deco',
   },
   {
     url: des3.src,
-    title: 'Bundles',
+    title: 'Sculptures by Artisans',
     width: '33%',
-    href: '/category/bundles',
-  },
-  {
-    url: cutlery.src,
-    title: 'Cutlery',
-    width: '33%',
-    href: '/category/cutlery',
-  },
-  {
-    url: figures.src,
-    title: 'Coconut figures',
-    width: '33%',
-    href: '/category/figures',
-  },
-  {
-    url: vases.src,
-    title: 'Vases',
-    width: '33%',
-    href: '/category/vases',
+    href: '/category/Sculptures by Artisans',
   },
 ];
 

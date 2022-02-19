@@ -189,13 +189,15 @@ export async function getStaticProps(context) {
     const { id } = params;
 
     var param = id.charAt(0).toUpperCase() + id.slice(1).toLowerCase();
+    // param = 'Clean Living';
 
     const res = await fetch(
       process.env.STRAPI_BASE +
-        `products?category.name=${param}&_sort=name:DESC`
+        `products?category.name_contains=${param}&_sort=name:DESC`
     );
 
     const products = await res.json();
+    console.log(param);
 
     return {
       props: {

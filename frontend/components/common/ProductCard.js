@@ -128,7 +128,7 @@ export default function ProductCard({ product }) {
                       fontWeight: '600',
                     })}
                   >
-                    ${prod.price}.00
+                    ${prod.price}
                   </Typography>
                 </Grid>
 

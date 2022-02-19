@@ -190,7 +190,7 @@ export default function Carousel({ products }) {
                   />
                   <CustomTyp align="center">(14 ratings)</CustomTyp>
                   <CustomTyp align="center" variant="h6">
-                    ${slides[0].price}0
+                    ${slides[0].price}
                   </CustomTyp>
                 </CardContent>
               </CardActionArea>
@@ -228,7 +228,7 @@ export default function Carousel({ products }) {
                   />
                   <CustomTyp align="center">(14 ratings)</CustomTyp>
                   <CustomTyp align="center" variant="h6">
-                    ${slides[0].price}0
+                    ${slides[0].price}
                   </CustomTyp>
                 </CardContent>
               </CardActionArea>
@@ -266,7 +266,7 @@ export default function Carousel({ products }) {
                   />
                   <CustomTyp align="center">(14 ratings)</CustomTyp>
                   <CustomTyp align="center" variant="h6">
-                    ${slides[0].price}0
+                    ${slides[0].price}
                   </CustomTyp>
                 </CardContent>
               </CardActionArea>

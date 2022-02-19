@@ -7,21 +7,83 @@ import {
   CardHeader,
   CardContent,
 } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Layout from '../components/Layout';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import ArrowCircleDownTwoToneIcon from '@mui/icons-material/ArrowCircleDownTwoTone';
 import { Store } from '../utils/store';
 import CheckoutWizard from '../components/Checkout/CheckoutWizard';
 import { useRouter } from 'next/router';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import { getPaypalCID } from '../helpers/getPaypalCID';
+import { payOrder } from '../helpers/payOrder';
 
 export default function Checkout() {
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
   const {
     cart: { cartItems },
   } = state;
+
+  function createOrder(data, actions) {
+    return actions.order
+      .create({
+        purchase_units: [{ amount: { value: 200 } }],
+        application_context: {
+          shipping_preference: 'NO_SHIPPING',
+        },
+        payer: {
+          name: {
+            given_name: 'John',
+            surname: 'Smith',
+          },
+          email_address: 'ab@gmail.com',
+          address: {
+            postal_code: '2312',
+            country_code: 'NZ',
+          },
+        },
+      })
+      .then((orderId) => orderId);
+  }
+
+  function onApprove(data, actions) {
+    return actions.order.capture().then(async function (details) {
+      try {
+        const res = await payOrder(details);
+
+        console.log('Order paid');
+        router.push('/order/' + res.data.orderID);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  }
+
+  function onError(error) {
+    alert(error);
+  }
+
+  useEffect(() => {
+    const loadPaypalScript = async () => {
+      const clientId = await getPaypalCID();
+      paypalDispatch({
+        type: 'resetOptions',
+        value: {
+          'client-id': clientId,
+          currency: 'USD',
+        },
+      });
+
+      paypalDispatch({
+        type: 'setLoadingStatus',
+        value: 'pending',
+      });
+    };
+    loadPaypalScript();
+  }, []);
 
   return (
     <Layout>
@@ -57,7 +119,6 @@ export default function Checkout() {
               })}
             >
               Total: ${cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
-              .00{' '}
             </Typography>
           </Paper>
 
@@ -200,6 +261,14 @@ export default function Checkout() {
           >
             Payment method
           </Typography>
+        </Grid>
+
+        <Grid item>
+          <PayPalButtons
+            createOrder={createOrder}
+            onApprove={onApprove}
+            onError={onError}
+          ></PayPalButtons>
         </Grid>
       </Grid>
     </Layout>

@@ -16,6 +16,7 @@ import {
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Slider from 'react-slick';
 
 const CustomImg = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down('xl')]: {
@@ -141,6 +142,16 @@ export default function Carousel({ products }) {
     return () => clearInterval(interval);
   }, [rotation1, rotation2, rotation3]);
 
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    centerMode: true,
+    arrows: true,
+  };
+
   return (
     <Grid
       container
@@ -151,6 +162,30 @@ export default function Carousel({ products }) {
     >
       <Grid item>
         <Typography variant="h3">Most viewed items</Typography>
+      </Grid>
+      <Grid item xs={4}>
+        <Slider {...settings} style={{ width: '500px' }}>
+          <div>
+            <Card>
+              <Typography>Card 1</Typography>
+            </Card>
+          </div>
+          <div>
+            <Card>
+              <Typography>Card 1</Typography>
+            </Card>
+          </div>
+          <div>
+            <Card>
+              <Typography>Card 1</Typography>
+            </Card>
+          </div>
+          <div>
+            <Card>
+              <Typography>Card 1</Typography>
+            </Card>
+          </div>
+        </Slider>
       </Grid>
       <Grid item>
         <div

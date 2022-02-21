@@ -35,7 +35,7 @@ export default function Adornment() {
         container
         alignItems="flex-end"
         sx={(theme) => ({
-          backgroundImage: `url(${AdornmentSVG.src})`,
+          // backgroundImage: `url(${AdornmentSVG.src})`,
           backgroundPosition: 'top',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',

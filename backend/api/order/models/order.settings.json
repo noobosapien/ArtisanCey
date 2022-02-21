@@ -48,6 +48,15 @@
       "type": "string",
       "default": "placed",
       "required": true
+    },
+    "orderLink": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "orderId": {
+      "type": "string",
+      "required": true
     }
   }
 }

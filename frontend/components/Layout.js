@@ -152,8 +152,8 @@ export default function Layout({ title, description, children }) {
                   </NavButton>
                 </Tooltip>
 
-                <Tooltip title="Cart">
-                  <NavButton onClick={(e) => router.push('/cart')}>
+                <Tooltip title="Bag">
+                  <NavButton onClick={(e) => router.push('/bag')}>
                     {cart.cartItems.length ? (
                       <Badge
                         color="primary"

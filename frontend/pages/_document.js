@@ -34,6 +34,11 @@ export default class MyDocument extends Document {
             type="text/css"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
           />
+
+          <script
+            async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAof8CggK9UO4Fd7OdnnRp0R52P_F2KL4&libraries=places&callback=initMap"
+          ></script>
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {this.props.emotionStyleTags}
         </Head>

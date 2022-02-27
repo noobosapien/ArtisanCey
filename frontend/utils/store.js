@@ -10,7 +10,20 @@ const initialState = {
       : [],
     shippingAddress: Cookies.get('shippingAddress')
       ? JSON.parse(Cookies.get('shippingAddress'))
-      : {},
+      : {
+          email: { error: false, value: '', valid: false },
+          firstName: { error: false, value: '', valid: false },
+          lastName: { error: false, value: '', valid: false },
+          address: { error: false, value: '', valid: false },
+          apartment: { error: false, value: '', valid: false },
+          city: { error: false, value: '', valid: false },
+          region: { error: false, value: '', valid: false },
+          zipCode: { error: false, value: '', valid: false },
+          phone: { error: false, value: '', valid: false },
+        },
+    shippingCountry: Cookies.get('shippingCountry')
+      ? Cookies.get('shippingCountry')
+      : { value: '' },
     paymentMethod: Cookies.get('paymentMethod')
       ? Cookies.get('paymentMethod')
       : '',
@@ -36,13 +49,28 @@ function reducer(state, action) {
       return { ...state, cart: { ...state.cart, cartItems } };
     }
 
+    case 'CART_EDIT_ITEM': {
+      const cartItems = [];
+
+      state.cart.cartItems.forEach((item) => {
+        if (item.id === action.payload.id) {
+          cartItems.push(action.payload);
+          console.log(action.payload);
+        } else {
+          cartItems.push(item);
+        }
+      });
+      console.log(cartItems);
+      Cookies.set('cartItems', JSON.stringify(cartItems));
+      return { ...state, cart: { cartItems: [...cartItems] } };
+    }
+
     case 'CART_REMOVE_ITEM': {
       const cartItems = state.cart.cartItems.filter(
-        (item) => item._id !== action.payload._id
+        (item) => item.id !== action.payload.id
       );
       Cookies.set('cartItems', JSON.stringify(cartItems));
-
-      return { ...state, cart: { ...state.cart, cartItems } };
+      return { ...state, cart: { cartItems: [...cartItems] } };
     }
 
     case 'SAVE_SHIPPING_ADDRESS': {
@@ -52,6 +80,16 @@ function reducer(state, action) {
       return {
         ...state,
         cart: { ...state.cart, shippingAddress: action.payload },
+      };
+    }
+
+    case 'SAVE_SHIPPING_COUNTRY': {
+      const country = action.payload;
+      Cookies.set('shippingCountry', JSON.stringify(country));
+
+      return {
+        ...state,
+        cart: { ...state.cart, shippingCountry: action.payload },
       };
     }
 

@@ -1,6 +1,14 @@
 {
   "routes": [
     {
+      "method": "GET",
+      "path": "/orders/intent",
+      "handler": "order.intent",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/orders/place",
       "handler": "order.place",

@@ -1,11 +1,15 @@
 import {
   Button,
   Card,
+  FormControl,
+  FormHelperText,
   Grid,
+  InputAdornment,
   Link,
   List,
   ListItem,
   MenuItem,
+  OutlinedInput,
   Select,
   Table,
   TableBody,
@@ -30,6 +34,31 @@ function Cart() {
     cart: { cartItems },
   } = state;
 
+  const removeItemHandler = (item) => (e) => {
+    dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+  };
+
+  const handleQtyChanged = (item) => (e) => {
+    if (Number(e.target.value) < 1) {
+      item.quantity = Number(1);
+      dispatch({ type: 'CART_EDIT_ITEM', payload: item });
+      return;
+    } else {
+      item.quantity = Number(e.target.value);
+      dispatch({ type: 'CART_EDIT_ITEM', payload: item });
+    }
+  };
+
+  const handleCheckout = (e) => {
+    const errors = cartItems.filter((item) => item.error === true);
+    if (errors.length) {
+      console.log(errors);
+      return;
+    }
+
+    router.push('/checkout');
+  };
+
   return (
     <Layout>
       <Grid
@@ -45,7 +74,7 @@ function Cart() {
           </Typography>
         </Grid>
 
-        {cartItems.length === 0 ? (
+        {cartItems instanceof Array && cartItems.length === 0 ? (
           <Grid item>
             <Typography>Bag is empty</Typography>
           </Grid>
@@ -89,23 +118,54 @@ function Cart() {
                         </TableCell>
 
                         <TableCell align="right">
-                          <Select value={1} size="small">
-                            {[...Array(item.stock).keys()].map((x) => (
-                              <MenuItem key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </MenuItem>
-                            ))}
-                          </Select>
+                          <FormControl
+                            sx={{ m: 1, width: '7ch' }}
+                            variant="outlined"
+                          >
+                            <OutlinedInput
+                              error={item.error}
+                              value={item.quantity}
+                              onChange={handleQtyChanged(item)}
+                              size="small"
+                              type="number"
+                              min={1}
+                              step={1}
+                              id="quantity"
+                              aria-describedby="quantity of item"
+                              sx={{
+                                'input::-webkit-inner-spin-button': {
+                                  '-webkit-appearance': 'none',
+                                  margin: 0,
+                                },
+
+                                'input[type=number]': {
+                                  '-moz-appearance': 'textfield',
+                                },
+                              }}
+                              inputProps={{
+                                'aria-label': 'quantity',
+                                type: 'number',
+                                min: 1,
+                                step: 1,
+                              }}
+                            />
+                          </FormControl>
                         </TableCell>
 
                         <TableCell align="right">
-                          <Typography>${item.price}</Typography>
+                          <Typography>
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </Typography>
                         </TableCell>
 
                         <TableCell align="right">
-                          {/* <Button vairant="contained" color="secondary">
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={removeItemHandler(item)}
+                          >
                             X
-                          </Button> */}
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -121,7 +181,9 @@ function Cart() {
                     <Typography variant="h6">
                       Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}){' '}
                       items : $
-                      {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                      {cartItems
+                        .reduce((a, c) => a + c.quantity * c.price, 0)
+                        .toFixed(2)}
                     </Typography>
                   </ListItem>
 
@@ -130,9 +192,7 @@ function Cart() {
                       fullWidth
                       variant="contained"
                       color="primary"
-                      onClick={(e) => {
-                        router.push('/checkout');
-                      }}
+                      onClick={handleCheckout}
                     >
                       Check Out
                     </Button>

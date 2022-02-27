@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
   const router = useRouter();
 
   if (product) {
-    prod.id = product._id ? product._id : '';
+    prod.id = product.id ? product.id : '';
     prod.img =
       product.images && product.images[0] ? product.images[0].url : candle.src;
     prod.name = product.name ? product.name : 'Name';
@@ -46,9 +46,11 @@ export default function ProductCard({ product }) {
     prod.slug = product.slug ? product.slug : '';
     prod.noOfReviews = product.noofreviews ? product.noofreviews : 0;
     prod.rating = product.rating ? product.rating : 0;
-    prod.quantity = product.quantity ? product.quantity : 1;
-    prod.stock = product.stock ? product.quantity : 0;
+    prod.quantity = product.quantity ? Number(product.quantity) : 1;
+    prod.stock = product.stock ? Number(product.stock) : 0;
     // prod.reviews = product.reviews ? product.reviews : [];
+
+    console.log(product);
   }
 
   const theme = useTheme();
@@ -87,7 +89,7 @@ export default function ProductCard({ product }) {
       return;
     }
 
-    const existItem = state.cart.cartItems.find((x) => x._id === product._id);
+    const existItem = state.cart.cartItems.find((x) => x.id === product.id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
 
     if (info instanceof Array && info[0].stock <= quantity) {

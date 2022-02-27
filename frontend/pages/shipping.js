@@ -2,27 +2,21 @@ import {
   Grid,
   Button,
   Typography,
-  List,
-  ListItem,
   Card,
   CardHeader,
   CardContent,
-  FormControl,
-  FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
   Divider,
-  Paper,
 } from '@mui/material';
 import React, { useContext } from 'react';
 import Layout from '../components/Layout';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import ArrowCircleDownTwoToneIcon from '@mui/icons-material/ArrowCircleDownTwoTone';
 import { Store } from '../utils/store';
 import CheckoutWizard from '../components/Checkout/CheckoutWizard';
 import { useRouter } from 'next/router';
 import CelebrationIcon from '@mui/icons-material/Celebration';
+import ShowBaggedItems from '../components/Checkout/ShowBaggedItems';
 
 export default function Checkout() {
   const { state, dispatch } = useContext(Store);
@@ -41,35 +35,8 @@ export default function Checkout() {
         direction="column"
         spacing={4}
       >
-        <Grid item alignSelf="center">
-          <Button
-            size="large"
-            startIcon={<ShoppingBagOutlinedIcon />}
-            endIcon={<ArrowCircleDownTwoToneIcon />}
-          >
-            Show bagged items
-          </Button>
-        </Grid>
-
-        <Grid item alignSelf="center">
-          <Paper
-            sx={(theme) => ({
-              padding: '1rem',
-              background: theme.palette.common.greenBlue,
-            })}
-          >
-            <Typography
-              variant="h5"
-              sx={(theme) => ({
-                fontFamily: 'Roboto',
-                color: theme.palette.common.white,
-              })}
-            >
-              Subtotal: $
-              {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
-              .00{' '}
-            </Typography>
-          </Paper>
+        <Grid item>
+          <ShowBaggedItems />
         </Grid>
 
         <Grid item>

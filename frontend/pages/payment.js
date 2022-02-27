@@ -264,11 +264,11 @@ export default function Checkout() {
         </Grid>
 
         <Grid item>
-          <PayPalButtons
+          {/* <PayPalButtons
             createOrder={createOrder}
             onApprove={onApprove}
             onError={onError}
-          ></PayPalButtons>
+          ></PayPalButtons> */}
         </Grid>
       </Grid>
     </Layout>

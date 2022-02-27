@@ -108,4 +108,6 @@ module.exports = {
       ctx.send({ order }, 200);
     }
   },
+
+  async intent() {},
 };

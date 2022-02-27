@@ -9,22 +9,43 @@ import {
   FormControlLabel,
   Radio,
   Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  FormControl,
 } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import { Store } from '../utils/store';
 import CheckoutWizard from '../components/Checkout/CheckoutWizard';
 import { useRouter } from 'next/router';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import ShowBaggedItems from '../components/Checkout/ShowBaggedItems';
+import { Box } from '@mui/system';
+import SideCart from '../components/Checkout/SideCart';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import HomeIcon from '@mui/icons-material/Home';
 
 export default function Checkout() {
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
+  const [shipping, setShipping] = useState('');
 
-  const {
-    cart: { cartItems },
-  } = state;
+  useEffect(() => {
+    state.cart.shippingMethod &&
+      state.cart.shippingMethod.value &&
+      setShipping(state.cart.shippingMethod.value);
+  }, [state.cart.shippingMethod]);
+
+  const handleShipping = (e) => {
+    setShipping(e.target.value);
+    dispatch({
+      type: 'SAVE_SHIPMENT_METHOD',
+      payload: { value: e.target.value },
+    });
+  };
 
   return (
     <Layout>
@@ -36,132 +57,121 @@ export default function Checkout() {
         spacing={4}
       >
         <Grid item>
-          <ShowBaggedItems />
+          <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+            <ShowBaggedItems shipping={shipping} />
+          </Box>
         </Grid>
 
         <Grid item>
           <CheckoutWizard activeStep={1} />
         </Grid>
 
-        <Grid
-          item
-          container
-          justifyContent="center"
-          alignItems="space-evenly"
-          direction="column"
-          spacing={0}
-        >
-          <Grid item component={Card}>
-            <CardHeader
-              title="Contact:"
-              sx={(theme) => ({
-                '& 	.MuiCardHeader-title': {
-                  fontFamily: 'Roboto',
-                  fontSize: '0.8rem',
-                  color: theme.palette.common.greenBlue,
-                },
-              })}
-            />
-
-            <CardContent>
-              <Grid container justifyContent="space-evenly">
-                <Grid item xs={8}>
-                  <Typography
-                    sx={(theme) => ({
-                      fontFamily: 'Roboto',
-                      fontSize: '1.0rem',
-                      color: theme.palette.common.black,
-                    })}
-                  >
-                    email@email.com
-                  </Typography>
-                </Grid>
-
-                <Grid item>
-                  <Button variant="outlined" size="small">
-                    change
-                  </Button>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Grid>
-
-          <Grid item component={Card}>
-            <CardHeader
-              title="Ship to:"
-              sx={(theme) => ({
-                '& 	.MuiCardHeader-title': {
-                  fontFamily: 'Roboto',
-                  fontSize: '0.8rem',
-                  color: theme.palette.common.greenBlue,
-                },
-              })}
-            />
-
-            <CardContent>
-              <Grid container justifyContent="space-evenly">
-                <Grid item xs={8}>
-                  <Typography
-                    sx={(theme) => ({
-                      fontFamily: 'Roboto',
-                      fontSize: '1.0rem',
-                      color: theme.palette.common.black,
-                    })}
-                  >
-                    270 S 5th St, Brooklyn, North Dakota, 11211, USA
-                  </Typography>
-                </Grid>
-
-                <Grid item>
-                  <Button variant="outlined" size="small">
-                    change
-                  </Button>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Grid>
-        </Grid>
-
         <Grid item>
-          <Typography
-            sx={(theme) => ({
-              fontFamily: 'Roboto',
-              fontSize: '1.0rem',
-              color: theme.palette.common.greenBlue,
-            })}
-          >
-            Shipping method
-          </Typography>
-        </Grid>
-
-        <Grid item>
-          <Card variant="outlined">
-            <CardContent>
-              <Grid container justifyContent="center">
-                <Grid item>
-                  <RadioGroup
-                    aria-labelledby="shipping selection"
-                    defaultValue="standard"
-                    name="shipping-group"
+          <Grid container alignItems="center" justifyContent="space-evenly">
+            <Grid item xs={12} md={5} lg={4}>
+              <Card variant="outlined" sx={{}}>
+                <CardContent>
+                  <List
+                    sx={{
+                      width: '100%',
+                      maxWidth: 360,
+                      bgcolor: 'background.paper',
+                    }}
                   >
-                    <FormControlLabel
-                      value="standard"
-                      control={<Radio />}
-                      label="Standard worldwide (4-10 days) - $5.00"
-                    />
-                    <Divider />
-                    <FormControlLabel
-                      value="express"
-                      control={<Radio />}
-                      label="Express worldwide (1-2 days) - $10.00"
-                    />
-                  </RadioGroup>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <AlternateEmailIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Email"
+                        secondary={`${
+                          state.cart.shippingAddress
+                            ? state.cart.shippingAddress.email.value
+                            : ''
+                        }`}
+                      />
+                    </ListItem>
 
+                    <Divider variant="inset" component="li" />
+
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <HomeIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Delivery address"
+                        secondary={`${
+                          state.cart.shippingAddress
+                            ? `${state.cart.shippingAddress.address.value}, 
+                            ${state.cart.shippingAddress.apartment.value}, 
+                            ${state.cart.shippingAddress.city.value},
+                            ${state.cart.shippingAddress.region.value},
+                            ${state.cart.shippingCountry.value}`
+                            : ''
+                        }`}
+                      />
+                    </ListItem>
+                  </List>
+                </CardContent>
+
+                <Divider />
+
+                <CardHeader
+                  title="Shipping method"
+                  sx={(theme) => ({
+                    '& 	.MuiCardHeader-title': {
+                      fontFamily: 'Roboto',
+                      fontSize: '1rem',
+                      color: theme.palette.common.greenBlue,
+                    },
+                  })}
+                />
+
+                <CardContent>
+                  <FormControl>
+                    <RadioGroup
+                      aria-labelledby="choose_shipping_method"
+                      name="choose_shipping_method"
+                      value={shipping}
+                      onChange={handleShipping}
+                    >
+                      <FormControlLabel
+                        sx={{
+                          '& .MuiFormControlLabel-label': {
+                            fontSize: '1rem',
+                          },
+                        }}
+                        value="standard"
+                        control={<Radio />}
+                        label="Standard shipping $10.00 (delivered in 10-15 days)"
+                      />
+
+                      <div style={{ margin: '1rem' }} />
+                      <FormControlLabel
+                        value="express"
+                        sx={{
+                          '& .MuiFormControlLabel-label': {
+                            fontSize: '1rem',
+                          },
+                        }}
+                        control={<Radio />}
+                        label="Express shipping $20.00 (delivered in 5-6 days)"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item md={5} sx={{ display: { xs: 'none', md: 'block' } }}>
+              <SideCart shipping={shipping} />
+            </Grid>
+          </Grid>
+        </Grid>
         <Grid item alignSelf="center">
           <Button
             endIcon={<CelebrationIcon sx={{ color: '#ffff00' }} />}

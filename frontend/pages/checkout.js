@@ -272,10 +272,14 @@ export default function Checkout() {
 
   const router = useRouter();
 
-  const [countryCode, setCountryCode] = useState(
-    state.cart.shippingCountry.value
-  );
+  const [countryCode, setCountryCode] = useState('');
   const [countryValid, setCountryValid] = useState(true);
+
+  useEffect(() => {
+    state.cart.shippingCountry &&
+      state.cart.shippingCountry.value &&
+      setCountryCode(state.cart.shippingCountry.value);
+  }, []);
 
   useEffect(() => {
     dispatch({

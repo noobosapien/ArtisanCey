@@ -2,88 +2,53 @@ import {
   Grid,
   Button,
   Typography,
-  Paper,
   Card,
   CardHeader,
   CardContent,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  FormControl,
 } from '@mui/material';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import ArrowCircleDownTwoToneIcon from '@mui/icons-material/ArrowCircleDownTwoTone';
 import { Store } from '../utils/store';
 import CheckoutWizard from '../components/Checkout/CheckoutWizard';
 import { useRouter } from 'next/router';
-import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
-import { getPaypalCID } from '../helpers/getPaypalCID';
-import { payOrder } from '../helpers/payOrder';
+import CelebrationIcon from '@mui/icons-material/Celebration';
+import ShowBaggedItems from '../components/Checkout/ShowBaggedItems';
+import { Box } from '@mui/system';
+import SideCart from '../components/Checkout/SideCart';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import HomeIcon from '@mui/icons-material/Home';
+import DirectionsBoatFilledTwoToneIcon from '@mui/icons-material/DirectionsBoatFilledTwoTone';
 
 export default function Checkout() {
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
-  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+  const [shipping, setShipping] = useState('');
 
   const {
     cart: { cartItems },
   } = state;
 
-  function createOrder(data, actions) {
-    return actions.order
-      .create({
-        purchase_units: [{ amount: { value: 200 } }],
-        application_context: {
-          shipping_preference: 'NO_SHIPPING',
-        },
-        payer: {
-          name: {
-            given_name: 'John',
-            surname: 'Smith',
-          },
-          email_address: 'ab@gmail.com',
-          address: {
-            postal_code: '2312',
-            country_code: 'NZ',
-          },
-        },
-      })
-      .then((orderId) => orderId);
-  }
-
-  function onApprove(data, actions) {
-    return actions.order.capture().then(async function (details) {
-      try {
-        const res = await payOrder(details);
-
-        console.log('Order paid');
-        router.push('/order/' + res.data.orderID);
-      } catch (err) {
-        console.log(err);
-      }
-    });
-  }
-
-  function onError(error) {
-    alert(error);
-  }
-
   useEffect(() => {
-    const loadPaypalScript = async () => {
-      const clientId = await getPaypalCID();
-      paypalDispatch({
-        type: 'resetOptions',
-        value: {
-          'client-id': clientId,
-          currency: 'USD',
-        },
-      });
-
-      paypalDispatch({
-        type: 'setLoadingStatus',
-        value: 'pending',
-      });
-    };
-    loadPaypalScript();
+    setShipping(state.cart.shippingMethod.value);
   }, []);
+
+  const handleShipping = (e) => {
+    setShipping(e.target.value);
+    dispatch({
+      type: 'SAVE_SHIPMENT_METHOD',
+      payload: { value: e.target.value },
+    });
+  };
 
   return (
     <Layout>
@@ -94,181 +59,115 @@ export default function Checkout() {
         direction="column"
         spacing={4}
       >
-        <Grid item alignSelf="center">
-          <Button
-            size="large"
-            startIcon={<ShoppingBagOutlinedIcon />}
-            endIcon={<ArrowCircleDownTwoToneIcon />}
-          >
-            Show bagged items
-          </Button>
-        </Grid>
-
-        <Grid item alignSelf="center">
-          <Paper
-            sx={(theme) => ({
-              padding: '1rem',
-              background: theme.palette.common.greenBlue,
-            })}
-          >
-            <Typography
-              variant="h5"
-              sx={(theme) => ({
-                fontFamily: 'Roboto',
-                color: theme.palette.common.white,
-              })}
-            >
-              Total: ${cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
-            </Typography>
-          </Paper>
-
-          <Typography
-            variant="subtitle2"
-            sx={(theme) => ({
-              fontSize: '0.6rem',
-              color: theme.palette.common.lightGray,
-            })}
-          >
-            *including shipping
-          </Typography>
+        <Grid item>
+          <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+            <ShowBaggedItems shipping={shipping} />
+          </Box>
         </Grid>
 
         <Grid item>
           <CheckoutWizard activeStep={2} />
         </Grid>
 
-        <Grid
-          item
-          container
-          justifyContent="center"
-          alignItems="space-between"
-          direction="column"
-          spacing={0}
-        >
-          <Grid item component={Card}>
-            <CardHeader
-              title="Contact:"
-              sx={(theme) => ({
-                '& 	.MuiCardHeader-title': {
-                  fontFamily: 'Roboto',
-                  fontSize: '0.8rem',
-                  color: theme.palette.common.greenBlue,
-                },
-              })}
-            />
-
-            <CardContent>
-              <Grid container justifyContent="space-evenly">
-                <Grid item xs={8}>
-                  <Typography
-                    sx={(theme) => ({
-                      fontFamily: 'Roboto',
-                      fontSize: '1.0rem',
-                      color: theme.palette.common.black,
-                    })}
-                  >
-                    email@email.com
-                  </Typography>
-                </Grid>
-
-                <Grid item>
-                  <Button variant="outlined" size="small">
-                    change
-                  </Button>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Grid>
-
-          <Grid item component={Card}>
-            <CardHeader
-              title="Ship to:"
-              sx={(theme) => ({
-                '& 	.MuiCardHeader-title': {
-                  fontFamily: 'Roboto',
-                  fontSize: '0.8rem',
-                  color: theme.palette.common.greenBlue,
-                },
-              })}
-            />
-
-            <CardContent>
-              <Grid container justifyContent="space-evenly">
-                <Grid item xs={8}>
-                  <Typography
-                    sx={(theme) => ({
-                      fontFamily: 'Roboto',
-                      fontSize: '1.0rem',
-                      color: theme.palette.common.black,
-                    })}
-                  >
-                    270 S 5th St, Brooklyn, North Dakota, 11211, USA
-                  </Typography>
-                </Grid>
-
-                <Grid item>
-                  <Button variant="outlined" size="small">
-                    change
-                  </Button>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Grid>
-
-          <Grid item component={Card}>
-            <CardHeader
-              title="Shipping method:"
-              sx={(theme) => ({
-                '& 	.MuiCardHeader-title': {
-                  fontFamily: 'Roboto',
-                  fontSize: '0.8rem',
-                  color: theme.palette.common.greenBlue,
-                },
-              })}
-            />
-
-            <CardContent>
-              <Grid container justifyContent="space-evenly">
-                <Grid item xs={8}>
-                  <Typography
-                    sx={(theme) => ({
-                      fontFamily: 'Roboto',
-                      fontSize: '1.0rem',
-                      color: theme.palette.common.black,
-                    })}
-                  >
-                    Express worldwide (1-2 days) - $10.00
-                  </Typography>
-                </Grid>
-
-                <Grid item>
-                  <Button variant="outlined" size="small">
-                    change
-                  </Button>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Grid>
-        </Grid>
-
         <Grid item>
-          <Typography
-            sx={(theme) => ({
-              fontFamily: 'Roboto',
-              fontSize: '1.0rem',
-              color: theme.palette.common.greenBlue,
-            })}
-          >
-            Payment method
-          </Typography>
-        </Grid>
+          <Grid container alignItems="center" justifyContent="space-evenly">
+            <Grid item xs={12} md={5} lg={4}>
+              <Card variant="outlined" sx={{}}>
+                <CardContent>
+                  <List
+                    sx={{
+                      width: '100%',
+                      maxWidth: 360,
+                      bgcolor: 'background.paper',
+                    }}
+                  >
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <AlternateEmailIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Email"
+                        secondary={`${
+                          state.cart.shippingAddress
+                            ? state.cart.shippingAddress.email.value
+                            : ''
+                        }`}
+                      />
+                    </ListItem>
 
-        <Grid item>
-          {/* <PayPalButtons
-            createOrder={createOrder}
-            onApprove={onApprove}
-            onError={onError}
-          ></PayPalButtons> */}
+                    <Divider variant="inset" component="li" />
+
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <HomeIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Delivery address"
+                        secondary={`${
+                          state.cart.shippingAddress
+                            ? `${state.cart.shippingAddress.address.value}, 
+                            ${state.cart.shippingAddress.apartment.value}, 
+                            ${state.cart.shippingAddress.city.value},
+                            ${state.cart.shippingAddress.region.value},
+                            ${state.cart.shippingCountry.value}`
+                            : ''
+                        }`}
+                      />
+                    </ListItem>
+
+                    <Divider variant="inset" component="li" />
+
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <DirectionsBoatFilledTwoToneIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Shipping method"
+                        secondary={`${
+                          state.cart.shippingMethod &&
+                          state.cart.shippingMethod.value === 'express'
+                            ? `Express shipping ($20.00)`
+                            : `Standard shipping ($10.00)`
+                        }`}
+                      />
+                    </ListItem>
+                  </List>
+                </CardContent>
+
+                <Divider />
+
+                <CardHeader
+                  title="Payment method"
+                  sx={(theme) => ({
+                    '& 	.MuiCardHeader-title': {
+                      fontFamily: 'Roboto',
+                      fontSize: '1rem',
+                      color: theme.palette.common.greenBlue,
+                    },
+                  })}
+                />
+
+                <CardContent>
+                  <Button fullWidth variant="contained">
+                    {`Pay $${(
+                      cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
+                      (shipping === 'standard' ? 10 : 20)
+                    ).toFixed(2)}`}
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item md={5} sx={{ display: { xs: 'none', md: 'block' } }}>
+              <SideCart shipping={shipping} />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </Layout>

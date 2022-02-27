@@ -17,20 +17,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import { Store } from '../../utils/store';
+import DirectionsBoatFilledOutlinedIcon from '@mui/icons-material/DirectionsBoatFilledOutlined';
 
-export default function ShowBaggedItems() {
+export default function ShowBaggedItems({ shipping }) {
   const { state, dispatch } = useContext(Store);
   const [collapse, setCollapse] = useState(false);
 
   const {
     cart: { cartItems },
   } = state;
-
-  console.log(cartItems);
 
   const handleColapseClicked = (e) => {
     setCollapse(!collapse);
@@ -102,16 +98,22 @@ export default function ShowBaggedItems() {
 
       <Grid item alignSelf="center">
         <Paper
+          variant="outlined"
           sx={(theme) => ({
             padding: '1rem',
-            background: theme.palette.common.greenBlue,
+            background: shipping
+              ? theme.palette.common.white
+              : theme.palette.common.darkGray,
           })}
         >
           <Typography
             variant="h5"
             sx={(theme) => ({
               fontFamily: 'Roboto',
-              color: theme.palette.common.white,
+              fontSize: shipping ? '1.2rem' : '1.4rem',
+              color: shipping
+                ? theme.palette.common.black
+                : theme.palette.common.white,
             })}
           >
             Subtotal: $
@@ -119,6 +121,53 @@ export default function ShowBaggedItems() {
           </Typography>
         </Paper>
       </Grid>
+
+      {shipping ? (
+        <>
+          <Grid item alignSelf="center">
+            <Grid container spacing={2}>
+              <Grid item>
+                <DirectionsBoatFilledOutlinedIcon
+                  sx={(theme) => ({
+                    color: theme.palette.common.black,
+                  })}
+                />
+              </Grid>
+              <Grid item>
+                <Typography variant="body2">
+                  Shipping: {shipping === 'standard' ? '$10.00' : '$20.00'}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <Grid item alignSelf="center">
+            <Paper
+              variant="outlined"
+              sx={(theme) => ({
+                padding: '1rem',
+                background: theme.palette.common.darkGray,
+              })}
+            >
+              <Typography
+                variant="h5"
+                sx={(theme) => ({
+                  fontFamily: 'Roboto',
+                  color: theme.palette.common.white,
+                })}
+              >
+                Total: $
+                {(
+                  cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
+                  (shipping === 'standard' ? 10 : 20)
+                ).toFixed(2)}
+              </Typography>
+            </Paper>
+          </Grid>
+        </>
+      ) : (
+        <></>
+      )}
     </Grid>
   );
 }

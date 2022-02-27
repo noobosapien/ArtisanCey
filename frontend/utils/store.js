@@ -22,10 +22,13 @@ const initialState = {
           phone: { error: false, value: '', valid: false },
         },
     shippingCountry: Cookies.get('shippingCountry')
-      ? Cookies.get('shippingCountry')
+      ? JSON.parse(Cookies.get('shippingCountry'))
+      : { value: '' },
+    shippingMethod: Cookies.get('shippingMethod')
+      ? JSON.parse(Cookies.get('shippingMethod'))
       : { value: '' },
     paymentMethod: Cookies.get('paymentMethod')
-      ? Cookies.get('paymentMethod')
+      ? JSON.parse(Cookies.get('paymentMethod'))
       : '',
   },
 };
@@ -55,12 +58,10 @@ function reducer(state, action) {
       state.cart.cartItems.forEach((item) => {
         if (item.id === action.payload.id) {
           cartItems.push(action.payload);
-          console.log(action.payload);
         } else {
           cartItems.push(item);
         }
       });
-      console.log(cartItems);
       Cookies.set('cartItems', JSON.stringify(cartItems));
       return { ...state, cart: { cartItems: [...cartItems] } };
     }
@@ -90,6 +91,16 @@ function reducer(state, action) {
       return {
         ...state,
         cart: { ...state.cart, shippingCountry: action.payload },
+      };
+    }
+
+    case 'SAVE_SHIPMENT_METHOD': {
+      const shippingMethod = action.payload;
+      Cookies.set('shippingMethod', JSON.stringify(shippingMethod));
+
+      return {
+        ...state,
+        cart: { ...state.cart, shippingMethod: action.payload },
       };
     }
 

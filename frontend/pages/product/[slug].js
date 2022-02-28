@@ -49,14 +49,17 @@ export default function ProductPage(props) {
   const prodInfo = product instanceof Array && product.length ? product[0] : {};
 
   const images = [];
-  prodInfo.images.forEach((image) => {
-    const item = {
-      original: image.url,
-      thumbnail: image.url,
-    };
 
-    images.push(item);
-  });
+  if (prodInfo.images instanceof Array) {
+    prodInfo.images.forEach((image) => {
+      const item = {
+        original: image.url,
+        thumbnail: image.url,
+      };
+
+      images.push(item);
+    });
+  }
 
   return (
     <Layout title={prodInfo.name} description={prodInfo.description}>

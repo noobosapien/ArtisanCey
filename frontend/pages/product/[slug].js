@@ -87,7 +87,9 @@ export default function ProductPage(props) {
                     <Rating precision={0.5} value={prodInfo.rating} readOnly />
                   </Grid>
                   <Grid item>
-                    <Typography>({prodInfo.reviews.length} reviews)</Typography>
+                    <Typography>
+                      ({prodInfo.reviews ? prodInfo.reviews.length : 0} reviews)
+                    </Typography>
                   </Grid>
                 </Grid>
 

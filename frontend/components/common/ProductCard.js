@@ -49,8 +49,6 @@ export default function ProductCard({ product }) {
     prod.quantity = product.quantity ? Number(product.quantity) : 1;
     prod.stock = product.stock ? Number(product.stock) : 0;
     // prod.reviews = product.reviews ? product.reviews : [];
-
-    console.log(product);
   }
 
   const theme = useTheme();

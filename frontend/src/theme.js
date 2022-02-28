@@ -10,6 +10,7 @@ const gray = '#5c5c5c';
 const darkGray = '#454545';
 const lightBrown = '#B1AB7D';
 const orange = '#ff7700';
+const lightRed = '#ff6b6b';
 // Create a theme instance.
 const theme = createTheme({
   palette: {
@@ -34,6 +35,7 @@ const theme = createTheme({
       orange,
       lightAqua,
       aqua,
+      lightRed,
     },
   },
 
@@ -59,7 +61,6 @@ const theme = createTheme({
     },
     h4: {
       fontFamily: 'Ranga',
-      fontStyle: 'italic',
       // fontWeight: 700,
       fontSize: '3rem',
       color: black,

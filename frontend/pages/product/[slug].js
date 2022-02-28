@@ -1,7 +1,7 @@
 import {
   Button,
-  CardActions,
   Grid,
+  IconButton,
   List,
   ListItem,
   Rating,
@@ -13,11 +13,21 @@ import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import { Controller, useForm } from 'react-hook-form';
 import { setReview } from '../../helpers/setReview';
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import ArrowCircleUpTwoToneIcon from '@mui/icons-material/ArrowCircleUpTwoTone';
+import ArrowCircleDownTwoToneIcon from '@mui/icons-material/ArrowCircleDownTwoTone';
+import LocalMallTwoToneIcon from '@mui/icons-material/LocalMallTwoTone';
 
 export default function ProductPage(props) {
   const { product } = props;
 
   const [showForm, setShowForm] = useState(false);
+
+  const theme = useTheme();
+  const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
   const {
     handleSubmit,
@@ -38,23 +48,143 @@ export default function ProductPage(props) {
 
   const prodInfo = product instanceof Array && product.length ? product[0] : {};
 
+  const images = [];
+  prodInfo.images.forEach((image) => {
+    const item = {
+      original: image.url,
+      thumbnail: image.url,
+    };
+
+    images.push(item);
+  });
+
   return (
     <Layout title={prodInfo.name} description={prodInfo.description}>
-      <Grid container>
-        {prodInfo.images ? (
-          <Grid item>
-            <Image src={prodInfo.images[0].url} width={500} height={500} />
-          </Grid>
-        ) : undefined}
-
+      <Grid container direction="column" sx={{ marginTop: '4rem' }}>
         <Grid item>
-          <Grid container direction="column">
-            <Grid item>{prodInfo.name}</Grid>
+          {/* Product */}
+          <Grid container justifyContent="space-evenly" spacing={3}>
             <Grid item>
-              <Typography>{prodInfo.description}</Typography>
+              <ImageGallery
+                items={images}
+                showFullscreenButton={false}
+                showPlayButton={false}
+                thumbnailPosition={matchesMD ? 'bottom' : 'left'}
+              />
+            </Grid>
+
+            <Grid item xs={10} lg={5}>
+              <Grid container direction="column" spacing={3}>
+                <Grid item>
+                  <Typography variant="h4">{prodInfo.name}</Typography>
+                </Grid>
+
+                <Grid item container alignItems="center" spacing={3}>
+                  <Grid item>
+                    <Rating precision={0.5} value={prodInfo.rating} readOnly />
+                  </Grid>
+                  <Grid item>
+                    <Typography>({prodInfo.reviews.length} reviews)</Typography>
+                  </Grid>
+                </Grid>
+
+                <Grid item>
+                  <Typography
+                    variant="h5"
+                    sx={(theme) => ({
+                      color: theme.palette.common.black,
+                      fontSize: '2.0rem',
+                    })}
+                  >
+                    ${prodInfo.price.toFixed(2)}
+                  </Typography>
+                </Grid>
+
+                <Grid item container alignItems="center" spacing={3}>
+                  <Grid item>
+                    <Typography sx={{ fontSize: '1rem', fontWeight: '700' }}>
+                      Qty:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item>
+                    <Grid container>
+                      <Grid item>
+                        <IconButton
+                          color="primary"
+                          aria-label="increase quantity"
+                          component="span"
+                        >
+                          <ArrowCircleDownTwoToneIcon
+                            sx={(theme) => ({
+                              color: theme.palette.common.lightRed,
+                            })}
+                          />
+                        </IconButton>
+                      </Grid>
+
+                      <Grid item>
+                        <TextField
+                          variant="outlined"
+                          type="number"
+                          size="small"
+                          sx={{
+                            width: '7ch',
+                            'input::-webkit-inner-spin-button': {
+                              '-webkit-appearance': 'none',
+                              margin: 0,
+                            },
+
+                            'input[type=number]': {
+                              '-moz-appearance': 'textfield',
+                            },
+                          }}
+                        />
+                      </Grid>
+
+                      <Grid item>
+                        <IconButton
+                          color="primary"
+                          aria-label="decrease quantity"
+                          component="span"
+                        >
+                          <ArrowCircleUpTwoToneIcon />
+                        </IconButton>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item>
+                    <Button
+                      startIcon={<LocalMallTwoToneIcon />}
+                      variant="contained"
+                    >
+                      Add to bag
+                    </Button>
+                  </Grid>
+                </Grid>
+
+                <Grid item>
+                  <Typography
+                    align="center"
+                    paragraph
+                    variant="body2"
+                    sx={(theme) => ({
+                      fontSize: '1.3rem',
+                      color: theme.palette.common.lightGray,
+                    })}
+                  >
+                    {prodInfo.description}
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
+
+        <Grid item>{/* Similar */}</Grid>
+
+        <Grid item>{/* Reviews */}</Grid>
 
         <Grid item container direction="column">
           <Grid item>

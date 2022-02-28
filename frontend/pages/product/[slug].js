@@ -101,7 +101,7 @@ export default function ProductPage(props) {
                       fontSize: '2.0rem',
                     })}
                   >
-                    ${prodInfo.price.toFixed(2)}
+                    ${prodInfo.price ? prodInfo.price.toFixed(2) : '0.00'}
                   </Typography>
                 </Grid>
 

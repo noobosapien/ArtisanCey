@@ -72,6 +72,12 @@
       "type": "integer",
       "required": false,
       "min": 0
+    },
+    "products": {
+      "collection": "product"
+    },
+    "additionalInfo": {
+      "type": "json"
     }
   }
 }

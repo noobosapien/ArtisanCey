@@ -1,11 +1,18 @@
 import {
+  AppBar,
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
   Button,
+  Collapse,
+  Divider,
   Grid,
   IconButton,
   List,
   ListItem,
   Rating,
   TextField,
+  Toolbar,
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
@@ -20,6 +27,9 @@ import { useTheme } from '@mui/material/styles';
 import ArrowCircleUpTwoToneIcon from '@mui/icons-material/ArrowCircleUpTwoTone';
 import ArrowCircleDownTwoToneIcon from '@mui/icons-material/ArrowCircleDownTwoTone';
 import LocalMallTwoToneIcon from '@mui/icons-material/LocalMallTwoTone';
+import SmallProductCard from '../../components/common/SmallProductCard';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 export default function ProductPage(props) {
   const { product } = props;
@@ -28,6 +38,8 @@ export default function ProductPage(props) {
 
   const theme = useTheme();
   const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
+
+  const [showRelated, setShowRelated] = useState(false);
 
   const {
     handleSubmit,
@@ -63,7 +75,12 @@ export default function ProductPage(props) {
 
   return (
     <Layout title={prodInfo.name} description={prodInfo.description}>
-      <Grid container direction="column" sx={{ marginTop: '4rem' }}>
+      <Grid
+        container
+        direction="column"
+        sx={{ marginTop: '0rem' }}
+        spacing={10}
+      >
         <Grid item>
           {/* Product */}
           <Grid container justifyContent="space-evenly" spacing={3}>
@@ -105,69 +122,77 @@ export default function ProductPage(props) {
                   </Typography>
                 </Grid>
 
-                <Grid item container alignItems="center" spacing={3}>
-                  <Grid item>
-                    <Typography sx={{ fontSize: '1rem', fontWeight: '700' }}>
-                      Qty:
-                    </Typography>
-                  </Grid>
-
-                  <Grid item>
-                    <Grid container>
+                {matchesMD ? (
+                  <></>
+                ) : (
+                  <>
+                    <Grid item container alignItems="center" spacing={3}>
                       <Grid item>
-                        <IconButton
-                          color="primary"
-                          aria-label="increase quantity"
-                          component="span"
+                        <Typography
+                          sx={{ fontSize: '1rem', fontWeight: '700' }}
                         >
-                          <ArrowCircleDownTwoToneIcon
-                            sx={(theme) => ({
-                              color: theme.palette.common.lightRed,
-                            })}
-                          />
-                        </IconButton>
+                          Qty:
+                        </Typography>
                       </Grid>
 
                       <Grid item>
-                        <TextField
-                          variant="outlined"
-                          type="number"
-                          size="small"
-                          sx={{
-                            width: '7ch',
-                            'input::-webkit-inner-spin-button': {
-                              '-webkit-appearance': 'none',
-                              margin: 0,
-                            },
+                        <Grid container>
+                          <Grid item>
+                            <IconButton
+                              color="primary"
+                              aria-label="increase quantity"
+                              component="span"
+                            >
+                              <ArrowCircleDownTwoToneIcon
+                                sx={(theme) => ({
+                                  color: theme.palette.common.lightRed,
+                                })}
+                              />
+                            </IconButton>
+                          </Grid>
 
-                            'input[type=number]': {
-                              '-moz-appearance': 'textfield',
-                            },
-                          }}
-                        />
+                          <Grid item>
+                            <TextField
+                              variant="outlined"
+                              type="number"
+                              size="small"
+                              sx={{
+                                width: '7ch',
+                                'input::-webkit-inner-spin-button': {
+                                  '-webkit-appearance': 'none',
+                                  margin: 0,
+                                },
+
+                                'input[type=number]': {
+                                  '-moz-appearance': 'textfield',
+                                },
+                              }}
+                            />
+                          </Grid>
+
+                          <Grid item>
+                            <IconButton
+                              color="primary"
+                              aria-label="decrease quantity"
+                              component="span"
+                            >
+                              <ArrowCircleUpTwoToneIcon />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
                       </Grid>
 
                       <Grid item>
-                        <IconButton
-                          color="primary"
-                          aria-label="decrease quantity"
-                          component="span"
+                        <Button
+                          startIcon={<LocalMallTwoToneIcon />}
+                          variant="contained"
                         >
-                          <ArrowCircleUpTwoToneIcon />
-                        </IconButton>
+                          Add to bag
+                        </Button>
                       </Grid>
                     </Grid>
-                  </Grid>
-
-                  <Grid item>
-                    <Button
-                      startIcon={<LocalMallTwoToneIcon />}
-                      variant="contained"
-                    >
-                      Add to bag
-                    </Button>
-                  </Grid>
-                </Grid>
+                  </>
+                )}
 
                 <Grid item>
                   <Typography
@@ -187,7 +212,43 @@ export default function ProductPage(props) {
           </Grid>
         </Grid>
 
-        <Grid item>{/* Similar */}</Grid>
+        <Grid
+          item
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={10}
+        >
+          <Grid item>
+            <Button
+              sx={{ fontSize: '1.2rem' }}
+              endIcon={
+                showRelated ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />
+              }
+              onClick={(e) => {
+                setShowRelated(!showRelated);
+              }}
+            >
+              {showRelated ? 'Hide' : 'Show'} Related products
+            </Button>
+          </Grid>
+
+          <Grid item>
+            <Collapse in={showRelated}>
+              <Grid container justifyContent="space-evenly" spacing={10}>
+                {prodInfo.products instanceof Array &&
+                  prodInfo.products.map((prod) => {
+                    return (
+                      <Grid item>
+                        <SmallProductCard product={prod} />
+                      </Grid>
+                    );
+                  })}
+              </Grid>
+            </Collapse>
+          </Grid>
+        </Grid>
 
         <Grid item>{/* Reviews */}</Grid>
 
@@ -349,6 +410,71 @@ export default function ProductPage(props) {
             : undefined}
         </Grid>
       </Grid>
+
+      <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+        <AppBar
+          position="fixed"
+          color="primary"
+          sx={{ top: 'auto', bottom: 0 }}
+        >
+          <Toolbar>
+            <Grid container spacing={2} justifyContent="space-evenly">
+              <Grid item>
+                <Grid container>
+                  <Grid item>
+                    <IconButton
+                      color="secondary"
+                      aria-label="increase quantity"
+                      component="span"
+                    >
+                      <ArrowCircleDownTwoToneIcon />
+                    </IconButton>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      variant="outlined"
+                      type="number"
+                      size="small"
+                      sx={{
+                        width: '7ch',
+                        'input::-webkit-inner-spin-button': {
+                          '-webkit-appearance': 'none',
+                          margin: 0,
+                        },
+
+                        'input[type=number]': {
+                          '-moz-appearance': 'textfield',
+                        },
+                      }}
+                    />
+                  </Grid>
+
+                  <Grid item>
+                    <IconButton
+                      color="secondary"
+                      aria-label="decrease quantity"
+                      component="span"
+                    >
+                      <ArrowCircleUpTwoToneIcon />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              <Grid item>
+                <Button
+                  startIcon={<LocalMallTwoToneIcon />}
+                  variant="contained"
+                  color="secondary"
+                >
+                  Add to bag
+                </Button>
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+      </Box>
     </Layout>
   );
 }

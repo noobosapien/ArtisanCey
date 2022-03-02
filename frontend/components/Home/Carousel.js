@@ -163,7 +163,7 @@ export default function Carousel({ products }) {
       <Grid item>
         <Typography variant="h3">Most viewed items</Typography>
       </Grid>
-      <Grid item xs={4}>
+      {/* <Grid item xs={4}>
         <Slider {...settings} style={{ width: '500px' }}>
           <div>
             <Card>
@@ -186,7 +186,7 @@ export default function Carousel({ products }) {
             </Card>
           </div>
         </Slider>
-      </Grid>
+      </Grid> */}
       <Grid item>
         <div
           style={{

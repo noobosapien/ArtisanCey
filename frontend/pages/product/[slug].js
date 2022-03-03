@@ -36,11 +36,12 @@ export default function ProductPage(props) {
   const { product } = props;
 
   const [showForm, setShowForm] = useState(false);
+  const [page, setPage] = useState(1);
 
   const theme = useTheme();
   const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
-  const [showRelated, setShowRelated] = useState(false);
+  const [showRelated, setShowRelated] = useState(true);
 
   const {
     handleSubmit,
@@ -106,7 +107,8 @@ export default function ProductPage(props) {
                   </Grid>
                   <Grid item>
                     <Typography>
-                      ({prodInfo.reviews ? prodInfo.reviews.length : 0} reviews)
+                      ({prodInfo.noofreviews ? prodInfo.noofreviews : 0}{' '}
+                      reviews)
                     </Typography>
                   </Grid>
                 </Grid>
@@ -252,7 +254,7 @@ export default function ProductPage(props) {
         </Grid>
 
         <Grid item>
-          <Reviews />
+          <Reviews product={prodInfo} page={page} setPage={setPage} />
         </Grid>
       </Grid>
 

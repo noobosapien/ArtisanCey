@@ -3,7 +3,6 @@ import axios from 'axios';
 export async function getReviewsForProduct(id, page, sort) {
   try {
     var param = '';
-    console.log(sort);
 
     switch (sort) {
       case 'latest':
@@ -22,8 +21,6 @@ export async function getReviewsForProduct(id, page, sort) {
       default:
         param = 'updatedAt:DESC';
     }
-
-    console.log(page, id, param);
 
     const { data } = await axios.get(
       `https://cms.artisancey.com/reviews?product=${id}&_start=${

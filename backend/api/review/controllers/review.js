@@ -19,6 +19,7 @@ module.exports = {
       entity = await strapi.services.review.create(data, { files });
     } else {
       ctx.request.body.product = ctx.query.id;
+      ctx.request.body.verfied = false;
       entity = await strapi.services.review.create(ctx.request.body);
     }
 

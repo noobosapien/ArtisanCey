@@ -13,6 +13,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { getReviewsForProduct } from '../../helpers/getReviewsForProduct';
 import moment from 'moment';
 import ReviewSort from './ReviewSort';
+import AddReview from './AddReview';
 
 const mdReviews = (
   sort,
@@ -52,9 +53,7 @@ const mdReviews = (
             justifyContent="space-evenly"
           >
             <Grid item>
-              <Button color="secondary" variant="contained">
-                Add your review
-              </Button>
+              <AddReview />
             </Grid>
 
             <Grid item>
@@ -171,9 +170,7 @@ const xsReviews = (
 
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item>
-            <Button color="secondary" variant="contained">
-              Add your review
-            </Button>
+            <AddReview />
           </Grid>
 
           <Grid item>

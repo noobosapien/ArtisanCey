@@ -41,7 +41,8 @@
       "model": "product"
     },
     "userLastName": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "heading": {
       "type": "string"

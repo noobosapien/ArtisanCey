@@ -7,8 +7,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Grid, Rating, Typography } from '@mui/material';
+import { setReview } from '../../helpers/setReview';
 
-export default function AddReview() {
+export default function AddReview({ product }) {
   const [open, setOpen] = React.useState(false);
 
   function reducer(state, action) {
@@ -115,6 +116,17 @@ export default function AddReview() {
         };
       }
 
+      case 'CLEAR_STATE': {
+        return {
+          email: { error: false, value: '', valid: false },
+          rating: { error: false, value: 0, valid: false },
+          firstName: { error: false, value: '', valid: false },
+          lastName: { error: false, value: '', valid: false },
+          heading: { error: false, value: '', valid: false },
+          review: { error: false, value: '', valid: false },
+        };
+      }
+
       default:
         return state;
     }
@@ -137,7 +149,7 @@ export default function AddReview() {
     setOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     var errors = false;
 
@@ -151,6 +163,16 @@ export default function AddReview() {
     }
 
     if (!errors) {
+      const result = await setReview(
+        product.id,
+        stateInfo.rating.value,
+        stateInfo.firstName.value,
+        stateInfo.lastName.value,
+        stateInfo.heading.value,
+        stateInfo.email.value,
+        stateInfo.review.value
+      );
+      dispatchInfo({ type: 'CLEAR_STATE' });
       setOpen(false);
     }
 

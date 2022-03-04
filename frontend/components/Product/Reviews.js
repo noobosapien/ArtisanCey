@@ -14,8 +14,10 @@ import { getReviewsForProduct } from '../../helpers/getReviewsForProduct';
 import moment from 'moment';
 import ReviewSort from './ReviewSort';
 import AddReview from './AddReview';
+import { getProductInfo } from '../../helpers/getProductInfo';
 
 const mdReviews = (
+  product,
   sort,
   setSort,
   noOfReviews,
@@ -53,7 +55,7 @@ const mdReviews = (
             justifyContent="space-evenly"
           >
             <Grid item>
-              <AddReview />
+              <AddReview product={product} />
             </Grid>
 
             <Grid item>
@@ -141,6 +143,7 @@ const mdReviews = (
 };
 
 const xsReviews = (
+  product,
   sort,
   setSort,
   noOfReviews,
@@ -170,7 +173,7 @@ const xsReviews = (
 
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item>
-            <AddReview />
+            <AddReview product={product} />
           </Grid>
 
           <Grid item>
@@ -256,6 +259,16 @@ export default function Reviews({ product, page, setPage }) {
       result instanceof Array ? setReviews([...reviews, ...result]) : undefined;
     };
 
+    const updateProductRating = async () => {
+      const result = await getProductInfo(product.id);
+      result instanceof Array ? (product.rating = result[0].rating) : undefined;
+      result instanceof Array
+        ? (product.noofreviews = result[0].noofreviews)
+        : undefined;
+    };
+
+    updateProductRating();
+
     getReviews();
   }, [page, product, update]);
 
@@ -273,19 +286,25 @@ export default function Reviews({ product, page, setPage }) {
   const matchesSM = useMediaQuery(theme.breakpoints.up('sm'));
   return matchesSM
     ? mdReviews(
+        product,
         sort,
         setSort,
         product.noofreviews,
         product.rating,
         reviews,
-        handleAddPage
+        handleAddPage,
+        setUpdate,
+        update
       )
     : xsReviews(
+        product,
         sort,
         setSort,
         product.noofreviews,
         product.rating,
         reviews,
-        handleAddPage
+        handleAddPage,
+        setUpdate,
+        update
       );
 }

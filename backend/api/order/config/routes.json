@@ -1,9 +1,9 @@
 {
   "routes": [
     {
-      "method": "GET",
-      "path": "/orders/intent",
-      "handler": "order.intent",
+      "method": "POST",
+      "path": "/orders/process",
+      "handler": "order.process",
       "config": {
         "policies": []
       }

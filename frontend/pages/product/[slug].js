@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { Controller, useForm } from 'react-hook-form';
 import { setReview } from '../../helpers/setReview';
@@ -32,6 +32,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import Reviews from '../../components/Product/Reviews';
 import { Store } from '../../utils/store';
+import { getProductInfo } from '../../helpers/getProductInfo';
 
 export default function ProductPage(props) {
   const { product } = props;
@@ -46,6 +47,7 @@ export default function ProductPage(props) {
   const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
   const [showRelated, setShowRelated] = useState(true);
+  const [update, setUpdate] = useState(1);
 
   const {
     handleSubmit,
@@ -65,6 +67,21 @@ export default function ProductPage(props) {
   };
 
   const prodInfo = product instanceof Array && product.length ? product[0] : {};
+
+  useEffect(() => {
+    const updateReviews = async () => {
+      try {
+        const info = await getProductInfo(product[0]?.id);
+        prodInfo.noofreviews = info[0].noofreviews ? info[0].noofreviews : 0;
+        prodInfo.rating = info[0].rating ? info[0].rating : 0;
+        console.log(prodInfo);
+        setUpdate(update + 1);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    updateReviews();
+  }, []);
 
   const images = [];
 

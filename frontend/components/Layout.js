@@ -19,7 +19,7 @@ import {
 import InputAdornment from '@mui/material/InputAdornment';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Close from '@mui/icons-material/Close';
-import Logo from '../public/slice1.svg';
+import Logo from '../public/slice5.png';
 import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';

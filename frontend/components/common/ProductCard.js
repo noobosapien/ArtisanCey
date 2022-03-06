@@ -12,7 +12,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import candle from '../../public/figures.jpg';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -24,32 +24,35 @@ import { getProductInfo } from '../../helpers/getProductInfo';
 
 export default function ProductCard({ product }) {
   const { state, dispatch } = useContext(Store);
+  const [update, setUpdate] = useState(1);
 
-  const prod = {
-    id: '',
-    img: candle.src,
-    name: 'Name',
-    price: '20',
-    slug: '',
-    noOfReviews: 0,
-    rating: 0,
-    // reviews: [],
-  };
   const router = useRouter();
+
+  const prod = {};
 
   if (product) {
     prod.id = product.id ? product.id : '';
     prod.img =
       product.images && product.images[0] ? product.images[0].url : candle.src;
     prod.name = product.name ? product.name : 'Name';
-    prod.price = product.price ? product.price : '20';
+    prod.price = product.price ? product.price : '0';
     prod.slug = product.slug ? product.slug : '';
     prod.noOfReviews = product.noofreviews ? product.noofreviews : 0;
     prod.rating = product.rating ? product.rating : 0;
     prod.quantity = product.quantity ? Number(product.quantity) : 1;
     prod.stock = product.stock ? Number(product.stock) : 0;
-    // prod.reviews = product.reviews ? product.reviews : [];
   }
+
+  useEffect(() => {
+    const updateReviews = async () => {
+      const info = await getProductInfo(prod.id);
+      prod.noOfReviews = info[0].noofreviews ? info[0].noofreviews : 0;
+      prod.rating = info[0].rating ? info[0].rating : 0;
+
+      setUpdate(update + 1);
+    };
+    updateReviews();
+  }, []);
 
   const theme = useTheme();
 
@@ -80,20 +83,8 @@ export default function ProductCard({ product }) {
   };
 
   const handleAddToCart = async (e) => {
-    const info = await getProductInfo(prod.id);
-
-    if (info instanceof Array && info[0].stock <= 0) {
-      window.alert('Product out of stock');
-      return;
-    }
-
     const existItem = state.cart.cartItems.find((x) => x.id === product.id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-
-    if (info instanceof Array && info[0].stock <= quantity) {
-      window.alert('Out of stock');
-      return;
-    }
 
     dispatch({
       type: 'CART_ADD_ITEM',

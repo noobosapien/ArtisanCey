@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Layout from '../../components/Layout';
 import { Controller, useForm } from 'react-hook-form';
 import { setReview } from '../../helpers/setReview';
@@ -31,12 +31,16 @@ import SmallProductCard from '../../components/common/SmallProductCard';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import Reviews from '../../components/Product/Reviews';
+import { Store } from '../../utils/store';
 
 export default function ProductPage(props) {
   const { product } = props;
 
+  const { state, dispatch } = useContext(Store);
+
   const [showForm, setShowForm] = useState(false);
   const [page, setPage] = useState(1);
+  const [amount, setAmount] = useState(1);
 
   const theme = useTheme();
   const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
@@ -74,6 +78,50 @@ export default function ProductPage(props) {
       images.push(item);
     });
   }
+
+  const handleNumberChange = (e) => {
+    const value = e.target.value.replace(/[e\+\-]/gi, '1');
+    console.log(value);
+    setAmount(value);
+  };
+
+  const handleAddAmount = (e) => {
+    console.log(amount);
+    setAmount(Number(amount) + 1);
+  };
+
+  const handleDownAmount = (e) => {
+    if (Number(amount) > 1) setAmount(Number(amount) - 1);
+  };
+
+  const handleAddToCart = (e) => {
+    console.log(product);
+    if (amount === '') {
+      dispatch({
+        type: 'CART_ADD_ITEM',
+        payload: {
+          ...product[0],
+          img:
+            product[0].images &&
+            product[0].images[0] &&
+            product[0].images[0].url,
+          quantity: 1,
+        },
+      });
+    } else {
+      dispatch({
+        type: 'CART_ADD_ITEM',
+        payload: {
+          ...product[0],
+          img:
+            product[0].images &&
+            product[0].images[0] &&
+            product[0].images[0].url,
+          quantity: amount,
+        },
+      });
+    }
+  };
 
   return (
     <Layout title={prodInfo.name} description={prodInfo.description}>
@@ -139,9 +187,10 @@ export default function ProductPage(props) {
                       </Grid>
 
                       <Grid item>
-                        <Grid container>
+                        <Grid container alignItems="center">
                           <Grid item>
                             <IconButton
+                              onClick={handleDownAmount}
                               color="primary"
                               aria-label="increase quantity"
                               component="span"
@@ -149,6 +198,7 @@ export default function ProductPage(props) {
                               <ArrowCircleDownTwoToneIcon
                                 sx={(theme) => ({
                                   color: theme.palette.common.lightRed,
+                                  fontSize: '2rem',
                                 })}
                               />
                             </IconButton>
@@ -156,11 +206,13 @@ export default function ProductPage(props) {
 
                           <Grid item>
                             <TextField
+                              onChange={handleNumberChange}
+                              value={amount}
                               variant="outlined"
                               type="number"
                               size="small"
                               sx={{
-                                width: '7ch',
+                                width: '11ch',
                                 'input::-webkit-inner-spin-button': {
                                   '-webkit-appearance': 'none',
                                   margin: 0,
@@ -168,6 +220,9 @@ export default function ProductPage(props) {
 
                                 'input[type=number]': {
                                   '-moz-appearance': 'textfield',
+                                  'font-size': '1.2rem',
+                                  'text-align': 'center',
+                                  color: '#3a8783',
                                 },
                               }}
                             />
@@ -175,11 +230,16 @@ export default function ProductPage(props) {
 
                           <Grid item>
                             <IconButton
+                              onClick={handleAddAmount}
                               color="primary"
                               aria-label="decrease quantity"
                               component="span"
                             >
-                              <ArrowCircleUpTwoToneIcon />
+                              <ArrowCircleUpTwoToneIcon
+                                sx={(theme) => ({
+                                  fontSize: '2rem',
+                                })}
+                              />
                             </IconButton>
                           </Grid>
                         </Grid>
@@ -187,6 +247,7 @@ export default function ProductPage(props) {
 
                       <Grid item>
                         <Button
+                          onClick={handleAddToCart}
                           startIcon={<LocalMallTwoToneIcon />}
                           variant="contained"
                         >
@@ -265,11 +326,17 @@ export default function ProductPage(props) {
           sx={{ top: 'auto', bottom: 0 }}
         >
           <Toolbar>
-            <Grid container spacing={2} justifyContent="space-evenly">
+            <Grid
+              container
+              spacing={2}
+              justifyContent="space-evenly"
+              alignItems="center"
+            >
               <Grid item>
-                <Grid container>
+                <Grid container alignItems="center">
                   <Grid item>
                     <IconButton
+                      onClick={handleDownAmount}
                       color="secondary"
                       aria-label="increase quantity"
                       component="span"
@@ -280,6 +347,8 @@ export default function ProductPage(props) {
 
                   <Grid item>
                     <TextField
+                      onChange={handleNumberChange}
+                      value={amount}
                       variant="outlined"
                       type="number"
                       size="small"
@@ -292,6 +361,9 @@ export default function ProductPage(props) {
 
                         'input[type=number]': {
                           '-moz-appearance': 'textfield',
+                          'font-size': '1.2rem',
+                          color: '#fff',
+                          'text-align': 'center',
                         },
                       }}
                     />
@@ -299,6 +371,7 @@ export default function ProductPage(props) {
 
                   <Grid item>
                     <IconButton
+                      onClick={handleAddAmount}
                       color="secondary"
                       aria-label="decrease quantity"
                       component="span"
@@ -311,6 +384,7 @@ export default function ProductPage(props) {
 
               <Grid item>
                 <Button
+                  onClick={handleAddToCart}
                   startIcon={<LocalMallTwoToneIcon />}
                   variant="contained"
                   color="secondary"

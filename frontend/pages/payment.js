@@ -21,13 +21,39 @@ export default function Checkout() {
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
   const [shipping, setShipping] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const {
-    cart: { cartItems },
+    cart: { cartItems, shippingAddress, shippingCountry, shippingMethod },
   } = state;
 
   useEffect(() => {
-    setShipping(state.cart.shippingMethod.value);
+    setShipping(shippingMethod.value);
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      if (cartItems.length < 1) {
+        router.push('/bag');
+      }
+
+      const keys = Object.keys(shippingAddress);
+
+      for (var i = 0; i < keys.length; i++) {
+        if (!shippingAddress[keys[i]].valid) {
+          router.push('/checkout');
+        }
+      }
+
+      if (shippingCountry.value === '') {
+        router.push('/checkout');
+      }
+
+      if (shippingMethod.value === '') {
+        router.push('/shipping');
+      }
+    }
+  }, [cartItems, shippingAddress, shippingCountry, shippingMethod, loading]);
 
   return (
     <Layout>
@@ -52,7 +78,7 @@ export default function Checkout() {
           <Grid container alignItems="center" justifyContent="space-evenly">
             <Grid item xs={12} md={5} lg={4}>
               <Elements stripe={stripePromise}>
-                <PaymentCard shipping={shipping} />
+                <PaymentCard loading={loading} setLoading={setLoading} />
               </Elements>
             </Grid>
 

@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  CircularProgress,
   Divider,
   Grid,
   List,
@@ -23,9 +24,11 @@ import { processOrder } from '../../helpers/processOrder';
 import { placeOrder } from '../../helpers/placeOrder';
 import countries from '../../utils/countries';
 
-export default function PaymentCard({ shipping }) {
+export default function PaymentCard({ loading, setLoading }) {
   const { state, dispatch } = useContext(Store);
   const [clientSecret, setClientSecret] = useState(null);
+  const [cardValid, setCardValid] = useState(false);
+
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
@@ -77,6 +80,12 @@ export default function PaymentCard({ shipping }) {
 
     const cardElement = elements.getElement(CardElement);
 
+    if (cardValid) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+
     const result = await stripe.confirmCardPayment(
       clientSecret,
       {
@@ -101,6 +110,7 @@ export default function PaymentCard({ shipping }) {
 
     if (result.error) {
       console.log(result.error.message);
+      setLoading(false);
     } else if (result.paymentIntent.status === 'succeeded') {
       console.log('Success');
 
@@ -136,7 +146,11 @@ export default function PaymentCard({ shipping }) {
           orderId: clientSecret,
         });
 
-        console.log(order);
+        if (order.message === 'success') {
+          dispatch({ type: 'CART_CLEAR' });
+
+          router.push(`/order/${order.link}`);
+        }
       } catch (e) {}
     }
   };
@@ -149,9 +163,9 @@ export default function PaymentCard({ shipping }) {
 
   const handleCardChange = async (e) => {
     if (e.complete) {
-      console.log('Valid');
+      setCardValid(true);
     } else {
-      console.log('Invalid');
+      setCardValid(false);
     }
   };
 
@@ -252,12 +266,16 @@ export default function PaymentCard({ shipping }) {
               onClick={handlePay}
               fullWidth
               variant="contained"
-              disabled={!clientSecret}
+              disabled={!clientSecret || loading}
             >
-              {`Pay $${(
-                cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
-                (shippingMethod.value === 'standard' ? 10 : 20)
-              ).toFixed(2)}`}
+              {loading ? (
+                <CircularProgress color="primary" size="1.5rem" />
+              ) : (
+                `Pay $${(
+                  cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
+                  (shippingMethod.value === 'standard' ? 10 : 20)
+                ).toFixed(2)}`
+              )}
             </Button>
           </Grid>
         </Grid>

@@ -33,11 +33,33 @@ export default function Checkout() {
   const router = useRouter();
   const [shipping, setShipping] = useState('');
 
+  const {
+    cart: { cartItems, shippingAddress, shippingCountry },
+  } = state;
+
   useEffect(() => {
     state.cart.shippingMethod &&
       state.cart.shippingMethod.value &&
       setShipping(state.cart.shippingMethod.value);
   }, [state.cart.shippingMethod]);
+
+  useEffect(() => {
+    if (cartItems.length < 1) {
+      router.push('/bag');
+    }
+
+    const keys = Object.keys(shippingAddress);
+
+    for (var i = 0; i < keys.length; i++) {
+      if (!shippingAddress[keys[i]].valid) {
+        router.push('/checkout');
+      }
+    }
+
+    if (shippingCountry.value === '') {
+      router.push('/checkout');
+    }
+  }, [cartItems, shippingAddress, shippingCountry]);
 
   const handleShipping = (e) => {
     setShipping(e.target.value);

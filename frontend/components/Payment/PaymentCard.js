@@ -23,18 +23,26 @@ import { v4 as uuidv4 } from 'uuid';
 import { processOrder } from '../../helpers/processOrder';
 import { placeOrder } from '../../helpers/placeOrder';
 import countries from '../../utils/countries';
+import BillingAddress from './BillingAddress';
 
 export default function PaymentCard({ loading, setLoading }) {
   const { state, dispatch } = useContext(Store);
   const [clientSecret, setClientSecret] = useState(null);
   const [cardValid, setCardValid] = useState(false);
+  const [diff, setDiff] = useState(false);
 
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
 
   const {
-    cart: { cartItems, shippingAddress, shippingCountry, shippingMethod },
+    cart: {
+      cartItems,
+      shippingAddress,
+      shippingCountry,
+      billingAddress,
+      shippingMethod,
+    },
   } = state;
 
   useEffect(() => {
@@ -86,27 +94,54 @@ export default function PaymentCard({ loading, setLoading }) {
       setLoading(false);
     }
 
-    const result = await stripe.confirmCardPayment(
-      clientSecret,
-      {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            address: {
-              city: shippingAddress.city.value,
-              state: shippingAddress.region.value,
-              line1: shippingAddress.address.value,
+    var result;
+    console.log(billingAddress);
+
+    if (diff) {
+      result = await stripe.confirmCardPayment(
+        clientSecret,
+        {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              address: {
+                city: billingAddress?.city?.value,
+                state: billingAddress?.region?.value,
+                line1: billingAddress?.address?.value,
+              },
+              email: shippingAddress?.email?.value,
+              name: `${billingAddress?.firstName?.value} ${billingAddress?.lastName?.value}`,
+              phone: billingAddress?.phone?.value,
             },
-            email: shippingAddress.email.value,
-            name: `${shippingAddress.firstName.value} ${shippingAddress.lastName.value}`,
-            phone: shippingAddress.phone.value,
           },
         },
-      },
-      {
-        idempotencyKey,
-      }
-    );
+        {
+          idempotencyKey,
+        }
+      );
+    } else {
+      result = await stripe.confirmCardPayment(
+        clientSecret,
+        {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              address: {
+                city: shippingAddress.city.value,
+                state: shippingAddress.region.value,
+                line1: shippingAddress.address.value,
+              },
+              email: shippingAddress.email.value,
+              name: `${shippingAddress.firstName.value} ${shippingAddress.lastName.value}`,
+              phone: shippingAddress.phone.value,
+            },
+          },
+        },
+        {
+          idempotencyKey,
+        }
+      );
+    }
 
     if (result.error) {
       console.log(result.error.message);
@@ -142,7 +177,7 @@ export default function PaymentCard({ loading, setLoading }) {
                 : 10,
           },
           shippingAddress,
-          billingAddress: shippingAddress,
+          billingAddress,
           orderId: clientSecret,
         });
 
@@ -242,6 +277,23 @@ export default function PaymentCard({ loading, setLoading }) {
             />
           </ListItem>
         </List>
+      </CardContent>
+
+      <Divider />
+
+      <CardHeader
+        title="Billing Address"
+        sx={(theme) => ({
+          '& 	.MuiCardHeader-title': {
+            fontFamily: 'Roboto',
+            fontSize: '1rem',
+            color: theme.palette.common.greenBlue,
+          },
+        })}
+      />
+
+      <CardContent>
+        <BillingAddress diff={diff} setDiff={setDiff} />
       </CardContent>
 
       <Divider />

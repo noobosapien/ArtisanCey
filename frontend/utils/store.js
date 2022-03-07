@@ -24,6 +24,21 @@ const initialState = {
     shippingCountry: Cookies.get('shippingCountry')
       ? JSON.parse(Cookies.get('shippingCountry'))
       : { value: '' },
+    billingAddress: Cookies.get('billingAddress')
+      ? JSON.parse(Cookies.get('billingAddress'))
+      : {
+          firstName: { error: false, value: '', valid: false },
+          lastName: { error: false, value: '', valid: false },
+          address: { error: false, value: '', valid: false },
+          apartment: { error: false, value: '', valid: false },
+          city: { error: false, value: '', valid: false },
+          region: { error: false, value: '', valid: false },
+          zipCode: { error: false, value: '', valid: false },
+          phone: { error: false, value: '', valid: false },
+        },
+    billingCountry: Cookies.get('billingCountry')
+      ? JSON.parse(Cookies.get('billingCountry'))
+      : { value: '' },
     shippingMethod: Cookies.get('shippingMethod')
       ? JSON.parse(Cookies.get('shippingMethod'))
       : { value: '' },
@@ -91,6 +106,26 @@ function reducer(state, action) {
       return {
         ...state,
         cart: { ...state.cart, shippingCountry: action.payload },
+      };
+    }
+
+    case 'SAVE_BILLING_ADDRESS': {
+      const address = action.payload;
+      Cookies.set('billingAddress', JSON.stringify(address));
+
+      return {
+        ...state,
+        cart: { ...state.cart, billingAddress: action.payload },
+      };
+    }
+
+    case 'SAVE_BILLING_COUNTRY': {
+      const country = action.payload;
+      Cookies.set('billingCountry', JSON.stringify(country));
+
+      return {
+        ...state,
+        cart: { ...state.cart, billingCountry: action.payload },
       };
     }
 

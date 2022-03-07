@@ -11,9 +11,16 @@ import PlacesAutocomplete, {
 import { Store } from '../../utils/store';
 import SelectCountry from '../Checkout/SelectCountry';
 
-export default function BillingAddress({ diff, setDiff }) {
-  const [countryCode, setCountryCode] = useState('');
-  const [countryValid, setCountryValid] = useState(true);
+export default function BillingAddress({
+  diff,
+  setDiff,
+  stateInfo,
+  dispatchInfo,
+  countryCode,
+  setCountryCode,
+  countryValid,
+  setCountryValid,
+}) {
   const { state, dispatch } = useContext(Store);
 
   useEffect(() => {
@@ -26,222 +33,6 @@ export default function BillingAddress({ diff, setDiff }) {
   var searchOptions = {
     componentRestrictions: { country: countryCode ? countryCode : '' },
   };
-
-  function reducer(state, action) {
-    switch (action.type) {
-      case 'FIRSTNAME_CHANGE': {
-        const valid = action.payload !== '';
-
-        dispatch({
-          type: 'SAVE_BILLING_ADDRESS',
-          payload: {
-            ...state,
-            firstName: { error: false, value: action.payload, valid },
-          },
-        });
-
-        return {
-          ...state,
-          firstName: { error: false, value: action.payload, valid },
-        };
-      }
-
-      case 'LASTNAME_CHANGE': {
-        const valid = action.payload !== '';
-
-        dispatch({
-          type: 'SAVE_BILLING_ADDRESS',
-          payload: {
-            ...state,
-            lastName: { error: false, value: action.payload, valid },
-          },
-        });
-
-        return {
-          ...state,
-          lastName: { error: false, value: action.payload, valid },
-        };
-      }
-
-      case 'ADDRESS_CHANGE': {
-        const valid = action.payload !== '';
-
-        dispatch({
-          type: 'SAVE_BILLING_ADDRESS',
-          payload: {
-            ...state,
-            address: { error: false, value: action.payload, valid },
-          },
-        });
-
-        return {
-          ...state,
-          address: { error: false, value: action.payload, valid },
-        };
-      }
-
-      case 'APARTMENT_CHANGE': {
-        const valid = action.payload !== '';
-
-        dispatch({
-          type: 'SAVE_BILLING_ADDRESS',
-          payload: {
-            ...state,
-            apartment: { error: false, value: action.payload, valid },
-          },
-        });
-
-        return {
-          ...state,
-          apartment: { error: false, value: action.payload, valid },
-        };
-      }
-
-      case 'REGION_CHANGE': {
-        const valid = action.payload !== '';
-
-        dispatch({
-          type: 'SAVE_BILLING_ADDRESS',
-          payload: {
-            ...state,
-            region: { error: false, value: action.payload, valid },
-          },
-        });
-
-        return {
-          ...state,
-          region: { error: false, value: action.payload, valid },
-        };
-      }
-
-      case 'CITY_CHANGE': {
-        const valid = action.payload !== '';
-
-        dispatch({
-          type: 'SAVE_BILLING_ADDRESS',
-          payload: {
-            ...state,
-            city: { error: false, value: action.payload, valid },
-          },
-        });
-
-        return {
-          ...state,
-          city: { error: false, value: action.payload, valid },
-        };
-      }
-
-      case 'ZIPCODE_CHANGE': {
-        const valid = action.payload !== '';
-
-        dispatch({
-          type: 'SAVE_BILLING_ADDRESS',
-          payload: {
-            ...state,
-            zipCode: { error: false, value: action.payload, valid },
-          },
-        });
-
-        return {
-          ...state,
-          zipCode: { error: false, value: action.payload, valid },
-        };
-      }
-
-      case 'PHONE_CHANGE': {
-        const valid = action.payload !== '';
-
-        dispatch({
-          type: 'SAVE_BILLING_ADDRESS',
-          payload: {
-            ...state,
-            phone: { error: false, value: action.payload, valid },
-          },
-        });
-
-        return {
-          ...state,
-          phone: { error: false, value: action.payload, valid },
-        };
-      }
-
-      case 'FIRSTNAME_INVALID': {
-        return {
-          ...state,
-          firstName: { ...state.firstName, error: true },
-        };
-      }
-
-      case 'LASTNAME_INVALID': {
-        return {
-          ...state,
-          lastName: { ...state.lastName, error: true },
-        };
-      }
-
-      case 'ADDRESS_INVALID': {
-        return {
-          ...state,
-          address: { ...state.address, error: true },
-        };
-      }
-
-      case 'APARTMENT_INVALID': {
-        return {
-          ...state,
-          apartment: { ...state.apartment, error: true },
-        };
-      }
-
-      case 'REGION_INVALID': {
-        return {
-          ...state,
-          region: { ...state.region, error: true },
-        };
-      }
-
-      case 'CITY_INVALID': {
-        return {
-          ...state,
-          city: { ...state.city, error: true },
-        };
-      }
-
-      case 'ZIPCODE_INVALID': {
-        return {
-          ...state,
-          zipCode: { ...state.zipCode, error: true },
-        };
-      }
-
-      case 'PHONE_INVALID': {
-        return {
-          ...state,
-          phone: { ...state.phone, error: true },
-        };
-      }
-
-      default:
-        return state;
-    }
-  }
-
-  const [stateInfo, dispatchInfo] = useReducer(reducer, {
-    firstName: state.cart.billingAddress
-      ? state.cart.billingAddress.firstName
-      : '',
-    lastName: state.cart.billingAddress
-      ? state.cart.billingAddress.lastName
-      : '',
-    address: state.cart.billingAddress ? state.cart.billingAddress.address : '',
-    apartment: state.cart.billingAddress
-      ? state.cart.billingAddress.apartment
-      : '',
-    city: state.cart.billingAddress ? state.cart.billingAddress.city : '',
-    region: state.cart.billingAddress ? state.cart.billingAddress.region : '',
-    zipCode: state.cart.billingAddress ? state.cart.billingAddress.zipCode : '',
-    phone: state.cart.billingAddress ? state.cart.billingAddress.phone : '',
-  });
 
   const setAddress = (e) => {
     dispatchInfo({
@@ -342,10 +133,6 @@ export default function BillingAddress({ diff, setDiff }) {
                 setCountryValid={setCountryValid}
                 setCountry={(country) => {
                   setCountryCode(country);
-                  dispatch({
-                    type: 'SAVE_BILLING_COUNTRY',
-                    payload: { value: countryCode },
-                  });
                 }}
                 countryCode={countryCode}
               />

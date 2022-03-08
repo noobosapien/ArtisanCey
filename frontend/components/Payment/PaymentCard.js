@@ -446,7 +446,7 @@ export default function PaymentCard({ loading, setLoading }) {
                 : 10,
           },
           shippingAddress,
-          billingAddress,
+          billingAddress: diff ? billingAddress : shippingAddress,
           orderId: clientSecret,
         });
 

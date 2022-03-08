@@ -4,6 +4,7 @@ export async function placeOrder(details) {
   try {
     const { data } = await axios.post(
       `https://cms.artisancey.com/orders/place`,
+      // `http://localhost:1337/orders/place`,
       details
     );
     return data;

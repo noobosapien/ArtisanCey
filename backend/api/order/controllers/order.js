@@ -114,14 +114,14 @@ module.exports = {
         }),
 
         billingAddress: JSON.stringify({
-          firstName: billingAddress?.firstName?.value,
-          lastName: billingAddress?.lastName?.value,
-          address: billingAddress?.address?.value,
-          apartment: billingAddress?.apartment?.value,
-          city: billingAddress?.city?.value,
-          region: billingAddress?.region?.value,
-          zipCode: billingAddress?.zipCode?.value,
-          billingCountry: billingCountry?.value,
+          firstName: billingAddress.firstName.value,
+          lastName: billingAddress.lastName.value,
+          address: billingAddress.address.value,
+          apartment: billingAddress.apartment.value,
+          city: billingAddress.city.value,
+          region: billingAddress.region.value,
+          zipCode: billingAddress.zipCode.value,
+          billingCountry: billingCountry.value,
         }),
 
         shippingInfo: JSON.stringify({
@@ -132,10 +132,10 @@ module.exports = {
         }),
 
         billingInfo: JSON.stringify({
-          firstName: billingAddress?.firstName?.value,
-          lastName: billingAddress?.lastName?.value,
-          email: shippingAddress?.email?.value,
-          phone: billingAddress?.phone?.value,
+          firstName: billingAddress.firstName.value,
+          lastName: billingAddress.lastName.value,
+          email: shippingAddress.email.value,
+          phone: billingAddress.phone.value,
         }),
 
         shippingOption: JSON.stringify(shippingOption),

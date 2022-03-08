@@ -259,6 +259,7 @@ export default function PaymentCard({ loading, setLoading }) {
       shippingAddress,
       shippingCountry,
       billingAddress,
+      billingCountry,
       shippingMethod,
     },
   } = state;
@@ -363,7 +364,6 @@ export default function PaymentCard({ loading, setLoading }) {
     }
 
     var result;
-    console.log(billingAddress);
 
     if (diff) {
       result = await stripe.confirmCardPayment(
@@ -455,7 +455,9 @@ export default function PaymentCard({ loading, setLoading }) {
 
           router.push(`/order/${order.link}`);
         }
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 

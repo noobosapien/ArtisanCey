@@ -56,117 +56,117 @@ module.exports = {
     };
 
     try {
-      await Promise.all(
-        items.map(async (clientItem) => {
-          const serverItem = await strapi.services.product.findOne({
-            id: clientItem.id,
-          });
+      // await Promise.all(
+      //   items.map(async (clientItem) => {
+      //     const serverItem = await strapi.services.product.findOne({
+      //       id: clientItem.id,
+      //     });
 
-          // await strapi.services.product.update(
-          //   { id: clientItem.id },
-          //   {
-          //     stock: serverItem.stock - clientItem.quantity,
-          //   }
-          // );
-        })
+      //     // await strapi.services.product.update(
+      //     //   { id: clientItem.id },
+      //     //   {
+      //     //     stock: serverItem.stock - clientItem.quantity,
+      //     //   }
+      //     // );
+      //   })
+      // );
+
+      guest = await strapi.services.guests.findOne({
+        email: shippingAddress.email.value,
+      });
+
+      if (!guest) {
+        guest = await strapi.services.guests.create({
+          first_name: shippingAddress.firstName.value,
+          last_name: shippingAddress.lastName.value,
+          email: shippingAddress.email.value,
+        });
+      }
+
+      const data = {
+        email: shippingAddress.email.value,
+        orderId,
+      };
+
+      const toEncrypt = JSON.stringify(data);
+      const encrypted = await encrypt(toEncrypt);
+
+      var orderItems = [];
+      items.forEach((item) => {
+        orderItems.push({
+          id: item.id,
+          name: item.name,
+          quantity: item.quantity,
+        });
+      });
+
+      const orderObject = {
+        items: JSON.stringify(orderItems),
+        shippingAddress: JSON.stringify({
+          firstName: shippingAddress.firstName.value,
+          lastName: shippingAddress.lastName.value,
+          address: shippingAddress.address.value,
+          apartment: shippingAddress.apartment.value,
+          city: shippingAddress.city.value,
+          region: shippingAddress.region.value,
+          zipCode: shippingAddress.zipCode.value,
+          country,
+        }),
+
+        billingAddress: JSON.stringify({
+          firstName: billingAddress?.firstName?.value,
+          lastName: billingAddress?.lastName?.value,
+          address: billingAddress?.address?.value,
+          apartment: billingAddress?.apartment?.value,
+          city: billingAddress?.city?.value,
+          region: billingAddress?.region?.value,
+          zipCode: billingAddress?.zipCode?.value,
+          billingCountry: billingCountry?.value,
+        }),
+
+        shippingInfo: JSON.stringify({
+          firstName: shippingAddress.firstName.value,
+          lastName: shippingAddress.lastName.value,
+          email: shippingAddress.email.value,
+          phone: shippingAddress.phone.value,
+        }),
+
+        billingInfo: JSON.stringify({
+          firstName: billingAddress?.firstName?.value,
+          lastName: billingAddress?.lastName?.value,
+          email: shippingAddress?.email?.value,
+          phone: billingAddress?.phone?.value,
+        }),
+
+        shippingOption: JSON.stringify(shippingOption),
+
+        subtotal: Number(subtotal),
+        total: Number(total),
+        status: "wearhouse",
+
+        orderLink: encrypted.content,
+        orderEncObj: JSON.stringify(encrypted),
+        orderId,
+      };
+
+      var order = await strapi.services.order.create(orderObject);
+
+      order = sanitizeEntity(order, { model: strapi.models.order });
+
+      await strapi.services.guests.update(
+        { id: guest.id },
+        {
+          orders: [...guest.orders, order],
+        }
       );
+
+      return {
+        message: "success",
+        link: order.orderLink,
+      };
     } catch (e) {
       console.log(e);
     }
-
-    guest = await strapi.services.guests.findOne({
-      email: shippingAddress.email.value,
-    });
-
-    if (!guest) {
-      guest = await strapi.services.guests.create({
-        first_name: shippingAddress.firstName.value,
-        last_name: shippingAddress.lastName.value,
-        email: shippingAddress.email.value,
-      });
-    }
-
-    const data = {
-      email: shippingAddress.email.value,
-      orderId,
-    };
-
-    const toEncrypt = JSON.stringify(data);
-    const encrypted = await encrypt(toEncrypt);
-
-    var orderItems = [];
-    items.forEach((item) => {
-      orderItems.push({
-        id: item.id,
-        name: item.name,
-        quantity: item.quantity,
-      });
-    });
-
-    const orderObject = {
-      items: JSON.stringify(orderItems),
-      shippingAddress: JSON.stringify({
-        firstName: shippingAddress.firstName.value,
-        lastName: shippingAddress.lastName.value,
-        address: shippingAddress.address.value,
-        apartment: shippingAddress.apartment.value,
-        city: shippingAddress.city.value,
-        region: shippingAddress.region.value,
-        zipCode: shippingAddress.zipCode.value,
-        country,
-      }),
-
-      billingAddress: JSON.stringify({
-        firstName: billingAddress?.firstName?.value,
-        lastName: billingAddress?.lastName?.value,
-        address: billingAddress?.address?.value,
-        apartment: billingAddress?.apartment?.value,
-        city: billingAddress?.city?.value,
-        region: billingAddress?.region?.value,
-        zipCode: billingAddress?.zipCode?.value,
-        billingCountry: billingCountry?.value,
-      }),
-
-      shippingInfo: JSON.stringify({
-        firstName: shippingAddress.firstName.value,
-        lastName: shippingAddress.lastName.value,
-        email: shippingAddress.email.value,
-        phone: shippingAddress.phone.value,
-      }),
-
-      billingInfo: JSON.stringify({
-        firstName: billingAddress?.firstName?.value,
-        lastName: billingAddress?.lastName?.value,
-        email: shippingAddress?.email?.value,
-        phone: billingAddress?.phone?.value,
-      }),
-
-      shippingOption: JSON.stringify(shippingOption),
-
-      subtotal: Number(subtotal),
-      total: Number(total),
-      status: "wearhouse",
-
-      orderLink: encrypted.content,
-      orderEncObj: JSON.stringify(encrypted),
-      orderId,
-    };
-
-    var order = await strapi.services.order.create(orderObject);
-
-    order = sanitizeEntity(order, { model: strapi.models.order });
-
-    await strapi.services.guests.update(
-      { id: guest.id },
-      {
-        orders: [...guest.orders, order],
-      }
-    );
-
-    return {
-      message: "success",
-      link: order.orderLink,
-    };
 
     // ctx.send({ order }, 200);
   },

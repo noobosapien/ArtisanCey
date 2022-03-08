@@ -29,6 +29,7 @@ export default class MyDocument extends Document {
             sizes="16x16"
             href="/images/favicon-16x16.png"
           />
+
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

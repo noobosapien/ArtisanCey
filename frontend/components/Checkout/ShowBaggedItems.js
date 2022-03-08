@@ -8,7 +8,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import ArrowCircleDownTwoToneIcon from '@mui/icons-material/ArrowCircleDownTwoTone';
 import ArrowCircleUpTwoToneIcon from '@mui/icons-material/ArrowCircleUpTwoTone';
@@ -19,14 +19,67 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { Store } from '../../utils/store';
 import DirectionsBoatFilledOutlinedIcon from '@mui/icons-material/DirectionsBoatFilledOutlined';
+import { getOrder } from '../../helpers/getOrder';
+import { getProductInfo } from '../../helpers/getProductInfo';
 
-export default function ShowBaggedItems({ shipping }) {
+export default function ShowBaggedItems({ shipping, order }) {
   const { state, dispatch } = useContext(Store);
   const [collapse, setCollapse] = useState(false);
+
+  const [orderItems, setOrderItems] = useState([]);
+  const [orderShipping, setOrderShipping] = useState('');
+  const [orderSTotal, setOrderSTotal] = useState(0);
+  const [orderTotal, setOrderTotal] = useState(0);
 
   const {
     cart: { cartItems },
   } = state;
+
+  useEffect(() => {
+    if (order) {
+      const getOrderFromServer = async (order) => {
+        try {
+          const result = await getOrder(order);
+
+          if (result instanceof Array && result[0].items) {
+            const items =
+              typeof result[0].items === 'string'
+                ? JSON.parse(result[0].items)
+                : result[0].items;
+
+            const shipping =
+              typeof result[0].shippingOption === 'string'
+                ? JSON.parse(result[0].shippingOption)
+                : result[0].shippingOption;
+            shipping && setOrderShipping(shipping.label);
+
+            setOrderSTotal(result[0].subtotal);
+            setOrderTotal(result[0].total);
+
+            const oItems = [];
+
+            if (items instanceof Array) {
+              for (var i = 0; i < items.length; i++) {
+                const prod = await getProductInfo(items[i].id);
+                if (prod instanceof Array && prod.length > 0) {
+                  prod[0].quantity = items[i].quantity;
+                  prod[0].img = prod[0].images[0].url;
+
+                  oItems.push(prod[0]);
+                }
+              }
+            }
+
+            setOrderItems([...oItems]);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      };
+
+      getOrderFromServer(order);
+    }
+  }, [order]);
 
   const handleColapseClicked = (e) => {
     setCollapse(!collapse);
@@ -61,36 +114,65 @@ export default function ShowBaggedItems({ shipping }) {
                 zIndex: 0,
               }}
             >
-              {cartItems.map((item) => (
-                <>
-                  <ListItem
-                    key={item.id}
-                    secondaryAction={
-                      <Typography sx={{ fontSize: '1.5rem' }}>
-                        ${(item.price * item.quantity).toFixed(2)}
-                      </Typography>
-                    }
-                  >
-                    <ListItemAvatar>
-                      <Badge
-                        badgeContent={item.quantity}
-                        color="primary"
-                        anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'left',
-                        }}
+              {order
+                ? orderItems.map((item) => (
+                    <React.Fragment key={item.id}>
+                      <ListItem
+                        secondaryAction={
+                          <Typography sx={{ fontSize: '1.5rem' }}>
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </Typography>
+                        }
                       >
-                        <Avatar src={item.img} alt={item.name}></Avatar>
-                      </Badge>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={item.name}
-                      secondary={`Each: $${item.price.toFixed(2)}`}
-                    />
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                </>
-              ))}
+                        <ListItemAvatar>
+                          <Badge
+                            badgeContent={item.quantity}
+                            color="primary"
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left',
+                            }}
+                          >
+                            <Avatar src={item.img} alt={item.name}></Avatar>
+                          </Badge>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={item.name}
+                          secondary={`Each: $${item.price.toFixed(2)}`}
+                        />
+                      </ListItem>
+                      <Divider variant="inset" component="li" />
+                    </React.Fragment>
+                  ))
+                : cartItems.map((item) => (
+                    <React.Fragment key={`${item.id}_`}>
+                      <ListItem
+                        secondaryAction={
+                          <Typography sx={{ fontSize: '1.5rem' }}>
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </Typography>
+                        }
+                      >
+                        <ListItemAvatar>
+                          <Badge
+                            badgeContent={item.quantity}
+                            color="primary"
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left',
+                            }}
+                          >
+                            <Avatar src={item.img} alt={item.name}></Avatar>
+                          </Badge>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={item.name}
+                          secondary={`Each: $${item.price.toFixed(2)}`}
+                        />
+                      </ListItem>
+                      <Divider variant="inset" component="li" />
+                    </React.Fragment>
+                  ))}
             </List>
           </Card>
         </Collapse>
@@ -101,9 +183,10 @@ export default function ShowBaggedItems({ shipping }) {
           variant="outlined"
           sx={(theme) => ({
             padding: '1rem',
-            background: shipping
-              ? theme.palette.common.white
-              : theme.palette.common.darkGray,
+            background:
+              shipping || order
+                ? theme.palette.common.white
+                : theme.palette.common.darkGray,
           })}
         >
           <Typography
@@ -111,18 +194,23 @@ export default function ShowBaggedItems({ shipping }) {
             sx={(theme) => ({
               fontFamily: 'Roboto',
               fontSize: shipping ? '1.2rem' : '1.4rem',
-              color: shipping
-                ? theme.palette.common.black
-                : theme.palette.common.white,
+              color:
+                shipping || order
+                  ? theme.palette.common.black
+                  : theme.palette.common.white,
             })}
           >
             Subtotal: $
-            {cartItems.reduce((a, c) => a + c.quantity * c.price, 0).toFixed(2)}
+            {order
+              ? orderSTotal.toFixed(2)
+              : cartItems
+                  .reduce((a, c) => a + c.quantity * c.price, 0)
+                  .toFixed(2)}
           </Typography>
         </Paper>
       </Grid>
 
-      {shipping ? (
+      {shipping || order ? (
         <>
           <Grid item alignSelf="center">
             <Grid container spacing={2}>
@@ -135,7 +223,15 @@ export default function ShowBaggedItems({ shipping }) {
               </Grid>
               <Grid item>
                 <Typography variant="body2">
-                  Shipping: {shipping === 'standard' ? '$10.00' : '$20.00'}
+                  Shipping:{' '}
+                  {order
+                    ? orderShipping === 'standard'
+                      ? '$10.00'
+                      : orderShipping === 'express'
+                      ? '$20.00'
+                      : ''
+                    : ''}
+                  {!order && (shipping === 'standard' ? '$10.00' : '$20.00')}
                 </Typography>
               </Grid>
             </Grid>
@@ -157,10 +253,12 @@ export default function ShowBaggedItems({ shipping }) {
                 })}
               >
                 Total: $
-                {(
-                  cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
-                  (shipping === 'standard' ? 10 : 20)
-                ).toFixed(2)}
+                {order
+                  ? orderTotal.toFixed(2)
+                  : (
+                      cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
+                      (shipping === 'standard' ? 10 : 20)
+                    ).toFixed(2)}
               </Typography>
             </Paper>
           </Grid>

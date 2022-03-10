@@ -151,8 +151,12 @@ function reducer(state, action) {
 
     case 'CART_CLEAR': {
       Cookies.set('cartItems', JSON.stringify([]));
+      Cookies.set('shippingMethod', JSON.stringify({ value: '' }));
 
-      return { ...state, cart: { ...state.cart, cartItems: [] } };
+      return {
+        ...state,
+        cart: { ...state.cart, cartItems: [], shippingMethod: { value: '' } },
+      };
     }
 
     default:

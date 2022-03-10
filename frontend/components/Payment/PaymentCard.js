@@ -24,6 +24,7 @@ import { processOrder } from '../../helpers/processOrder';
 import { placeOrder } from '../../helpers/placeOrder';
 import countries from '../../utils/countries';
 import BillingAddress from './BillingAddress';
+import Cookies from 'js-cookie';
 
 export default function PaymentCard({ loading, setLoading }) {
   const { state, dispatch } = useContext(Store);
@@ -451,8 +452,10 @@ export default function PaymentCard({ loading, setLoading }) {
         });
 
         if (order.message === 'success') {
+          console.log(order);
           dispatch({ type: 'CART_CLEAR' });
 
+          Cookies.set('auth', order.auth);
           router.push(`/order/${order.link}`);
         }
       } catch (e) {

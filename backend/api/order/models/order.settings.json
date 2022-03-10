@@ -18,11 +18,13 @@
     },
     "shippingAddress": {
       "type": "json",
-      "required": true
+      "required": true,
+      "private": true
     },
     "billingAddress": {
       "type": "json",
-      "required": true
+      "required": true,
+      "private": true
     },
     "shippingInfo": {
       "type": "json",
@@ -61,6 +63,9 @@
     "orderEncObj": {
       "type": "json",
       "required": true
+    },
+    "orderAuth": {
+      "type": "json"
     }
   }
 }

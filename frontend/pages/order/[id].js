@@ -9,6 +9,7 @@ import Tick from '../../public/correct.svg';
 import Image from 'next/image';
 import { getOrder } from '../../helpers/getOrder';
 import StatusStepper from '../../components/Order/StatusStepper';
+import Cookies from 'js-cookie';
 
 function Order({ params }) {
   const router = useRouter();
@@ -17,16 +18,17 @@ function Order({ params }) {
 
   useEffect(() => {
     const getOrderFromServer = async () => {
-      const result = await getOrder(params.id);
+      const auth = Cookies.get('auth') ? Cookies.get('auth') : '';
+      const result = await getOrder(params.id, auth);
 
-      if (result instanceof Array && result.length) {
-        setOrder(result[0]);
+      if (result.shippingInfo) {
+        setOrder(result);
 
         var sInfo = '';
-        if (result[0].shippingInfo.firstName) {
-          sInfo = result[0].shippingInfo;
+        if (result.shippingInfo.firstName) {
+          sInfo = result.shippingInfo;
         } else {
-          sInfo = JSON.parse(result[0].shippingInfo);
+          sInfo = JSON.parse(result.shippingInfo);
         }
         setName(`${sInfo.firstName} ${sInfo.lastName}`);
       } else {

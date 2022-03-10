@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/orders/getOrder",
+      "handler": "order.getOrder",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/orders",
       "handler": "order.find",
       "config": {

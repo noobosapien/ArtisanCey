@@ -8,6 +8,7 @@
 const crypto = require("crypto");
 const { sanitizeEntity } = require("strapi-utils");
 const stripe = require("stripe")(process.env.STRIPE_SK);
+const { uuid } = require("uuidv4");
 
 module.exports = {
   async place(ctx) {
@@ -61,7 +62,7 @@ module.exports = {
       const toEncrypt = JSON.stringify(data);
       const encrypted = await encrypt(toEncrypt);
 
-      const orderAuth = crypto.randomUUID();
+      const orderAuth = uuid();
 
       var orderItems = [];
       items.forEach((item) => {
@@ -226,24 +227,6 @@ module.exports = {
 
   async getOrder(ctx) {
     try {
-      // const algorithm = "aes-256-ctr";
-      // const secretKey = process.env.SECRET_KEY;
-
-      // const decrypt = (hash) => {
-      //   const decipher = crypto.createDecipheriv(
-      //     algorithm,
-      //     secretKey,
-      //     Buffer.from(hash.iv, "hex")
-      //   );
-
-      //   const decrpyted = Buffer.concat([
-      //     decipher.update(Buffer.from(hash.content, "hex")),
-      //     decipher.final(),
-      //   ]);
-
-      //   return decrpyted.toString();
-      // };
-
       const query = ctx.query;
       if (!query.auth || !query.order) {
         return {

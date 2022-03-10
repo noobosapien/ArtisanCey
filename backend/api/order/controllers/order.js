@@ -61,11 +61,7 @@ module.exports = {
       const toEncrypt = JSON.stringify(data);
       const encrypted = await encrypt(toEncrypt);
 
-      const toAuth = JSON.stringify({
-        auth: shippingAddress.email.value,
-      });
-
-      const encryptedAuth = await encrypt(toAuth);
+      const orderAuth = crypto.randomUUID();
 
       var orderItems = [];
       items.forEach((item) => {
@@ -123,7 +119,7 @@ module.exports = {
         orderLink: encrypted.content,
         orderEncObj: JSON.stringify(encrypted),
         orderId,
-        orderAuth: JSON.stringify(encryptedAuth),
+        orderAuth,
       };
 
       var order = await strapi.services.order.create(orderObject);
@@ -140,7 +136,7 @@ module.exports = {
       return {
         message: "success",
         link: order.orderLink,
-        auth: encryptedAuth.content,
+        auth: orderAuth,
       };
     } catch (e) {
       console.log(e);
@@ -230,23 +226,23 @@ module.exports = {
 
   async getOrder(ctx) {
     try {
-      const algorithm = "aes-256-ctr";
-      const secretKey = process.env.SECRET_KEY;
+      // const algorithm = "aes-256-ctr";
+      // const secretKey = process.env.SECRET_KEY;
 
-      const decrypt = (hash) => {
-        const decipher = crypto.createDecipheriv(
-          algorithm,
-          secretKey,
-          Buffer.from(hash.iv, "hex")
-        );
+      // const decrypt = (hash) => {
+      //   const decipher = crypto.createDecipheriv(
+      //     algorithm,
+      //     secretKey,
+      //     Buffer.from(hash.iv, "hex")
+      //   );
 
-        const decrpyted = Buffer.concat([
-          decipher.update(Buffer.from(hash.content, "hex")),
-          decipher.final(),
-        ]);
+      //   const decrpyted = Buffer.concat([
+      //     decipher.update(Buffer.from(hash.content, "hex")),
+      //     decipher.final(),
+      //   ]);
 
-        return decrpyted.toString();
-      };
+      //   return decrpyted.toString();
+      // };
 
       const query = ctx.query;
       if (!query.auth || !query.order) {
@@ -259,21 +255,13 @@ module.exports = {
         .query("order")
         .findOne({ orderLink: ctx.query.order });
 
-      const auth = JSON.parse(order.orderAuth);
-
-      const decryptedAuth = await decrypt({
-        content: query.auth,
-        iv: auth.iv,
-      });
-
-      const account = JSON.parse(decryptedAuth);
-      const shippingInfo = JSON.parse(order.shippingInfo);
-
-      if (account.auth === shippingInfo.email) {
+      if (query.auth === order.orderAuth) {
         order.id = 0;
         order._id = 0;
 
         return order;
+      } else {
+        return { status: "fail" };
       }
     } catch (e) {
       console.log(e);

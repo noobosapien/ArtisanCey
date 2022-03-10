@@ -452,11 +452,10 @@ export default function PaymentCard({ loading, setLoading }) {
         });
 
         if (order.message === 'success') {
-          console.log(order);
+          console.log(order.auth);
           dispatch({ type: 'CART_CLEAR' });
 
-          Cookies.set('auth', order.auth);
-          router.push(`/order/${order.link}`);
+          router.push(`/order/${order.link}?auth=${order.auth}`);
         }
       } catch (e) {
         console.log(e);

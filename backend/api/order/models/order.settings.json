@@ -65,7 +65,7 @@
       "required": true
     },
     "orderAuth": {
-      "type": "json"
+      "type": "string"
     }
   }
 }

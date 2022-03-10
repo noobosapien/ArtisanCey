@@ -9,19 +9,17 @@ import Tick from '../../public/correct.svg';
 import Image from 'next/image';
 import { getOrder } from '../../helpers/getOrder';
 import StatusStepper from '../../components/Order/StatusStepper';
-import Cookies from 'js-cookie';
 
-function Order({ params }) {
+function Order({ params, query }) {
   const router = useRouter();
   const [order, setOrder] = useState({});
   const [name, setName] = useState('');
 
   useEffect(() => {
     const getOrderFromServer = async () => {
-      const auth = Cookies.get('auth') ? Cookies.get('auth') : '';
-      const result = await getOrder(params.id, auth);
+      const result = await getOrder(params.id, query.auth);
 
-      if (result.shippingInfo) {
+      if (result && result.shippingInfo) {
         setOrder(result);
 
         var sInfo = '';
@@ -122,8 +120,8 @@ function Order({ params }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
-  return { props: { params } };
+export async function getServerSideProps({ params, query }) {
+  return { props: { params, query } };
 }
 
 export default dynamic(() => Promise.resolve(Order), { ssr: false });

@@ -121,7 +121,14 @@ export default function Hero() {
       >
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item>
-            <Typography>Clean living</Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                fontFamily: 'Monton',
+              }}
+            >
+              Clean living
+            </Typography>
           </Grid>
           <Grid item xs={8} md={6} lg={4}>
             <Card
@@ -163,7 +170,7 @@ export default function Hero() {
           </Grid>
 
           <Grid item>
-            <Typography>Clean living</Typography>
+            <Typography variant="h2">Artisan's corner</Typography>
           </Grid>
         </Grid>
       </Grid>

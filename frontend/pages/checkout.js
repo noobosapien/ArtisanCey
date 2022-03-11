@@ -307,7 +307,7 @@ export default function Checkout() {
     for (var i = 0; i < keys.length; i++) {
       if (!stateInfo[keys[i]].valid) {
         errors = true;
-        console.log(stateInfo[keys[i]]);
+        console.log(stateInfo[keys[i]], keys[i]);
         break;
       }
     }

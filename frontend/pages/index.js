@@ -17,9 +17,9 @@ export default function Home({ featured }) {
       description={'Artisan Cey hand crafted and delivered'}
     >
       <Hero />
-      <Adornment />
+      {/* <Adornment /> */}
       <Carousel products={featured} />
-      <CategoryMenu />
+      {/* <CategoryMenu /> */}
       <LatestProducts />
       <Satisfaction />
     </Layout>

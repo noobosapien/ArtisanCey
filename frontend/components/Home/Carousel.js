@@ -158,7 +158,7 @@ export default function Carousel({ products }) {
       justifyContent="space-evenly"
       alignItems="center"
       spacing={10}
-      sx={{ marginTop: '0%' }}
+      sx={{ marginTop: '0%', marginBottom: '60vh' }}
     >
       <Grid item>
         <Typography variant="h3">Most viewed items</Typography>

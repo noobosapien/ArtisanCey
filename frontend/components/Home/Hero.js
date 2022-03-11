@@ -2,6 +2,7 @@ import {
   Card,
   CardActionArea,
   CardMedia,
+  Fab,
   Grid,
   Typography,
 } from '@mui/material';
@@ -12,6 +13,8 @@ import Clean from '../../public/clean.jpg';
 import Artisan from '../../public/elephant.jpg';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 
 const Animation = styled('div')(({ theme }) => ({
   position: 'absolute',
@@ -120,15 +123,45 @@ export default function Hero() {
         spacing={4}
       >
         <Grid item container justifyContent="space-around" alignItems="center">
-          <Grid item>
-            <Typography
-              variant="h2"
-              sx={{
-                fontFamily: 'Monton',
-              }}
-            >
-              Clean living
-            </Typography>
+          <Grid item xs={3} md="auto" container direction="column">
+            <Grid item>
+              <Typography
+                variant={matchesSM ? 'h6' : 'h2'}
+                sx={{
+                  fontFamily: 'Monoton',
+                  fontSize: matchesMD ? '0.8rem' : '2.5rem',
+                  textShadow:
+                    '1px 1px rgb(0, 255, 68), -0.2rem 0 .4rem rgb(0, 255, 191)',
+                }}
+              >
+                Clean living
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Typography
+                variant={matchesSM ? 'h6' : 'h2'}
+                sx={{
+                  fontFamily: 'Rancho',
+                  fontSize: matchesMD ? '0.8rem' : '2.5rem',
+                }}
+              >
+                The green collection
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Fab
+                color="secondary"
+                sx={(theme) => ({
+                  '	.MuiFab-root': {
+                    background: 'red',
+                  },
+                })}
+              >
+                <KeyboardDoubleArrowLeftIcon />
+              </Fab>
+            </Grid>
           </Grid>
           <Grid item xs={8} md={6} lg={4}>
             <Card
@@ -169,8 +202,52 @@ export default function Hero() {
             </Card>
           </Grid>
 
-          <Grid item>
-            <Typography variant="h2">Artisan's corner</Typography>
+          <Grid
+            item
+            xs={3}
+            md="auto"
+            container
+            direction="column"
+            alignItems="flex-end"
+          >
+            <Grid item>
+              <Typography
+                variant={matchesSM ? 'h6' : 'h2'}
+                sx={{
+                  fontFamily: 'Monoton',
+                  fontSize: matchesMD ? '0.8rem' : '2.5rem',
+                  textShadow:
+                    '1px 1px rgb(59, 0, 61), -0.2rem 0 .4rem rgb(59, 0, 61)',
+                }}
+              >
+                Artisan's corner
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Typography
+                variant={matchesSM ? 'h6' : 'h2'}
+                sx={{
+                  fontFamily: 'Rancho',
+                  fontSize: matchesMD ? '0.8rem' : '2.5rem',
+                }}
+              >
+                The rare collection
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Fab
+                color="secondary"
+                sx={(theme) => ({
+                  '	.MuiFab-root': {
+                    background: 'red',
+                  },
+                })}
+              >
+                <KeyboardDoubleArrowRightIcon />
+              </Fab>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

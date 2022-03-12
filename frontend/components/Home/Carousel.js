@@ -16,7 +16,8 @@ import {
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import Slider from 'react-slick';
+import { getTopRated } from '../../helpers/getTopRated';
+import SmallProductCard from '../common/SmallProductCard';
 
 const CustomImg = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down('xl')]: {
@@ -142,6 +143,26 @@ export default function Carousel({ products }) {
     return () => clearInterval(interval);
   }, [rotation1, rotation2, rotation3]);
 
+  const [RatedCL, setRatedCL] = useState([]);
+  const [RatedAC, setRatedAC] = useState([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const result = await getTopRated('62108e8587e59b6047859e53', 3);
+      if (result instanceof Array) setRatedCL([...result]);
+
+      var products = [];
+      const result2 = await getTopRated('62108edb87e59b6047859e54', 2);
+      if (result2 instanceof Array) products = [...result2];
+
+      const result3 = await getTopRated('62108e6e87e59b6047859e52', 1);
+      if (result3 instanceof Array) products = [...products, ...result3];
+      setRatedAC([...products]);
+    };
+
+    getProducts();
+  }, []);
+
   var settings = {
     dots: true,
     infinite: true,
@@ -158,167 +179,225 @@ export default function Carousel({ products }) {
       justifyContent="space-evenly"
       alignItems="center"
       spacing={10}
-      sx={{ marginTop: '0%', marginBottom: '60vh' }}
+      sx={{ marginTop: '10%' }}
     >
-      <Grid item>
-        <Typography variant="h3">Most viewed items</Typography>
-      </Grid>
-      {/* <Grid item xs={4}>
-        <Slider {...settings} style={{ width: '500px' }}>
-          <div>
-            <Card>
-              <Typography>Card 1</Typography>
-            </Card>
-          </div>
-          <div>
-            <Card>
-              <Typography>Card 1</Typography>
-            </Card>
-          </div>
-          <div>
-            <Card>
-              <Typography>Card 1</Typography>
-            </Card>
-          </div>
-          <div>
-            <Card>
-              <Typography>Card 1</Typography>
-            </Card>
-          </div>
-        </Slider>
-      </Grid> */}
-      <Grid item>
-        <div
-          style={{
-            marginLeft: '10%',
-            marginTop: '10%',
-            width: '210px',
-            height: '140px',
-            position: 'relative',
-          }}
-        >
+      <Grid
+        item
+        container
+        direction="column"
+        alignItems="center"
+        xs={12}
+        lg={4}
+        sx={{ marginBottom: '60vh' }}
+      >
+        <Grid item alignSelf="center">
+          <Typography variant="h3">Most viewed items</Typography>
+        </Grid>
+
+        <Grid item>
           <div
             style={{
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
+              marginLeft: '10%',
+              marginTop: '10%',
+              width: '210px',
+              height: '140px',
+              position: 'relative',
             }}
           >
-            <CustomImg
-              elevation={10}
+            <div
               style={{
-                transform: `perspective(1000px) rotateY(${rotation1}deg) translateZ(${zTranslate}px)`,
-                zIndex: z1,
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
               }}
             >
-              <CardActionArea>
-                <CardMedia component="img" image={slides[0].image} />
-                <CardContent>
-                  <CustomTyp align="center">{slides[0].name}</CustomTyp>
-                  <Rating
-                    name="product1"
+              <CustomImg
+                elevation={10}
+                style={{
+                  transform: `perspective(1000px) rotateY(${rotation1}deg) translateZ(${zTranslate}px)`,
+                  zIndex: z1,
+                }}
+              >
+                <CardActionArea>
+                  <CardMedia component="img" image={slides[0].image} />
+                  <CardContent>
+                    <CustomTyp align="center">{slides[0].name}</CustomTyp>
+                    <Rating
+                      name="product1"
+                      size="small"
+                      defaultValue={4.5}
+                      precision={0.5}
+                      readOnly
+                      sx={{
+                        backgroundColor: '#3a8783cc',
+                        borderRadius: '2rem',
+                      }}
+                    />
+                    <CustomTyp align="center">(14 ratings)</CustomTyp>
+                    <CustomTyp align="center" variant="h6">
+                      ${slides[0].price}
+                    </CustomTyp>
+                  </CardContent>
+                </CardActionArea>
+
+                <CardActions>
+                  <Button
                     size="small"
-                    defaultValue={4.5}
-                    precision={0.5}
-                    readOnly
-                    sx={{ backgroundColor: '#3a8783cc', borderRadius: '2rem' }}
-                  />
-                  <CustomTyp align="center">(14 ratings)</CustomTyp>
-                  <CustomTyp align="center" variant="h6">
-                    ${slides[0].price}
-                  </CustomTyp>
-                </CardContent>
-              </CardActionArea>
+                    variant="contained"
+                    color="secondary"
+                    sx={{ borderRadius: '2rem' }}
+                  >
+                    <AddShoppingCartIcon />
+                  </Button>
+                </CardActions>
+              </CustomImg>
 
-              <CardActions>
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="secondary"
-                  sx={{ borderRadius: '2rem' }}
-                >
-                  <AddShoppingCartIcon />
-                </Button>
-              </CardActions>
-            </CustomImg>
+              <CustomImg
+                elevation={10}
+                style={{
+                  transform: `perspective(1000px) rotateY(${rotation2}deg) translateZ(${zTranslate}px)`,
+                  zIndex: z2,
+                }}
+              >
+                <CardActionArea>
+                  <CardMedia component="img" image={slides[1].image} />
+                  <CardContent>
+                    <CustomTyp align="center">{slides[1].name}</CustomTyp>
+                    <Rating
+                      name="product2"
+                      size="small"
+                      defaultValue={4.5}
+                      precision={0.5}
+                      readOnly
+                      sx={{
+                        backgroundColor: '#3a8783cc',
+                        borderRadius: '2rem',
+                      }}
+                    />
+                    <CustomTyp align="center">(14 ratings)</CustomTyp>
+                    <CustomTyp align="center" variant="h6">
+                      ${slides[0].price}
+                    </CustomTyp>
+                  </CardContent>
+                </CardActionArea>
 
-            <CustomImg
-              elevation={10}
-              style={{
-                transform: `perspective(1000px) rotateY(${rotation2}deg) translateZ(${zTranslate}px)`,
-                zIndex: z2,
-              }}
-            >
-              <CardActionArea>
-                <CardMedia component="img" image={slides[1].image} />
-                <CardContent>
-                  <CustomTyp align="center">{slides[1].name}</CustomTyp>
-                  <Rating
-                    name="product2"
+                <CardActions>
+                  <Button
                     size="small"
-                    defaultValue={4.5}
-                    precision={0.5}
-                    readOnly
-                    sx={{ backgroundColor: '#3a8783cc', borderRadius: '2rem' }}
-                  />
-                  <CustomTyp align="center">(14 ratings)</CustomTyp>
-                  <CustomTyp align="center" variant="h6">
-                    ${slides[0].price}
-                  </CustomTyp>
-                </CardContent>
-              </CardActionArea>
+                    variant="contained"
+                    color="secondary"
+                    sx={{ borderRadius: '2rem' }}
+                  >
+                    <AddShoppingCartIcon />
+                  </Button>
+                </CardActions>
+              </CustomImg>
 
-              <CardActions>
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="secondary"
-                  sx={{ borderRadius: '2rem' }}
-                >
-                  <AddShoppingCartIcon />
-                </Button>
-              </CardActions>
-            </CustomImg>
+              <CustomImg
+                elevation={10}
+                style={{
+                  transform: `perspective(1000px) rotateY(${rotation3}deg) translateZ(${zTranslate}px)`,
+                  zIndex: z3,
+                }}
+              >
+                <CardActionArea>
+                  <CardMedia component="img" image={slides[2].image} />
+                  <CardContent>
+                    <CustomTyp align="center">{slides[2].name}</CustomTyp>
+                    <Rating
+                      name="product3"
+                      size="small"
+                      defaultValue={4.5}
+                      precision={0.5}
+                      readOnly
+                      sx={{
+                        backgroundColor: '#3a8783cc',
+                        borderRadius: '2rem',
+                      }}
+                    />
+                    <CustomTyp align="center">(14 ratings)</CustomTyp>
+                    <CustomTyp align="center" variant="h6">
+                      ${slides[0].price}
+                    </CustomTyp>
+                  </CardContent>
+                </CardActionArea>
 
-            <CustomImg
-              elevation={10}
-              style={{
-                transform: `perspective(1000px) rotateY(${rotation3}deg) translateZ(${zTranslate}px)`,
-                zIndex: z3,
-              }}
-            >
-              <CardActionArea>
-                <CardMedia component="img" image={slides[2].image} />
-                <CardContent>
-                  <CustomTyp align="center">{slides[2].name}</CustomTyp>
-                  <Rating
-                    name="product3"
+                <CardActions>
+                  <Button
                     size="small"
-                    defaultValue={4.5}
-                    precision={0.5}
-                    readOnly
-                    sx={{ backgroundColor: '#3a8783cc', borderRadius: '2rem' }}
-                  />
-                  <CustomTyp align="center">(14 ratings)</CustomTyp>
-                  <CustomTyp align="center" variant="h6">
-                    ${slides[0].price}
-                  </CustomTyp>
-                </CardContent>
-              </CardActionArea>
-
-              <CardActions>
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="secondary"
-                  sx={{ borderRadius: '2rem' }}
-                >
-                  <AddShoppingCartIcon />
-                </Button>
-              </CardActions>
-            </CustomImg>
+                    variant="contained"
+                    color="secondary"
+                    sx={{ borderRadius: '2rem' }}
+                  >
+                    <AddShoppingCartIcon />
+                  </Button>
+                </CardActions>
+              </CustomImg>
+            </div>
           </div>
-        </div>
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12} lg={4} container direction="column" spacing={10}>
+        <Grid item container alignItems="center" direction="column" spacing={6}>
+          <Grid item>
+            <Typography
+              sx={(theme) => ({
+                fontFamily: 'Ranga',
+                fontSize: '1.5rem',
+              })}
+            >
+              Top rated from
+            </Typography>
+            <Typography
+              sx={(theme) => ({
+                fontFamily: 'Monoton',
+                fontSize: '1.0rem',
+              })}
+            >
+              Clean Living
+            </Typography>
+          </Grid>
+          <Grid item container justifyContent="space-evenly" spacing={4}>
+            {RatedCL.map((cl) => (
+              <Grid item>
+                <SmallProductCard product={cl} />
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+
+        <Grid item>
+          <Card>About something</Card>
+        </Grid>
+
+        <Grid item container alignItems="center" direction="column" spacing={6}>
+          <Grid item>
+            <Typography
+              sx={(theme) => ({
+                fontFamily: 'Ranga',
+                fontSize: '1.5rem',
+              })}
+            >
+              Top rated from
+            </Typography>
+            <Typography
+              sx={(theme) => ({
+                fontFamily: 'Monoton',
+                fontSize: '1.0rem',
+              })}
+            >
+              Artisan's corner
+            </Typography>
+          </Grid>
+          <Grid item container justifyContent="space-evenly" spacing={4}>
+            {RatedAC.map((cl) => (
+              <Grid item>
+                <SmallProductCard product={cl} />
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );

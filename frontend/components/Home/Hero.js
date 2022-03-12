@@ -7,14 +7,16 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/system';
-// import Image from 'next/image';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import Clean from '../../public/clean.jpg';
-import Artisan from '../../public/elephant.jpg';
+import Clean from '../../public/clean2.jpg';
+import Artisan from '../../public/rare.svg';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import Nature from '../../public/nature.svg';
+import Art from '../../public/art.svg';
 
 const Animation = styled('div')(({ theme }) => ({
   position: 'absolute',
@@ -131,7 +133,7 @@ export default function Hero() {
                   fontFamily: 'Monoton',
                   fontSize: matchesMD ? '0.8rem' : '2.5rem',
                   textShadow:
-                    '1px 1px rgb(0, 255, 68), -0.2rem 0 .4rem rgb(0, 255, 191)',
+                    '1px 1px rgb(59, 0, 61), -0.2rem 0 .4rem rgb(59, 0, 61)',
                 }}
               >
                 Clean living
@@ -148,6 +150,10 @@ export default function Hero() {
               >
                 The green collection
               </Typography>
+            </Grid>
+
+            <Grid item>
+              <Image src={Nature.src} alt="art" width={32} height={32} />
             </Grid>
 
             <Grid item>
@@ -234,6 +240,10 @@ export default function Hero() {
               >
                 The rare collection
               </Typography>
+            </Grid>
+
+            <Grid item>
+              <Image src={Art.src} alt="art" width={32} height={32} />
             </Grid>
 
             <Grid item>

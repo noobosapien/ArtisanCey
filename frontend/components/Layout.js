@@ -16,7 +16,6 @@ import {
   Link,
   Badge,
 } from '@mui/material';
-import InputAdornment from '@mui/material/InputAdornment';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Close from '@mui/icons-material/Close';
 import Logo from '../public/slice5.png';
@@ -28,6 +27,7 @@ import TopMenu from './TopMenu';
 import SearchDialog from './common/SearchDialog';
 import { useRouter } from 'next/router';
 import { Store } from '../utils/store';
+import Sticker from '../public/sticker.png';
 
 const LogoButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
@@ -210,9 +210,97 @@ export default function Layout({ title, description, children }) {
         style={{
           backgroundColor: '#C3E6D3',
           marginTop: '15%',
+          paddingTop: '4rem',
+          paddingBottom: '4rem',
         }}
       >
-        <Typography>All rights reserved.</Typography>
+        <Grid container alignItems="center">
+          <Grid item container alignItems="center" direction="column" md={3}>
+            <Grid item>
+              <Image src={Sticker} alt="sticker" width={50} height={50} />
+            </Grid>
+
+            <Grid item>
+              <Typography variant="body2">2% for the planet</Typography>
+            </Grid>
+          </Grid>
+
+          <Grid item container alignItems="center" direction="column" md={4}>
+            <Grid item>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '1.5rem',
+                }}
+              >
+                About us
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '1.5rem',
+                }}
+              >
+                Contact us
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '1.5rem',
+                }}
+              >
+                Shipping & Delivery
+              </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid item container direction="column" alignItems="center" md={4}>
+            <Grid item>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '1.5rem',
+                }}
+              >
+                Wholesale
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '1.5rem',
+                }}
+              >
+                Privacy
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '1.5rem',
+                }}
+              >
+                Terms & Conditions
+              </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid item container direction="column" alignItems="center" md={3}>
+            <Grid item>
+              <Typography variant="body2">Visa</Typography>
+            </Grid>
+          </Grid>
+        </Grid>
       </footer>
     </>
   );

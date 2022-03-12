@@ -30,14 +30,19 @@ export default function SmallProductCard({ product }) {
           </CardActionArea>
         </Card>
       </Grid>
-      <Grid item container alignItems="center" justifyContent="center">
+      <Grid
+        item
+        container
+        alignItems="center"
+        justifyContent="center"
+        direction="column"
+      >
         <Grid item>
           <Rating value={product.rating} readOnly />
         </Grid>
         <Grid item>
           <Typography>
-            ({product.reviews instanceof Array ? product.reviews.length : 0}{' '}
-            reviews)
+            ({product.noofreviews ? product.noofreviews : 0} reviews)
           </Typography>
         </Grid>
       </Grid>

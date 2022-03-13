@@ -291,7 +291,11 @@ export default function ProductPage(props) {
                 </Grid>
 
                 <Grid item>
-                  <InfoTable product={product[0]} />
+                  {product instanceof Array ? (
+                    <InfoTable product={product[0]} />
+                  ) : (
+                    <></>
+                  )}
                 </Grid>
               </Grid>
             </Grid>

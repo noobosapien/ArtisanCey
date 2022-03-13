@@ -151,13 +151,8 @@ export default function Carousel({ products }) {
       const result = await getTopRated('62108e8587e59b6047859e53', 3);
       if (result instanceof Array) setRatedCL([...result]);
 
-      var products = [];
-      const result2 = await getTopRated('62108edb87e59b6047859e54', 2);
-      if (result2 instanceof Array) products = [...result2];
-
-      const result3 = await getTopRated('62108e6e87e59b6047859e52', 1);
-      if (result3 instanceof Array) products = [...products, ...result3];
-      setRatedAC([...products]);
+      const result2 = await getTopRated('622d249f6c49bb3c9664a51d', 3);
+      if (result2 instanceof Array) setRatedAC([...result2]);
     };
 
     getProducts();

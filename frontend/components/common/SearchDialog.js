@@ -6,7 +6,10 @@ import List from '@mui/material/List';
 
 import { useInput } from '@mui/base';
 import { styled } from '@mui/system';
-import { Grid } from '@mui/material';
+import { Button, Grid, IconButton } from '@mui/material';
+import { getSearchResults } from '../../helpers/getSearchResults';
+import SmallProductCard from './SmallProductCard';
+import CloseIcon from '@mui/icons-material/Close';
 
 const StyledInputElement = styled('input')(
   ({ theme }) => `
@@ -48,6 +51,7 @@ export default function SearchDialog({ openSearch, setOpenSearch }) {
   const [searchResults, setSearchResults] = useState([]);
   const closeSearchHandler = (e) => {
     setOpenSearch(false);
+    setSearchResults([]);
   };
 
   const handleTextEnter = async (e) => {
@@ -64,35 +68,29 @@ export default function SearchDialog({ openSearch, setOpenSearch }) {
           }
         });
 
-      const result = await fetch(
-        `https://cms.artisancey.com/products?${query}&_limit=5`
-      );
+      const result = await getSearchResults(query);
 
-      const items = await result.json();
-      const updatedList = [];
+      const items = result instanceof Array ? [...result] : [];
 
-      items instanceof Array &&
-        items.forEach((item) => {
-          const i = {};
+      console.log(items);
+      // const updatedList = [];
 
-          i.id = item.id;
-          i.slug = item.slug;
-          i.name = item.name;
-          i.image = item.images instanceof Array ? item.images[0].url : '';
-          i.price = item.price;
+      // items instanceof Array &&
+      //   items.forEach((item) => {
+      //     const i = {};
 
-          updatedList.push(i);
-        });
+      //     i.id = item.id;
+      //     i.slug = item.slug;
+      //     i.name = item.name;
+      //     i.image = item.images instanceof Array ? item.images[0].url : '';
+      //     i.price = item.price;
 
-      setSearchResults(updatedList);
+      //     updatedList.push(i);
+      //   });
+
+      setSearchResults(items);
     }
   };
-
-  const list = () => (
-    <Box sx={{ width: 'auto' }} role="search">
-      <List></List>
-    </Box>
-  );
 
   return (
     <>
@@ -107,16 +105,55 @@ export default function SearchDialog({ openSearch, setOpenSearch }) {
           },
         })}
       >
-        <Grid container justifyContent="space-evenly" sx={{ marginTop: '4%' }}>
-          <Grid item xs={10} sm={10} md={8} lg={6}>
+        <Grid
+          container
+          justifyContent="space-evenly"
+          alignItems="center"
+          sx={{ marginTop: '4%' }}
+        >
+          <Grid item xs={8} sm={8} md={8} lg={6}>
             <CustomInput
+              onChange={handleTextEnter}
               aria-label="Search bar"
               placeholder="Search..."
               autoFocus
             />
           </Grid>
+          <Grid item>
+            <IconButton onClick={closeSearchHandler}>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+
+          <Grid
+            item
+            container
+            xs={12}
+            justifyContent="space-evenly"
+            sx={{ marginTop: '4%', marginBottom: '2%' }}
+          >
+            {searchResults.map((product) => (
+              <Grid item key={product.id}>
+                <SmallProductCard product={product} noReviews />
+              </Grid>
+            ))}
+
+            {searchResults.length > 0 ? (
+              <>
+                <Grid item xs={12} />
+                <Grid
+                  item
+                  alignSelf="center"
+                  sx={{ marginTop: '4%', marginBottom: '2%' }}
+                >
+                  <Button variant="contained">Expand search</Button>
+                </Grid>
+              </>
+            ) : (
+              <></>
+            )}
+          </Grid>
         </Grid>
-        {list()}
       </Drawer>
     </>
   );

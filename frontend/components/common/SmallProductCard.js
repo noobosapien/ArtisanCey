@@ -9,7 +9,7 @@ import {
 import React from 'react';
 import { useRouter } from 'next/router';
 
-export default function SmallProductCard({ product }) {
+export default function SmallProductCard({ product, noReviews }) {
   const router = useRouter();
 
   return (
@@ -30,22 +30,27 @@ export default function SmallProductCard({ product }) {
           </CardActionArea>
         </Card>
       </Grid>
-      <Grid
-        item
-        container
-        alignItems="center"
-        justifyContent="center"
-        direction="column"
-      >
-        <Grid item>
-          <Rating value={product.rating} readOnly />
+
+      {noReviews ? (
+        <></>
+      ) : (
+        <Grid
+          item
+          container
+          alignItems="center"
+          justifyContent="center"
+          direction="column"
+        >
+          <Grid item>
+            <Rating value={product.rating} readOnly />
+          </Grid>
+          <Grid item>
+            <Typography>
+              ({product.noofreviews ? product.noofreviews : 0} reviews)
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Typography>
-            ({product.noofreviews ? product.noofreviews : 0} reviews)
-          </Typography>
-        </Grid>
-      </Grid>
+      )}
 
       <Grid item alignSelf="center">
         <Typography variant="body2">{product.name}</Typography>

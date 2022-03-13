@@ -22,7 +22,6 @@ import Logo from '../public/slice5.png';
 import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import { Box } from '@mui/system';
 import TopMenu from './TopMenu';
 import SearchDialog from './common/SearchDialog';
 import { useRouter } from 'next/router';
@@ -227,71 +226,90 @@ export default function Layout({ title, description, children }) {
 
           <Grid item container alignItems="center" direction="column" md={4}>
             <Grid item>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '1.5rem',
-                }}
-              >
-                About us
-              </Typography>
+              <NextLink href="/about">
+                <Typography
+                  href="/about"
+                  variant="body2"
+                  sx={{
+                    fontSize: '1.5rem',
+                    cursor: 'pointer',
+                  }}
+                >
+                  About us
+                </Typography>
+              </NextLink>
             </Grid>
 
             <Grid item>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '1.5rem',
-                }}
-              >
-                Contact us
-              </Typography>
+              <NextLink href="/contact">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontSize: '1.5rem',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Contact us
+                </Typography>
+              </NextLink>
             </Grid>
 
             <Grid item>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '1.5rem',
-                }}
-              >
-                Shipping & Delivery
-              </Typography>
+              <NextLink href="/shippingdel">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontSize: '1.5rem',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Shipping & Delivery
+                </Typography>
+              </NextLink>
             </Grid>
           </Grid>
 
           <Grid item container direction="column" alignItems="center" md={4}>
             <Grid item>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '1.5rem',
-                }}
-              >
-                Wholesale
-              </Typography>
+              <NextLink href="/wholesale">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontSize: '1.5rem',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Wholesale
+                </Typography>
+              </NextLink>
             </Grid>
 
             <Grid item>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '1.5rem',
-                }}
-              >
-                Privacy
-              </Typography>
+              <NextLink href="/privacy">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontSize: '1.5rem',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Privacy
+                </Typography>
+              </NextLink>
             </Grid>
 
             <Grid item>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '1.5rem',
-                }}
-              >
-                Terms & Conditions
-              </Typography>
+              <NextLink href="/terms">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontSize: '1.5rem',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Terms & Conditions
+                </Typography>
+              </NextLink>
             </Grid>
           </Grid>
 

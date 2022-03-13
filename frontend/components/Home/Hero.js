@@ -17,6 +17,7 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import Nature from '../../public/nature.svg';
 import Art from '../../public/art.svg';
+import { useRouter } from 'next/router';
 
 const Animation = styled('div')(({ theme }) => ({
   position: 'absolute',
@@ -83,6 +84,7 @@ function Hero2() {
 
 export default function Hero() {
   const theme = useTheme();
+  const router = useRouter();
 
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
   const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -90,28 +92,13 @@ export default function Hero() {
   const matchesLG = useMediaQuery(theme.breakpoints.down('lg'));
   const matchesXL = useMediaQuery(theme.breakpoints.down('xl'));
 
-  const imgWidth = matchesXS
-    ? 100
-    : matchesSM
-    ? 200
-    : matchesMD
-    ? 200
-    : matchesLG
-    ? 300
-    : matchesXL
-    ? 300
-    : 300;
-  const imgHeight = matchesXS
-    ? 100
-    : matchesSM
-    ? 200
-    : matchesMD
-    ? 200
-    : matchesLG
-    ? 300
-    : matchesXL
-    ? 300
-    : 300;
+  const handleGoToCL = async (e) => {
+    router.push('/category/Clean Living');
+  };
+
+  const handleGoToAC = async (e) => {
+    router.push('/category/Artisans Corner');
+  };
 
   return (
     <>
@@ -158,6 +145,7 @@ export default function Hero() {
 
             <Grid item>
               <Fab
+                onClick={handleGoToCL}
                 color="secondary"
                 sx={(theme) => ({
                   '	.MuiFab-root': {
@@ -175,7 +163,7 @@ export default function Hero() {
                 borderRadius: '25%',
               }}
             >
-              <CardActionArea>
+              <CardActionArea onClick={handleGoToCL}>
                 <CardMedia
                   component="img"
                   height="100%"
@@ -194,7 +182,7 @@ export default function Hero() {
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item xs={8} md={6} lg={4}>
             <Card sx={{ borderRadius: '25%' }}>
-              <CardActionArea>
+              <CardActionArea onClick={handleGoToAC}>
                 <CardMedia
                   component="img"
                   height="100%"
@@ -248,6 +236,7 @@ export default function Hero() {
 
             <Grid item>
               <Fab
+                onClick={handleGoToAC}
                 color="secondary"
                 sx={(theme) => ({
                   '	.MuiFab-root': {

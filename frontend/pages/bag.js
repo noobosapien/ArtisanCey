@@ -1,31 +1,11 @@
-import {
-  Button,
-  Card,
-  FormControl,
-  FormHelperText,
-  Grid,
-  InputAdornment,
-  Link,
-  List,
-  ListItem,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from '@mui/material';
+import { Button, Card, Grid, List, ListItem, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 import Layout from '../components/Layout';
 import { Store } from '../utils/store';
-import NextLink from 'next/link';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import BaggedItem from '../components/Bag/BaggedItem';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 
 function Cart() {
   const { state, dispatch } = useContext(Store);
@@ -62,6 +42,7 @@ function Cart() {
   return (
     <Layout>
       <Grid
+        sx={{ marginTop: '1rem' }}
         spacing={10}
         container
         justifyContent="center"
@@ -75,103 +56,40 @@ function Cart() {
         </Grid>
 
         {cartItems instanceof Array && cartItems.length === 0 ? (
-          <Grid item>
-            <Typography>Bag is empty</Typography>
-          </Grid>
-        ) : (
-          <Grid item container justifyContent="space-evenly" spacing={5}>
+          <>
             <Grid item>
-              <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Image</TableCell>
-                      <TableCell>Name</TableCell>
-                      <TableCell align="right">Qty</TableCell>
-                      <TableCell align="right">Price</TableCell>
-                      <TableCell align="right">Action</TableCell>
-                    </TableRow>
-                  </TableHead>
+              <Typography>Your bag is currently empty</Typography>
+            </Grid>
 
-                  <TableBody>
-                    {cartItems.map((item) => (
-                      <TableRow key={item.id}>
-                        <TableCell>
-                          <NextLink href={`/product/${item.slug}`} passHref>
-                            <Link>
-                              <Image
-                                src={item.img}
-                                alt={item.name}
-                                width={50}
-                                height={50}
-                              />
-                            </Link>
-                          </NextLink>
-                        </TableCell>
-
-                        <TableCell>
-                          <NextLink href={`/product/${item.slug}`} passHref>
-                            <Link>
-                              <Typography>{item.name}</Typography>
-                            </Link>
-                          </NextLink>
-                        </TableCell>
-
-                        <TableCell align="right">
-                          <FormControl
-                            sx={{ m: 1, width: '7ch' }}
-                            variant="outlined"
-                          >
-                            <OutlinedInput
-                              error={item.error}
-                              value={item.quantity}
-                              onChange={handleQtyChanged(item)}
-                              size="small"
-                              type="number"
-                              min={1}
-                              step={1}
-                              id="quantity"
-                              aria-describedby="quantity of item"
-                              sx={{
-                                'input::-webkit-inner-spin-button': {
-                                  '-webkit-appearance': 'none',
-                                  margin: 0,
-                                },
-
-                                'input[type=number]': {
-                                  '-moz-appearance': 'textfield',
-                                },
-                              }}
-                              inputProps={{
-                                'aria-label': 'quantity',
-                                type: 'number',
-                                min: 1,
-                                step: 1,
-                              }}
-                            />
-                          </FormControl>
-                        </TableCell>
-
-                        <TableCell align="right">
-                          <Typography>
-                            ${(item.price * item.quantity).toFixed(2)}
-                          </Typography>
-                        </TableCell>
-
-                        <TableCell align="right">
-                          <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={removeItemHandler(item)}
-                          >
-                            X
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+            <Grid item>
+              <Button
+                variant="outlined"
+                endIcon={<SentimentSatisfiedAltIcon />}
+                onClick={(e) => router.push('/')}
+              >
+                get some items
+              </Button>
+            </Grid>
+          </>
+        ) : (
+          <Grid
+            item
+            container
+            justifyContent="space-evenly"
+            alignItems="center"
+            spacing={5}
+          >
+            <Grid item alignItems="space-evenly">
+              <Grid item container direction="column" spacing={5}>
+                {cartItems.map((item) => (
+                  <Grid item>
+                    <BaggedItem
+                      item={item}
+                      removeItemHandler={removeItemHandler(item)}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
 
             <Grid item>

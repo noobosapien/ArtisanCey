@@ -31,6 +31,7 @@ import SmallProductCard from '../../components/common/SmallProductCard';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import Reviews from '../../components/Product/Reviews';
+import InfoTable from '../../components/Product/InfoTable';
 import { Store } from '../../utils/store';
 import { getProductInfo } from '../../helpers/getProductInfo';
 
@@ -287,6 +288,10 @@ export default function ProductPage(props) {
                   >
                     {prodInfo.description}
                   </Typography>
+                </Grid>
+
+                <Grid item>
+                  <InfoTable product={product[0]} />
                 </Grid>
               </Grid>
             </Grid>

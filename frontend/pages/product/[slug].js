@@ -76,9 +76,12 @@ export default function ProductPage(props) {
     const updateReviews = async () => {
       try {
         const info = await getProductInfo(product[0]?.id);
-        prodInfo.noofreviews = info[0].noofreviews ? info[0].noofreviews : 0;
-        prodInfo.rating = info[0].rating ? info[0].rating : 0;
-        console.log(prodInfo);
+        prodInfo.noofreviews =
+          info instanceof Array && info[0].noofreviews
+            ? info[0].noofreviews
+            : 0;
+        prodInfo.rating =
+          info instanceof Array && info[0].rating ? info[0].rating : 0;
         setUpdate(update + 1);
       } catch (e) {
         console.log(e);
@@ -154,7 +157,7 @@ export default function ProductPage(props) {
       >
         <Grid item>
           <Message
-            text={`Added ${product[0].name} to the bag!`}
+            text={`Added ${prodInfo.name} to the bag!`}
             severity="success"
             open={openMessage}
             setOpen={setOpenMessage}

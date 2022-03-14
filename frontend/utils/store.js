@@ -4,6 +4,9 @@ import { createContext, useReducer } from 'react';
 export const Store = createContext();
 
 const initialState = {
+  topMenu: {
+    open: true,
+  },
   cart: {
     cartItems: Cookies.get('cartItems')
       ? JSON.parse(Cookies.get('cartItems'))
@@ -50,6 +53,17 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'OPEN_TOP_MENU': {
+      console.log('Here');
+
+      return { ...state, topMenu: { open: true } };
+    }
+
+    case 'CLOSE_TOP_MENU': {
+      console.log('Here');
+      return { ...state, topMenu: { open: false } };
+    }
+
     case 'CART_ADD_ITEM': {
       const newItem = action.payload;
       const existItem = state.cart.cartItems.find(

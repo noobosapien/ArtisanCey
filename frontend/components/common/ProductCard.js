@@ -21,10 +21,12 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useRouter } from 'next/router';
 import { Store } from '../../utils/store';
 import { getProductInfo } from '../../helpers/getProductInfo';
+import Message from './Message';
 
 export default function ProductCard({ product }) {
   const { state, dispatch } = useContext(Store);
   const [update, setUpdate] = useState(1);
+  const [openMessage, setOpenMessage] = useState(false);
 
   const router = useRouter();
 
@@ -46,8 +48,10 @@ export default function ProductCard({ product }) {
   useEffect(() => {
     const updateReviews = async () => {
       const info = await getProductInfo(prod.id);
-      prod.noOfReviews = info[0].noofreviews ? info[0].noofreviews : 0;
-      prod.rating = info[0].rating ? info[0].rating : 0;
+      prod.noOfReviews =
+        info instanceof Array && info[0].noofreviews ? info[0].noofreviews : 0;
+      prod.rating =
+        info instanceof Array && info[0].rating ? info[0].rating : 0;
 
       setUpdate(update + 1);
     };
@@ -90,6 +94,8 @@ export default function ProductCard({ product }) {
       type: 'CART_ADD_ITEM',
       payload: { ...prod, quantity },
     });
+
+    setOpenMessage(true);
   };
 
   return (
@@ -107,7 +113,16 @@ export default function ProductCard({ product }) {
                 alignItems="center"
               >
                 <Grid item>
-                  <Typography variant="body2">{prod.name}</Typography>
+                  <Typography
+                    variant="body2"
+                    sx={(theme) => ({
+                      fontWeight: '700',
+                      fontSize: '1.5rem',
+                      color: theme.palette.common.lightGray,
+                    })}
+                  >
+                    {prod.name}
+                  </Typography>
                 </Grid>
 
                 <Grid item>
@@ -134,7 +149,14 @@ export default function ProductCard({ product }) {
                 </Grid>
 
                 <Grid item>
-                  <Typography variant="subtitle">
+                  <Typography
+                    variant="body2"
+                    sx={(theme) => ({
+                      fontFamily: 'Roboto',
+                      fontWeight: '700',
+                      color: theme.palette.common.lightGray,
+                    })}
+                  >
                     {prod.noOfReviews
                       ? `(${prod.noOfReviews} reviews)`
                       : '(No reviews yet)'}
@@ -154,6 +176,15 @@ export default function ProductCard({ product }) {
             </ImageButton>
           </CardActions>
         </Card>
+      </Grid>
+
+      <Grid item>
+        <Message
+          text={`Added ${prod.name} to the bag!`}
+          severity="success"
+          open={openMessage}
+          setOpen={setOpenMessage}
+        />
       </Grid>
     </Grid>
   );

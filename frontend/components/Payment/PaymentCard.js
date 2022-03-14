@@ -25,6 +25,7 @@ import { placeOrder } from '../../helpers/placeOrder';
 import countries from '../../utils/countries';
 import BillingAddress from './BillingAddress';
 import Cookies from 'js-cookie';
+import Message from '../common/Message';
 
 export default function PaymentCard({ loading, setLoading }) {
   const { state, dispatch } = useContext(Store);
@@ -92,7 +93,8 @@ export default function PaymentCard({ loading, setLoading }) {
       }
 
       case 'APARTMENT_CHANGE': {
-        const valid = action.payload !== '';
+        // const valid = action.payload !== '';
+        const valid = true;
 
         dispatch({
           type: 'SAVE_BILLING_ADDRESS',
@@ -265,6 +267,10 @@ export default function PaymentCard({ loading, setLoading }) {
     },
   } = state;
 
+  const [openMessage, setOpenMessage] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState('error');
+
   useEffect(() => {
     const idempotencyKey = uuidv4();
 
@@ -323,6 +329,10 @@ export default function PaymentCard({ loading, setLoading }) {
     }
 
     if (errors && diff) {
+      setMessage('Please complete all the required fields');
+      setSeverity('error');
+      setOpenMessage(true);
+
       if (!stateInfo.firstName.valid) {
         dispatchInfo({ type: 'FIRSTNAME_INVALID' });
       }
@@ -361,6 +371,9 @@ export default function PaymentCard({ loading, setLoading }) {
     if (cardValid) {
       setLoading(true);
     } else {
+      setMessage('Please complete all the required fields');
+      setSeverity('error');
+      setOpenMessage(true);
       setLoading(false);
     }
 
@@ -413,10 +426,16 @@ export default function PaymentCard({ loading, setLoading }) {
     }
 
     if (result.error) {
-      console.log(result.error.message);
+      setMessage('Payment failed, please try again.');
+      setSeverity('error');
+      setOpenMessage(true);
       setLoading(false);
     } else if (result.paymentIntent.status === 'succeeded') {
-      console.log('Success');
+      setMessage(
+        'Thank you, please wait till we transfer you to the order page!'
+      );
+      setSeverity('success');
+      setOpenMessage(true);
 
       try {
         const total = (
@@ -458,7 +477,11 @@ export default function PaymentCard({ loading, setLoading }) {
           router.push(`/order/${order.link}?auth=${order.auth}`);
         }
       } catch (e) {
-        console.log(e);
+        setMessage(
+          'SOMETHING WENT WRONG, PLEASE CONTACT SUPPORT, YOUR ORDER HAS NOT BEING PLACED.'
+        );
+        setSeverity('error');
+        setOpenMessage(true);
       }
     }
   };
@@ -485,6 +508,12 @@ export default function PaymentCard({ loading, setLoading }) {
 
   return (
     <Card variant="outlined" sx={{}}>
+      <Message
+        text={message}
+        severity={severity}
+        open={openMessage}
+        setOpen={setOpenMessage}
+      />
       <CardContent>
         <List
           sx={{

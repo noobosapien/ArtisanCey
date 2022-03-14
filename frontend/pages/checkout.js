@@ -18,9 +18,12 @@ import SelectCountry from '../components/Checkout/SelectCountry';
 import SelectAddress from '../components/Checkout/SelectAddress';
 import ShowBaggedItems from '../components/Checkout/ShowBaggedItems';
 import SideCart from '../components/Checkout/SideCart';
+import Message from '../components/common/Message';
 
 export default function Checkout() {
   const { state, dispatch } = useContext(Store);
+
+  const [openMessage, setOpenMessage] = useState(false);
 
   function reducer(state, action) {
     switch (action.type) {
@@ -96,7 +99,8 @@ export default function Checkout() {
       }
 
       case 'APARTMENT_CHANGE': {
-        const valid = action.payload !== '';
+        // const valid = action.payload !== '';
+        const valid = true;
 
         dispatch({
           type: 'SAVE_SHIPPING_ADDRESS',
@@ -322,6 +326,8 @@ export default function Checkout() {
     console.log(errors);
     if (!errors) return router.push('/shipping');
 
+    setOpenMessage(true);
+
     if (!stateInfo.email.valid) {
       dispatchInfo({ type: 'EMAIL_INVALID' });
     }
@@ -364,6 +370,15 @@ export default function Checkout() {
         direction="column"
         spacing={4}
       >
+        <Grid item>
+          <Message
+            text={'Please complete all the required fields'}
+            severity="error"
+            open={openMessage}
+            setOpen={setOpenMessage}
+          />
+        </Grid>
+
         <Grid item>
           <Box sx={{ display: { xs: 'block', md: 'none' } }}>
             <ShowBaggedItems />

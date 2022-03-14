@@ -34,11 +34,14 @@ import Reviews from '../../components/Product/Reviews';
 import InfoTable from '../../components/Product/InfoTable';
 import { Store } from '../../utils/store';
 import { getProductInfo } from '../../helpers/getProductInfo';
+import Message from '../../components/common/Message';
 
 export default function ProductPage(props) {
   const { product } = props;
 
   const { state, dispatch } = useContext(Store);
+
+  const [openMessage, setOpenMessage] = useState(false);
 
   const [showForm, setShowForm] = useState(false);
   const [page, setPage] = useState(1);
@@ -104,7 +107,6 @@ export default function ProductPage(props) {
   };
 
   const handleAddAmount = (e) => {
-    console.log(amount);
     setAmount(Number(amount) + 1);
   };
 
@@ -113,7 +115,6 @@ export default function ProductPage(props) {
   };
 
   const handleAddToCart = (e) => {
-    console.log(product);
     if (amount === '') {
       dispatch({
         type: 'CART_ADD_ITEM',
@@ -139,6 +140,8 @@ export default function ProductPage(props) {
         },
       });
     }
+
+    setOpenMessage(true);
   };
 
   return (
@@ -150,6 +153,14 @@ export default function ProductPage(props) {
         spacing={10}
       >
         <Grid item>
+          <Message
+            text={`Added ${product[0].name} to the bag!`}
+            severity="success"
+            open={openMessage}
+            setOpen={setOpenMessage}
+          />
+        </Grid>
+        <Grid item>
           {/* Product */}
           <Grid container justifyContent="space-evenly" spacing={3}>
             <Grid item>
@@ -157,7 +168,7 @@ export default function ProductPage(props) {
                 items={images}
                 showFullscreenButton={false}
                 showPlayButton={false}
-                thumbnailPosition={matchesMD ? 'bottom' : 'left'}
+                thumbnailPosition={'left'}
               />
             </Grid>
 

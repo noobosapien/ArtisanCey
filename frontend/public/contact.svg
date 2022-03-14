@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 570 542" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-2639,-12303)">
+        <g id="contact" transform="matrix(1,0,0,1,-0.309864,-0.5)">
+            <rect x="2639.31" y="12303.5" width="569.036" height="541.5" style="fill:none;"/>
+            <clipPath id="_clip1">
+                <rect x="2639.31" y="12303.5" width="569.036" height="541.5"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(1,0,0,1,0.309864,0.5)">
+                    <g transform="matrix(0.938981,0,0,0.95756,178.42,537.485)">
+                        <rect x="2621.18" y="12476" width="605.648" height="377" style="fill:rgb(189,242,239);"/>
+                    </g>
+                    <path d="M2639.65,12484L2924,12664.5L3208.35,12484L2639.65,12484Z" style="fill:rgb(58,135,131);"/>
+                    <g transform="matrix(-1,1.22465e-16,-1.22465e-16,-1,5847.66,24968)">
+                        <path d="M2639.65,12484L2924,12664.5L3208.35,12484L2639.65,12484Z" style="fill:rgb(58,135,131);"/>
+                    </g>
+                    <g transform="matrix(0.559104,0,0,0.559104,1396.53,5626.02)">
+                        <text x="2451.5px" y="12574.2px" style="font-family:'Roboto-Bold', 'Roboto';font-weight:700;font-size:624.469px;fill:rgb(73,73,73);">@</text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

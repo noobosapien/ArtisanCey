@@ -27,11 +27,13 @@ import { Box } from '@mui/system';
 import SideCart from '../components/Checkout/SideCart';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import HomeIcon from '@mui/icons-material/Home';
+import Message from '../components/common/Message';
 
 export default function Checkout() {
   const { state, dispatch } = useContext(Store);
   const router = useRouter();
   const [shipping, setShipping] = useState('');
+  const [openMessage, setOpenMessage] = useState(false);
 
   const {
     cart: { cartItems, shippingAddress, shippingCountry },
@@ -69,6 +71,14 @@ export default function Checkout() {
     });
   };
 
+  const handleContinue = (e) => {
+    if (shipping === '') {
+      return setOpenMessage(true);
+    }
+
+    router.push('/payment');
+  };
+
   return (
     <Layout>
       <Grid
@@ -78,6 +88,15 @@ export default function Checkout() {
         direction="column"
         spacing={4}
       >
+        <Grid item>
+          <Message
+            text={'Please select a shipping method'}
+            severity="error"
+            setOpen={setOpenMessage}
+            open={openMessage}
+          />
+        </Grid>
+
         <Grid item>
           <Box sx={{ display: { xs: 'block', md: 'none' } }}>
             <ShowBaggedItems shipping={shipping} />
@@ -198,9 +217,7 @@ export default function Checkout() {
           <Button
             endIcon={<CelebrationIcon sx={{ color: '#ffff00' }} />}
             variant="contained"
-            onClick={(e) => {
-              router.push('/payment');
-            }}
+            onClick={handleContinue}
           >
             One more step
           </Button>

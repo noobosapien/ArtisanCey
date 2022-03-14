@@ -98,7 +98,7 @@ function Cart() {
                   <ListItem>
                     <Typography variant="h6">
                       Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}){' '}
-                      items : $
+                      item(s) : $
                       {cartItems
                         .reduce((a, c) => a + c.quantity * c.price, 0)
                         .toFixed(2)}

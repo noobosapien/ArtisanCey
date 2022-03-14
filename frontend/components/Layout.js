@@ -15,6 +15,7 @@ import {
   Tooltip,
   Link,
   Badge,
+  Paper,
 } from '@mui/material';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Close from '@mui/icons-material/Close';
@@ -27,6 +28,7 @@ import SearchDialog from './common/SearchDialog';
 import { useRouter } from 'next/router';
 import { Store } from '../utils/store';
 import Sticker from '../public/sticker.png';
+import Stars from '../public/stars.svg';
 
 const LogoButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
@@ -89,8 +91,8 @@ export default function Layout({ title, description, children }) {
       </Head>
 
       <Stack sx={{ width: '100%' }} justifyContent="center" spacing={2}>
-        <Collapse in={openShipping}>
-          <Alert
+        <Collapse in={openShipping} sx={{ width: '100%' }}>
+          {/* <Alert
             iconMapping={{ success: <LocalShippingIcon /> }}
             action={
               <IconButton
@@ -109,7 +111,44 @@ export default function Layout({ title, description, children }) {
             <Typography variant="body2" component="p">
               Free shipping for orders over $75!
             </Typography>
-          </Alert>
+          </Alert> */}
+
+          <Paper
+            variant="outlined"
+            sx={(theme) => ({
+              background: theme.palette.common.greenBlue,
+              borderRadius: 0,
+            })}
+          >
+            <Grid container justifyContent="center" spacing={3}>
+              <Grid item>
+                <Typography
+                  variant="body2"
+                  sx={{ color: '#fff', fontSize: '1.5rem' }}
+                >
+                  Global shipping for just $5
+                </Typography>
+              </Grid>
+
+              <Grid item>
+                <Image src={Stars} alt="stars" width={30} height={30} />
+              </Grid>
+
+              <Grid item alignSelf={'flex-end'}>
+                <IconButton
+                  disableRipple
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpenShipping(false);
+                  }}
+                >
+                  <Close sx={{ color: '#fff' }} fontSize="inherit" />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </Paper>
         </Collapse>
       </Stack>
 

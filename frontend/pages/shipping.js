@@ -188,7 +188,7 @@ export default function Checkout() {
                         }}
                         value="standard"
                         control={<Radio />}
-                        label="Standard shipping $10.00 (delivered in 10-15 days)"
+                        label="Standard shipping $5.00"
                       />
 
                       <div style={{ margin: '1rem' }} />
@@ -200,7 +200,7 @@ export default function Checkout() {
                           },
                         }}
                         control={<Radio />}
-                        label="Express shipping $20.00 (delivered in 5-6 days)"
+                        label="Express shipping $20.00"
                       />
                     </RadioGroup>
                   </FormControl>

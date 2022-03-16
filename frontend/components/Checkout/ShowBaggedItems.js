@@ -226,12 +226,12 @@ export default function ShowBaggedItems({ shipping, order }) {
                   Shipping:{' '}
                   {order
                     ? orderShipping === 'standard'
-                      ? '$10.00'
+                      ? '$5.00'
                       : orderShipping === 'express'
                       ? '$20.00'
                       : ''
                     : ''}
-                  {!order && (shipping === 'standard' ? '$10.00' : '$20.00')}
+                  {!order && (shipping === 'standard' ? '$5.00' : '$20.00')}
                 </Typography>
               </Grid>
             </Grid>
@@ -257,7 +257,7 @@ export default function ShowBaggedItems({ shipping, order }) {
                   ? orderTotal.toFixed(2)
                   : (
                       cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
-                      (shipping === 'standard' ? 10 : 20)
+                      (shipping === 'standard' ? 5 : 20)
                     ).toFixed(2)}
               </Typography>
             </Paper>

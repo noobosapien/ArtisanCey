@@ -112,7 +112,7 @@ export default function SideCart({ shipping }) {
                   </Grid>
                   <Grid item>
                     <Typography variant="body2">
-                      Shipping: {shipping === 'standard' ? '$10.00' : '$20.00'}
+                      Shipping: {shipping === 'standard' ? '$5.00' : '$20.00'}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -136,7 +136,7 @@ export default function SideCart({ shipping }) {
                     Total: $
                     {(
                       cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
-                      (shipping === 'standard' ? 10 : 20)
+                      (shipping === 'standard' ? 5 : 20)
                     ).toFixed(2)}
                   </Typography>
                 </Paper>

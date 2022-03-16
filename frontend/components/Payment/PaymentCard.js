@@ -278,7 +278,7 @@ export default function PaymentCard({ loading, setLoading }) {
       try {
         const total = (
           cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
-          (shippingMethod.value === 'standard' ? 10 : 20)
+          (shippingMethod.value === 'standard' ? 5 : 20)
         ).toFixed(2);
 
         const result = await processOrder({
@@ -290,7 +290,7 @@ export default function PaymentCard({ loading, setLoading }) {
               state.cart.shippingMethod &&
               state.cart.shippingMethod.value === 'express'
                 ? 20
-                : 10,
+                : 5,
           },
           idempotencyKey,
           shippingAddress,
@@ -440,7 +440,7 @@ export default function PaymentCard({ loading, setLoading }) {
       try {
         const total = (
           cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
-          (shippingMethod.value === 'standard' ? 10 : 20)
+          (shippingMethod.value === 'standard' ? 5 : 20)
         ).toFixed(2);
 
         const subtotal = cartItems
@@ -463,7 +463,7 @@ export default function PaymentCard({ loading, setLoading }) {
               state.cart.shippingMethod &&
               state.cart.shippingMethod.value === 'express'
                 ? 20
-                : 10,
+                : 5,
           },
           shippingAddress,
           billingAddress: diff ? billingAddress : shippingAddress,
@@ -574,7 +574,7 @@ export default function PaymentCard({ loading, setLoading }) {
                 state.cart.shippingMethod &&
                 state.cart.shippingMethod.value === 'express'
                   ? `Express shipping ($20.00)`
-                  : `Standard shipping ($10.00)`
+                  : `Standard shipping ($5.00)`
               }`}
             />
           </ListItem>
@@ -636,7 +636,7 @@ export default function PaymentCard({ loading, setLoading }) {
               ) : (
                 `Pay $${(
                   cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
-                  (shippingMethod.value === 'standard' ? 10 : 20)
+                  (shippingMethod.value === 'standard' ? 5 : 20)
                 ).toFixed(2)}`
               )}
             </Button>

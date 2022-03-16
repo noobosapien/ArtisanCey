@@ -155,7 +155,7 @@ module.exports = {
       let unavailable = [];
 
       const shippingVariants = [
-        { label: "standard", price: 10 },
+        { label: "standard", price: 5 },
         { label: "express", price: 20 },
       ];
 

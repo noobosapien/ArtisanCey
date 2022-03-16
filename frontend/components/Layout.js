@@ -120,7 +120,12 @@ export default function Layout({ title, description, children }) {
               borderRadius: 0,
             })}
           >
-            <Grid container justifyContent="center" spacing={3}>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              spacing={3}
+            >
               <Grid item>
                 <Typography
                   variant="body2"

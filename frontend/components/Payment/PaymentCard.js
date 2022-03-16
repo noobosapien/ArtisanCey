@@ -502,7 +502,18 @@ export default function PaymentCard({ loading, setLoading }) {
 
   const cardWrapper = (
     <form onChange={handleSubmit} style={{}}>
-      <CardElement onChange={handleCardChange} />
+      <CardElement
+        onChange={handleCardChange}
+        options={{
+          style: {
+            base: {
+              fontSize: '1.0rem',
+              fontFamily: 'Roboto',
+              color: '#474747',
+            },
+          },
+        }}
+      />
     </form>
   );
 

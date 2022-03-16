@@ -4,6 +4,7 @@ import { Divider, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ShowBaggedItems from '../../components/Checkout/ShowBaggedItems';
+import SideCart from '../../components/Checkout/SideCart';
 import { Box } from '@mui/system';
 import Tick from '../../public/correct.svg';
 import Image from 'next/image';
@@ -20,14 +21,15 @@ function Order({ params, query }) {
       const result = await getOrder(params.id, query.auth);
 
       if (result && result.shippingInfo) {
-        setOrder(result);
-
         var sInfo = '';
         if (result.shippingInfo.firstName) {
           sInfo = result.shippingInfo;
         } else {
           sInfo = JSON.parse(result.shippingInfo);
         }
+
+        setOrder(result);
+
         setName(`${sInfo.firstName} ${sInfo.lastName}`);
       } else {
         router.push('/bag');
@@ -35,7 +37,7 @@ function Order({ params, query }) {
     };
 
     getOrderFromServer();
-  }, [params]);
+  }, [params, query]);
 
   return (
     <Layout>
@@ -48,7 +50,7 @@ function Order({ params, query }) {
       >
         <Grid item>
           <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-            <ShowBaggedItems order={params.id} />
+            <ShowBaggedItems order={order} />
           </Box>
         </Grid>
 
@@ -58,61 +60,68 @@ function Order({ params, query }) {
           </Box>
         </Grid>
 
-        <Grid
-          item
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={6}
-        >
-          <Grid item>
-            <Typography variant="h3">Thank you {name}</Typography>
-          </Grid>
-
-          <Grid item>
-            <Image src={Tick.src} width={200} height={200} alt="all done" />
-          </Grid>
-
-          <Grid item container direction="column" spacing={2}>
+        <Grid item container justifyContent="space-evenly" alignItems="center">
+          <Grid
+            item
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={6}
+            md={5}
+          >
             <Grid item>
-              <Typography
-                align="center"
-                variant="h6"
-                sx={{ fontSize: '0.8rem' }}
-              >
-                We recieved your order and now processing it!
-              </Typography>
+              <Typography variant="h3">Thank you {name}</Typography>
             </Grid>
 
             <Grid item>
-              <Typography
-                align="center"
-                variant="h6"
-                sx={{ fontSize: '0.8rem' }}
-              >
-                We will update this page when there is a change in your shipment
-                status.
-              </Typography>
+              <Image src={Tick.src} width={200} height={200} alt="all done" />
+            </Grid>
+
+            <Grid item container direction="column" spacing={2}>
+              <Grid item>
+                <Typography
+                  align="center"
+                  variant="h6"
+                  sx={{ fontSize: '0.8rem' }}
+                >
+                  We recieved your order and now processing it!
+                </Typography>
+              </Grid>
+
+              <Grid item>
+                <Typography
+                  align="center"
+                  variant="h6"
+                  sx={{ fontSize: '0.8rem' }}
+                >
+                  We will update this page when there is a change in your
+                  shipment status.
+                </Typography>
+              </Grid>
+
+              <Grid item>
+                <Typography
+                  align="center"
+                  variant="h6"
+                  sx={{ fontSize: '0.8rem' }}
+                >
+                  Do not hesitate to contact us if there is any issue
+                </Typography>
+              </Grid>
             </Grid>
 
             <Grid item>
-              <Typography
-                align="center"
-                variant="h6"
-                sx={{ fontSize: '0.8rem' }}
-              >
-                Do not hesitate to contact us if there is any issue
-              </Typography>
+              <Typography variant="h3">Current status</Typography>
+            </Grid>
+
+            <Grid item>
+              <StatusStepper order={order} />
             </Grid>
           </Grid>
 
-          <Grid item>
-            <Typography variant="h3">Current status</Typography>
-          </Grid>
-
-          <Grid item>
-            <StatusStepper order={order} />
+          <Grid item md={5} sx={{ display: { xs: 'none', md: 'block' } }}>
+            <SideCart order={order} />
           </Grid>
         </Grid>
       </Grid>

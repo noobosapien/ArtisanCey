@@ -22,7 +22,7 @@ import DirectionsBoatFilledOutlinedIcon from '@mui/icons-material/DirectionsBoat
 import { getOrder } from '../../helpers/getOrder';
 import { getProductInfo } from '../../helpers/getProductInfo';
 
-export default function ShowBaggedItems({ shipping, order }) {
+export default function ShowBaggedItems({ shipping, order, auth }) {
   const { state, dispatch } = useContext(Store);
   const [collapse, setCollapse] = useState(false);
 
@@ -39,39 +39,39 @@ export default function ShowBaggedItems({ shipping, order }) {
     if (order) {
       const getOrderFromServer = async (order) => {
         try {
-          const result = await getOrder(order);
+          var result = {};
 
-          if (result instanceof Array && result[0].items) {
-            const items =
-              typeof result[0].items === 'string'
-                ? JSON.parse(result[0].items)
-                : result[0].items;
+          result = order;
 
-            const shipping =
-              typeof result[0].shippingOption === 'string'
-                ? JSON.parse(result[0].shippingOption)
-                : result[0].shippingOption;
-            shipping && setOrderShipping(shipping.label);
+          const items =
+            typeof result.items === 'string'
+              ? JSON.parse(result.items)
+              : result.items;
 
-            setOrderSTotal(result[0].subtotal);
-            setOrderTotal(result[0].total);
+          const shipping =
+            typeof result.shippingOption === 'string'
+              ? JSON.parse(result.shippingOption)
+              : result.shippingOption;
+          shipping && setOrderShipping(shipping.label);
 
-            const oItems = [];
+          setOrderSTotal(result.subtotal);
+          setOrderTotal(result.total);
 
-            if (items instanceof Array) {
-              for (var i = 0; i < items.length; i++) {
-                const prod = await getProductInfo(items[i].id);
-                if (prod instanceof Array && prod.length > 0) {
-                  prod[0].quantity = items[i].quantity;
-                  prod[0].img = prod[0].images[0].url;
+          const oItems = [];
 
-                  oItems.push(prod[0]);
-                }
+          if (items instanceof Array) {
+            for (var i = 0; i < items.length; i++) {
+              const prod = await getProductInfo(items[i].id);
+              if (prod instanceof Array && prod.length > 0) {
+                prod[0].quantity = items[i].quantity;
+                prod[0].img = prod[0].images[0].url;
+
+                oItems.push(prod[0]);
               }
             }
-
-            setOrderItems([...oItems]);
           }
+
+          setOrderItems([...oItems]);
         } catch (e) {
           console.log(e);
         }
@@ -201,7 +201,7 @@ export default function ShowBaggedItems({ shipping, order }) {
             })}
           >
             Subtotal: $
-            {order
+            {order && orderSTotal
               ? orderSTotal.toFixed(2)
               : cartItems
                   .reduce((a, c) => a + c.quantity * c.price, 0)
@@ -253,7 +253,7 @@ export default function ShowBaggedItems({ shipping, order }) {
                 })}
               >
                 Total: $
-                {order
+                {order && orderTotal
                   ? orderTotal.toFixed(2)
                   : (
                       cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +

@@ -355,7 +355,7 @@ export default function Carousel({ products }) {
           </Grid>
           <Grid item container justifyContent="space-evenly" spacing={4}>
             {RatedCL.map((cl) => (
-              <Grid item>
+              <Grid item key={cl.id}>
                 <SmallProductCard product={cl} />
               </Grid>
             ))}
@@ -387,7 +387,7 @@ export default function Carousel({ products }) {
           </Grid>
           <Grid item container justifyContent="space-evenly" spacing={4}>
             {RatedAC.map((cl) => (
-              <Grid item>
+              <Grid item key={`${cl.id}_AC`}>
                 <SmallProductCard product={cl} />
               </Grid>
             ))}

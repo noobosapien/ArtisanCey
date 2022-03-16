@@ -2,6 +2,7 @@ import {
   Avatar,
   Button,
   Card,
+  Chip,
   Divider,
   Grid,
   Rating,
@@ -25,6 +26,7 @@ const mdReviews = (
   reviews,
   handleAddPage
 ) => {
+  console.log(reviews);
   return (
     <>
       <Grid container direction="column" spacing={4} alignItems="center">
@@ -72,7 +74,7 @@ const mdReviews = (
           <Grid item container direction="column" spacing={4} key={review.id}>
             <Grid item alignSelf="flex-end">
               <Typography>
-                {moment.duration(moment().diff(review.updatedAt)).humanize() +
+                {moment.duration(moment().diff(review.createdAt)).humanize() +
                   ' ago'}
               </Typography>
             </Grid>
@@ -90,22 +92,36 @@ const mdReviews = (
                   <Avatar
                     sx={(theme) => ({
                       bgcolor: theme.palette.common.greenBlue,
+                      width: 64,
+                      height: 64,
                     })}
                   >
                     {review.user.slice(0, 1).toUpperCase()}
                   </Avatar>
                 </Grid>
                 <Grid item>
-                  <Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontSize: '1.5rem',
+                    }}
+                  >
                     {review.user.slice(0, 1).toUpperCase()}
                     {review.user.slice(1).toLowerCase()}
                   </Typography>
                 </Grid>
 
                 <Grid item>
-                  <Typography>
-                    {review.verified ? 'Verified' : 'Not verified'}
-                  </Typography>
+                  <Chip
+                    label={review.verified ? 'Verified buyer' : 'Not verified'}
+                    sx={(theme) => ({
+                      fontSize: '1.0rem',
+                      color: '#fff',
+                      background: review.verified
+                        ? theme.palette.common.greenBlue
+                        : theme.palette.common.orange,
+                    })}
+                  />
                 </Grid>
               </Grid>
 
@@ -115,15 +131,37 @@ const mdReviews = (
 
               <Grid xs={6} item container direction="column" spacing={4}>
                 <Grid item>
-                  <Rating value={review.rating} readOnly precision={0.5} />
+                  <Rating
+                    size="large"
+                    value={review.rating}
+                    readOnly
+                    precision={0.5}
+                  />
                 </Grid>
 
                 <Grid item>
-                  <Typography>Heading</Typography>
+                  <Typography
+                    variant="body2"
+                    sx={(theme) => ({
+                      fontSize: '2.0rem',
+                      color: theme.palette.common.lightGray,
+                    })}
+                  >
+                    {review.heading ? review.heading : ''}
+                  </Typography>
                 </Grid>
 
                 <Grid item>
-                  <Typography>{review.text ? review.text : ''}</Typography>
+                  <Typography
+                    variant="body1"
+                    sx={(theme) => ({
+                      fontSize: '1.2rem',
+                      color: theme.palette.common.black,
+                      fontFamily: 'Roboto',
+                    })}
+                  >
+                    {review.text ? review.text : ''}
+                  </Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -208,7 +246,12 @@ const xsReviews = (
                     </Avatar>
                   </Grid>
                   <Grid item>
-                    <Typography>
+                    <Typography
+                      sx={(theme) => ({
+                        fontFamily: 'Rancho',
+                        fontSize: '2rem',
+                      })}
+                    >
                       {review.user.slice(0, 1).toUpperCase()}
                       {review.user.slice(1).toLowerCase()}
                     </Typography>
@@ -216,23 +259,49 @@ const xsReviews = (
                 </Grid>
 
                 <Grid item>
-                  <Rating value={review.rating} readOnly precision={0.5} />
+                  <Rating
+                    size="large"
+                    value={review.rating}
+                    readOnly
+                    precision={0.5}
+                  />
                 </Grid>
 
                 <Grid item>
-                  <Typography>
-                    {review.verified ? 'Verified' : 'Not verified'}
+                  <Chip
+                    label={review.verified ? 'Verified buyer' : 'Not verified'}
+                    sx={(theme) => ({
+                      fontSize: '1.0rem',
+                      color: '#fff',
+                      background: review.verified
+                        ? theme.palette.common.greenBlue
+                        : theme.palette.common.orange,
+                    })}
+                  />
+                </Grid>
+
+                <Grid item alignSelf="center">
+                  <Typography
+                    sx={(theme) => ({
+                      fontSize: '1.4rem',
+                      color: theme.palette.common.lightGray,
+                      fontFamily: 'Rancho',
+                    })}
+                  >
+                    {review.heading ? review.heading : ''}
                   </Typography>
                 </Grid>
 
                 <Grid item alignSelf="center">
-                  <Typography>
-                    {review.heading ? review.heading : 'Heading'}
+                  <Typography
+                    sx={(theme) => ({
+                      fontSize: '1.0rem',
+                      color: theme.palette.common.black,
+                      fontFamily: 'Roboto',
+                    })}
+                  >
+                    {review.text ? review.text : ''}
                   </Typography>
-                </Grid>
-
-                <Grid item alignSelf="center">
-                  <Typography>{review.text ? review.text : ''}</Typography>
                 </Grid>
               </Grid>
             </Card>

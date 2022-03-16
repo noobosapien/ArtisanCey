@@ -139,7 +139,7 @@ export default function Layout({ title, description, children }) {
                 <Image src={Stars} alt="stars" width={30} height={30} />
               </Grid>
 
-              <Grid item alignSelf={'flex-end'}>
+              {/* <Grid item alignSelf={'flex-end'}>
                 <IconButton
                   disableRipple
                   aria-label="close"
@@ -151,7 +151,7 @@ export default function Layout({ title, description, children }) {
                 >
                   <Close sx={{ color: '#fff' }} fontSize="inherit" />
                 </IconButton>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Paper>
         </Collapse>
@@ -298,7 +298,7 @@ export default function Layout({ title, description, children }) {
               </NextLink>
             </Grid>
 
-            <Grid item>
+            {/* <Grid item>
               <NextLink href="/shippingdel">
                 <Typography
                   variant="body2"
@@ -310,7 +310,7 @@ export default function Layout({ title, description, children }) {
                   Shipping & Delivery
                 </Typography>
               </NextLink>
-            </Grid>
+            </Grid> */}
           </Grid>
 
           <Grid item container direction="column" alignItems="center" md={4}>

@@ -5,7 +5,7 @@ export const Store = createContext();
 
 const initialState = {
   topMenu: {
-    open: false,
+    open: true,
   },
   cart: {
     cartItems: Cookies.get('cartItems')

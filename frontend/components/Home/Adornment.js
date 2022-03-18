@@ -1,10 +1,7 @@
-import Image from 'next/image';
 import React from 'react';
-import AdornmentSVG from '../../public/adornment.svg';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { Typography } from '@mui/material';
 
 export default function Adornment() {
   const theme = useTheme();

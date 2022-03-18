@@ -29,6 +29,13 @@ import { useRouter } from 'next/router';
 import { Store } from '../utils/store';
 import Sticker from '../public/sticker.png';
 import Stars from '../public/stars.svg';
+import ContactForm from './common/ContactForm';
+
+import Visa from '../public/visa.png';
+import MC from '../public/mastercard.png';
+import JCB from '../public/jcb.png';
+import AE from '../public/american_express.png';
+import CU from '../public/china_union.png';
 
 const LogoButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
@@ -92,28 +99,7 @@ export default function Layout({ title, description, children }) {
 
       <Stack sx={{ width: '100%' }} justifyContent="center" spacing={2}>
         <Collapse in={openShipping} sx={{ width: '100%' }}>
-          {/* <Alert
-            iconMapping={{ success: <LocalShippingIcon /> }}
-            action={
-              <IconButton
-                disableRipple
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  setOpenShipping(false);
-                }}
-              >
-                <Close fontSize="inherit" />
-              </IconButton>
-            }
-          >
-            <Typography variant="body2" component="p">
-              Free shipping for orders over $75!
-            </Typography>
-          </Alert> */}
-
-          <Paper
+          {/* <Paper
             variant="outlined"
             sx={(theme) => ({
               background: theme.palette.common.greenBlue,
@@ -131,7 +117,8 @@ export default function Layout({ title, description, children }) {
                   variant="body2"
                   sx={{ color: '#fff', fontSize: '1.5rem' }}
                 >
-                  Global shipping for just $5
+                  We share 20% of our revenue with a selected charity on behalf
+                  of you
                 </Typography>
               </Grid>
 
@@ -139,21 +126,9 @@ export default function Layout({ title, description, children }) {
                 <Image src={Stars} alt="stars" width={30} height={30} />
               </Grid>
 
-              {/* <Grid item alignSelf={'flex-end'}>
-                <IconButton
-                  disableRipple
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setOpenShipping(false);
-                  }}
-                >
-                  <Close sx={{ color: '#fff' }} fontSize="inherit" />
-                </IconButton>
-              </Grid> */}
+              
             </Grid>
-          </Paper>
+          </Paper> */}
         </Collapse>
       </Stack>
 
@@ -258,17 +233,50 @@ export default function Layout({ title, description, children }) {
         }}
       >
         <Grid container alignItems="center">
-          <Grid item container alignItems="center" direction="column" md={3}>
+          <Grid
+            item
+            container
+            alignItems="center"
+            direction="column"
+            md={3}
+            spacing={4}
+          >
             <Grid item>
               <Image src={Sticker} alt="sticker" width={50} height={50} />
             </Grid>
 
             <Grid item>
-              <Typography variant="body2">2% for the planet</Typography>
+              <Typography>We accept:</Typography>
+            </Grid>
+
+            <Grid item container justifyContent="space-evenly">
+              <Grid item>
+                <Image src={Visa} alt="visa" width={32} height={32} />
+              </Grid>
+
+              <Grid item>
+                <Image src={MC} alt="visa" width={32} height={32} />
+              </Grid>
+
+              <Grid item>
+                <Image src={AE} alt="visa" width={32} height={32} />
+              </Grid>
+
+              <Grid item>
+                <Image src={JCB} alt="visa" width={32} height={32} />
+              </Grid>
+
+              <Grid item>
+                <Image src={CU} alt="visa" width={32} height={32} />
+              </Grid>
             </Grid>
           </Grid>
 
           <Grid item container alignItems="center" direction="column" md={4}>
+            <ContactForm />
+          </Grid>
+
+          <Grid item container direction="column" alignItems="center" md={4}>
             <Grid item>
               <NextLink href="/about">
                 <Typography
@@ -280,50 +288,6 @@ export default function Layout({ title, description, children }) {
                   }}
                 >
                   About us
-                </Typography>
-              </NextLink>
-            </Grid>
-
-            <Grid item>
-              <NextLink href="/contact">
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontSize: '1.5rem',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Contact us
-                </Typography>
-              </NextLink>
-            </Grid>
-
-            {/* <Grid item>
-              <NextLink href="/shippingdel">
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontSize: '1.5rem',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Shipping & Delivery
-                </Typography>
-              </NextLink>
-            </Grid> */}
-          </Grid>
-
-          <Grid item container direction="column" alignItems="center" md={4}>
-            <Grid item>
-              <NextLink href="/wholesale">
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontSize: '1.5rem',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Wholesale
                 </Typography>
               </NextLink>
             </Grid>
@@ -355,11 +319,19 @@ export default function Layout({ title, description, children }) {
                 </Typography>
               </NextLink>
             </Grid>
-          </Grid>
 
-          <Grid item container direction="column" alignItems="center" md={3}>
             <Grid item>
-              <Typography variant="body2">Visa</Typography>
+              <NextLink href="/refunds">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontSize: '1.5rem',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Returns & Refunds
+                </Typography>
+              </NextLink>
             </Grid>
           </Grid>
         </Grid>

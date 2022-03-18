@@ -1,10 +1,10 @@
 import {
   Card,
   CardActions,
-  Divider,
   Grid,
   ToggleButton,
   ToggleButtonGroup,
+  Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../../components/common/ProductCard';
@@ -12,12 +12,15 @@ import Layout from '../../components/Layout';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import Shrub from '../../public/shrub.jpg';
-import Image from 'next/image';
 import { getProducts } from '../../helpers/getProductsSort';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 export default function Category(props) {
   const { products, param } = props;
+
+  const theme = useTheme();
+  const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
   const [allProducts, setAllProducts] = useState([]);
   const [sort, setSort] = useState({
@@ -60,7 +63,14 @@ export default function Category(props) {
         })}
       >
         <Grid item>
-          <Image src={Shrub} height="200" layout="intrinsic" />
+          <Typography
+            sx={{
+              fontSize: matchesMD ? '1.5rem' : '3rem',
+              fontFamily: 'Monoton',
+            }}
+          >
+            {param}
+          </Typography>
         </Grid>
         <Grid item xs={12} lg={6}>
           <Card variant="outlined">

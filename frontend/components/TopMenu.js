@@ -164,7 +164,7 @@ export default function TopMenu() {
               </CardActionArea>
             </Grid>
 
-            <Grid item>
+            {/* <Grid item>
               <CardActionArea
                 disableRipple
                 onClick={(e) => {
@@ -234,7 +234,7 @@ export default function TopMenu() {
                   </Grid>
                 </Grid>
               </CardActionArea>
-            </Grid>
+            </Grid> */}
           </Grid>
         </CustomBox>
       </Collapse>

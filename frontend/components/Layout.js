@@ -287,7 +287,7 @@ export default function Layout({ title, description, children }) {
                     cursor: 'pointer',
                   }}
                 >
-                  About us
+                  What is ArtisanCey?
                 </Typography>
               </NextLink>
             </Grid>

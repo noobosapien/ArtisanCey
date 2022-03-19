@@ -116,6 +116,16 @@ export default function ContactForm() {
           </Button>
         </Grid>
       </Grid>
+
+      <Grid item container direction="column" alignItems="center">
+        <Grid item>
+          <Typography>Or email us at:</Typography>
+        </Grid>
+
+        <Grid item>
+          <Typography sx={{ fontWeight: '700' }}>hi@artisancey.com</Typography>
+        </Grid>
+      </Grid>
     </Grid>
   );
 }

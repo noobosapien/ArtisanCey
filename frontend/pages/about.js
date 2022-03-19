@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import React from 'react';
 import Layout from '../components/Layout';
 import { styled } from '@mui/system';
-import TriFactor from '../public/trifactor.svg';
+import TriFactor from '../public/trifactor.png';
 import Image from 'next/image';
 
 const MyTypo = styled(Typography)({

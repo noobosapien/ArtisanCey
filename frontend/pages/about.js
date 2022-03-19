@@ -23,7 +23,7 @@ export default function About() {
         sx={{ paddingTop: '2rem' }}
       >
         <Grid item>
-          <Typography variant="h3">About Us</Typography>
+          <Typography variant="h3">What is ArtisanCey?</Typography>
         </Grid>
 
         <Grid item xs={12} />
@@ -213,7 +213,7 @@ export default function About() {
                 align="center"
                 sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
               >
-                The ones who make this all possible.
+                The ones who make all this possible.
               </Typography>
             </Grid>
 

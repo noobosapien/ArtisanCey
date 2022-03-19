@@ -1311,6 +1311,31 @@
   "resolved" "https://registry.npmjs.org/@sailshq/lodash/-/lodash-3.10.4.tgz"
   "version" "3.10.4"
 
+"@sendgrid/client@^6.4.0":
+  "integrity" "sha512-Nbfgo94gbWSL8PIgJfuHoifyOJJepvV8NQkkglctAEfb1hyozKhrzE6v1kPG/z4j0RodaTtXD5LJj/t0q/VhLA=="
+  "resolved" "https://registry.npmjs.org/@sendgrid/client/-/client-6.5.5.tgz"
+  "version" "6.5.5"
+  dependencies:
+    "@sendgrid/helpers" "^6.5.5"
+    "@types/request" "^2.48.4"
+    "request" "^2.88.0"
+
+"@sendgrid/helpers@^6.4.0", "@sendgrid/helpers@^6.5.5":
+  "integrity" "sha512-uRFEanalfss5hDsuzVXZ1wm7i7eEXHh1py80piOXjobiQ+MxmtR19EU+gDSXZ+uMcEehBGhxnb7QDNN0q65qig=="
+  "resolved" "https://registry.npmjs.org/@sendgrid/helpers/-/helpers-6.5.5.tgz"
+  "version" "6.5.5"
+  dependencies:
+    "chalk" "^2.0.1"
+    "deepmerge" "^4.2.2"
+
+"@sendgrid/mail@6.4.0":
+  "integrity" "sha512-pVzbqbxhZ4FUN6iSIksRLtyXRPurrcee1i0noPDStDCLlHVwUR+TofeeKIFWGpIvbbk5UR6S6iV/U5ie8Kdblw=="
+  "resolved" "https://registry.npmjs.org/@sendgrid/mail/-/mail-6.4.0.tgz"
+  "version" "6.4.0"
+  dependencies:
+    "@sendgrid/client" "^6.4.0"
+    "@sendgrid/helpers" "^6.4.0"
+
 "@sentry/core@6.3.0":
   "integrity" "sha512-voot/lJ9gRXB6bx6tVqbEbD6jOd4Sx6Rfmm6pzfpom9C0q+fjIZTatTLq8GdXj8DzxaH1MBDSwtaq/eC3NqYpA=="
   "resolved" "https://registry.npmjs.org/@sentry/core/-/core-6.3.0.tgz"
@@ -1407,6 +1432,11 @@
   dependencies:
     "defer-to-connect" "^1.0.1"
 
+"@types/caseless@*":
+  "integrity" "sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w=="
+  "resolved" "https://registry.npmjs.org/@types/caseless/-/caseless-0.12.2.tgz"
+  "version" "0.12.2"
+
 "@types/formidable@^1.0.31":
   "integrity" "sha512-zu3mQJa4hDNubEMViSj937602XdDGzK7Q5pJ5QmLUbNxclbo9tZGt5jtwM352ssZ+pqo5V4H14TBvT/ALqQQcA=="
   "resolved" "https://registry.npmjs.org/@types/formidable/-/formidable-1.2.5.tgz"
@@ -1479,10 +1509,25 @@
     "@types/scheduler" "*"
     "csstype" "^3.0.2"
 
+"@types/request@^2.48.4":
+  "integrity" "sha512-whjk1EDJPcAR2kYHRbFl/lKeeKYTi05A15K9bnLInCVroNDCtXce57xKdI0/rQaA3K+6q0eFyUBPmqfSndUZdQ=="
+  "resolved" "https://registry.npmjs.org/@types/request/-/request-2.48.8.tgz"
+  "version" "2.48.8"
+  dependencies:
+    "@types/caseless" "*"
+    "@types/node" "*"
+    "@types/tough-cookie" "*"
+    "form-data" "^2.5.0"
+
 "@types/scheduler@*":
   "integrity" "sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew=="
   "resolved" "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.2.tgz"
   "version" "0.16.2"
+
+"@types/tough-cookie@*":
+  "integrity" "sha512-Y0K95ThC3esLEYD6ZuqNek29lNX2EM1qxV8y2FTLUB0ff5wWrk7az+mLrnNFUnaXcgKye22+sFBRXOgpPILZNg=="
+  "resolved" "https://registry.npmjs.org/@types/tough-cookie/-/tough-cookie-4.0.1.tgz"
+  "version" "4.0.1"
 
 "@types/uuid@8.3.1":
   "integrity" "sha512-Y2mHTRAbqfFkpjldbkHGY8JIzRN6XqYRliG8/24FcHm2D2PwW24fl5xMRTVGdrb7iMrwCaIEbLWerGIkXuFWVg=="
@@ -2606,7 +2651,7 @@
     "strip-ansi" "^3.0.0"
     "supports-color" "^2.0.0"
 
-"chalk@^2.0.0", "chalk@^2.3.0", "chalk@^2.4.1", "chalk@^2.4.2":
+"chalk@^2.0.0", "chalk@^2.0.1", "chalk@^2.3.0", "chalk@^2.4.1", "chalk@^2.4.2":
   "integrity" "sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ=="
   "resolved" "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz"
   "version" "2.4.2"
@@ -4302,6 +4347,15 @@
   "integrity" "sha1-+8cfDEGt6zf5bFd60e1C2P2sypE="
   "resolved" "https://registry.npmjs.org/forever-agent/-/forever-agent-0.6.1.tgz"
   "version" "0.6.1"
+
+"form-data@^2.5.0":
+  "integrity" "sha512-m21N3WOmEEURgk6B9GLOE4RuWOFf28Lhh9qGYeNlGq4VDXUlJy2th2slBNU8Gp8EzloYZOibZJ7t5ecIrFSjVA=="
+  "resolved" "https://registry.npmjs.org/form-data/-/form-data-2.5.1.tgz"
+  "version" "2.5.1"
+  dependencies:
+    "asynckit" "^0.4.0"
+    "combined-stream" "^1.0.6"
+    "mime-types" "^2.1.12"
 
 "form-data@~2.3.2":
   "integrity" "sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ=="
@@ -8341,7 +8395,7 @@
     "qs" "^6.9.6"
     "uuid" "^8.3.2"
 
-"request@^2.83.0":
+"request@^2.83.0", "request@^2.88.0":
   "integrity" "sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw=="
   "resolved" "https://registry.npmjs.org/request/-/request-2.88.2.tgz"
   "version" "2.88.2"
@@ -9556,6 +9610,14 @@
     "strapi-helper-plugin" "3.6.8"
     "strapi-utils" "3.6.8"
     "uuid" "^3.1.0"
+
+"strapi-provider-email-sendgrid@^3.6.8":
+  "integrity" "sha512-l31T2LqTn1rAtWrMwRkN4OGtqmZJ40FoWsZDu247UQCAqtvHCcNeOttcgMGkkLjIG+arysfn8otsY1yudLwu1A=="
+  "resolved" "https://registry.npmjs.org/strapi-provider-email-sendgrid/-/strapi-provider-email-sendgrid-3.6.8.tgz"
+  "version" "3.6.8"
+  dependencies:
+    "@sendgrid/mail" "6.4.0"
+    "strapi-utils" "3.6.8"
 
 "strapi-provider-email-sendmail@3.6.8":
   "integrity" "sha512-cdlucUiBJpltSJd0/q67SsShTlCUJC8SqU3sMFiJgqsPptbTMxKIG98kUOqRwPbripnBn1ZGIaGjOL0Jlf4fPA=="

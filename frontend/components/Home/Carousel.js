@@ -88,7 +88,9 @@ export default function Carousel({ products }) {
       item.name = product.name;
       item.height = product.images[0].height;
       item.price = product.price;
-      // item.slug = product.slug
+      item.slug = product.slug;
+      item.noofreviews = product.noofreviews ? product.noofreviews : 0;
+      item.rating = product.rating ? product.rating : 0;
 
       slides.push(item);
     });
@@ -220,7 +222,7 @@ export default function Carousel({ products }) {
                     <Rating
                       name="product1"
                       size="small"
-                      defaultValue={4.5}
+                      defaultValue={slides[0].rating}
                       precision={0.5}
                       readOnly
                       sx={{
@@ -228,7 +230,9 @@ export default function Carousel({ products }) {
                         borderRadius: '2rem',
                       }}
                     />
-                    <CustomTyp align="center">(14 ratings)</CustomTyp>
+                    <CustomTyp align="center">
+                      ({slides[0].noofreviews}) reviews
+                    </CustomTyp>
                     <CustomTyp align="center" variant="h6">
                       ${slides[0].price}
                     </CustomTyp>
@@ -261,7 +265,7 @@ export default function Carousel({ products }) {
                     <Rating
                       name="product2"
                       size="small"
-                      defaultValue={4.5}
+                      defaultValue={slides[1].rating}
                       precision={0.5}
                       readOnly
                       sx={{
@@ -269,9 +273,11 @@ export default function Carousel({ products }) {
                         borderRadius: '2rem',
                       }}
                     />
-                    <CustomTyp align="center">(14 ratings)</CustomTyp>
+                    <CustomTyp align="center">
+                      ({slides[1].noofreviews}) reviews
+                    </CustomTyp>
                     <CustomTyp align="center" variant="h6">
-                      ${slides[0].price}
+                      ${slides[1].price}
                     </CustomTyp>
                   </CardContent>
                 </CardActionArea>
@@ -302,7 +308,7 @@ export default function Carousel({ products }) {
                     <Rating
                       name="product3"
                       size="small"
-                      defaultValue={4.5}
+                      defaultValue={slides[2].rating}
                       precision={0.5}
                       readOnly
                       sx={{
@@ -310,9 +316,11 @@ export default function Carousel({ products }) {
                         borderRadius: '2rem',
                       }}
                     />
-                    <CustomTyp align="center">(14 ratings)</CustomTyp>
+                    <CustomTyp align="center">
+                      ({slides[2].noofreviews}) reviews
+                    </CustomTyp>
                     <CustomTyp align="center" variant="h6">
-                      ${slides[0].price}
+                      ${slides[2].price}
                     </CustomTyp>
                   </CardContent>
                 </CardActionArea>

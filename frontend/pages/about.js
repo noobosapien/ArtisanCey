@@ -36,30 +36,20 @@ export default function About() {
           spacing={2}
         >
           <Grid item>
-            <MyTypo>
-              We are Pro-enviromental from our hearts, no this is not just a
-              trope to get more customers.
-            </MyTypo>
+            <MyTypo></MyTypo>
           </Grid>
 
           <Grid item>
             <Grid container>
               <Grid item>
-                <MyTypo>
-                  We initiated this start up with only one thing in mind that is
-                  to promote Pro-enviormental behaviour amongst our social
-                  circle which we hope to expand and raise awareness that giving
-                  and healing the world doesn't have to be challenging and goes
-                  unappreciated. We do all we can to engender the feeling of
-                  giving has it's substantial & tangible rewards.
-                </MyTypo>
+                <MyTypo></MyTypo>
               </Grid>
 
               <Grid item></Grid>
             </Grid>
           </Grid>
 
-          <Grid item>
+          {/* <Grid item>
             <MyTypo></MyTypo>
           </Grid>
 
@@ -82,7 +72,7 @@ export default function About() {
               We do not source our products in massive amount hand made by
               artisans from the beautiful isle of Ceylon
             </MyTypo>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </Layout>

@@ -141,13 +141,13 @@ export default function SearchDialog({ openSearch, setOpenSearch }) {
             {searchResults.length > 0 ? (
               <>
                 <Grid item xs={12} />
-                <Grid
+                {/* <Grid
                   item
                   alignSelf="center"
                   sx={{ marginTop: '4%', marginBottom: '2%' }}
                 >
                   <Button variant="contained">Expand search</Button>
-                </Grid>
+                </Grid> */}
               </>
             ) : (
               <></>

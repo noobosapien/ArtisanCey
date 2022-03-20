@@ -4,6 +4,9 @@ import {
   BottomNavigationAction,
   Box,
   Button,
+  Card,
+  CardActionArea,
+  CardContent,
   Collapse,
   Divider,
   Grid,
@@ -35,6 +38,7 @@ import InfoTable from '../../components/Product/InfoTable';
 import { Store } from '../../utils/store';
 import { getProductInfo } from '../../helpers/getProductInfo';
 import Message from '../../components/common/Message';
+import OTP from '../../public/OTP.png';
 
 export default function ProductPage(props) {
   const { product } = props;
@@ -312,6 +316,61 @@ export default function ProductPage(props) {
                   ) : (
                     <></>
                   )}
+                </Grid>
+
+                <Grid item>
+                  <Card elevation={10}>
+                    <CardActionArea>
+                      <Grid container direction="column" alignItems="center">
+                        <Grid item>
+                          <CardContent>
+                            <Typography
+                              variant="body2"
+                              sx={{ fontSize: '1.4rem' }}
+                            >
+                              Something to be proud of...
+                            </Typography>
+                          </CardContent>
+                        </Grid>
+
+                        <Grid item>
+                          <CardContent>
+                            <Typography
+                              variant="body2"
+                              sx={{ fontSize: '1.4rem' }}
+                            >
+                              <span
+                                style={{ fontSize: '1.6rem', color: '#3a8783' }}
+                              >
+                                20%
+                              </span>{' '}
+                              of your purchase goes to
+                            </Typography>
+                          </CardContent>
+                        </Grid>
+
+                        <Grid item>
+                          <Image
+                            height="50"
+                            width={215}
+                            src={OTP.src}
+                            alt="OTP"
+                          />
+                        </Grid>
+
+                        <Grid item>
+                          <CardContent>
+                            <Typography
+                              variant="body2"
+                              sx={{ fontSize: '1.4rem' }}
+                            >
+                              On us... in your name.
+                            </Typography>
+                          </CardContent>
+                        </Grid>
+                      </Grid>
+                    </CardActionArea>
+                  </Card>
                 </Grid>
               </Grid>
             </Grid>

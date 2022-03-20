@@ -1,9 +1,12 @@
 import { Button, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React from 'react';
 import Tree from '../../public/Tree.svg';
 
 export default function Satisfaction() {
+  const router = useRouter();
+
   return (
     <Grid
       justifyContent="center"
@@ -27,10 +30,17 @@ export default function Satisfaction() {
         spacing={4}
       >
         <Grid item>
-          <Typography>Commited to quality and customer satisfaction</Typography>
+          <Typography align="center" variant="body2">
+            Commited to the environment and customer satisfaction
+          </Typography>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="secondary" sx={(theme) => ({})}>
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={(theme) => ({})}
+            onClick={(e) => router.push('/about')}
+          >
             Explore
           </Button>
         </Grid>

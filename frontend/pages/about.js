@@ -3,6 +3,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 import { styled } from '@mui/system';
 import TriFactor from '../public/trifactor.png';
+import OTP from '../public/OTP.png';
 import Image from 'next/image';
 
 const MyTypo = styled(Typography)({
@@ -127,15 +128,30 @@ export default function About() {
               >
                 We will be donating{' '}
                 <span style={{ fontSize: '2rem', color: '#3a8783' }}>20%</span>{' '}
-                of our income every week to a selected charity.
+                of our income at the end of every month to:
               </Typography>
             </Grid>
 
             <Grid item>
-              <Typography>This week we are donating to</Typography>
+              <Image width={215} height={50} alt="One tree plant" src={OTP} />
             </Grid>
 
-            <Grid item>{/* Charity */}</Grid>
+            <Grid item>
+              <Typography
+                align="center"
+                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+              >
+                you can learn more about them{' '}
+                <a
+                  style={{ textDecoration: 'underline' }}
+                  target="_blank"
+                  href="https://onetreeplanted.org/"
+                >
+                  here
+                </a>
+                .
+              </Typography>
+            </Grid>
           </Grid>
 
           <Grid

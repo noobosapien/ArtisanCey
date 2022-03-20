@@ -18,6 +18,8 @@ import { useTheme } from '@mui/material/styles';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { getTopRated } from '../../helpers/getTopRated';
 import SmallProductCard from '../common/SmallProductCard';
+import { useRouter } from 'next/router';
+import OTP from '../../public/OTP.png';
 
 const CustomImg = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down('xl')]: {
@@ -61,6 +63,7 @@ const CustomTyp = styled(Typography)(({ theme }) => ({
 
 export default function Carousel({ products }) {
   const theme = useTheme();
+  const router = useRouter();
 
   const [rotation1, setRotation1] = useState(0);
   const [rotation2, setRotation2] = useState(120);
@@ -160,16 +163,6 @@ export default function Carousel({ products }) {
     getProducts();
   }, []);
 
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    centerMode: true,
-    arrows: true,
-  };
-
   return (
     <Grid
       container
@@ -215,7 +208,11 @@ export default function Carousel({ products }) {
                   zIndex: z1,
                 }}
               >
-                <CardActionArea>
+                <CardActionArea
+                  onClick={(e) => {
+                    router.push(`/product/${slides[0].slug}`);
+                  }}
+                >
                   <CardMedia component="img" image={slides[0].image} />
                   <CardContent>
                     <CustomTyp align="center">{slides[0].name}</CustomTyp>
@@ -258,7 +255,11 @@ export default function Carousel({ products }) {
                   zIndex: z2,
                 }}
               >
-                <CardActionArea>
+                <CardActionArea
+                  onClick={(e) => {
+                    router.push(`/product/${slides[1].slug}`);
+                  }}
+                >
                   <CardMedia component="img" image={slides[1].image} />
                   <CardContent>
                     <CustomTyp align="center">{slides[1].name}</CustomTyp>
@@ -301,7 +302,11 @@ export default function Carousel({ products }) {
                   zIndex: z3,
                 }}
               >
-                <CardActionArea>
+                <CardActionArea
+                  onClick={(e) => {
+                    router.push(`/product/${slides[2].slug}`);
+                  }}
+                >
                   <CardMedia component="img" image={slides[2].image} />
                   <CardContent>
                     <CustomTyp align="center">{slides[2].name}</CustomTyp>
@@ -371,7 +376,57 @@ export default function Carousel({ products }) {
         </Grid>
 
         <Grid item>
-          <Card>About something</Card>
+          <Card elevation={10}>
+            <CardActionArea>
+              <Grid container direction="column" alignItems="center">
+                <Grid item>
+                  <CardContent>
+                    <Typography
+                      align="center"
+                      variant="body2"
+                      sx={{ fontSize: '2rem' }}
+                    >
+                      We donate 20% of our earnings to the cause
+                    </Typography>
+                  </CardContent>
+                </Grid>
+
+                <Grid item>
+                  <Image height="50" width={215} src={OTP.src} alt="OTP" />
+                </Grid>
+
+                <Grid item>
+                  <CardContent>
+                    <Grid
+                      container
+                      direction="column"
+                      alignItems="center"
+                      spacing={4}
+                    >
+                      <Grid item>
+                        <Typography
+                          align="center"
+                          variant="body2"
+                          sx={{ fontSize: '2rem' }}
+                        >
+                          every month
+                        </Typography>
+                      </Grid>
+
+                      <Grid item>
+                        <Button
+                          variant="outlined"
+                          onClick={(e) => router.push('/about')}
+                        >
+                          Learn more
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Grid>
+              </Grid>
+            </CardActionArea>
+          </Card>
         </Grid>
 
         <Grid item container alignItems="center" direction="column" spacing={6}>

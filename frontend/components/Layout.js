@@ -16,6 +16,7 @@ import {
   Link,
   Badge,
   Paper,
+  Divider,
 } from '@mui/material';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Close from '@mui/icons-material/Close';
@@ -36,6 +37,8 @@ import MC from '../public/mastercard.png';
 import JCB from '../public/jcb.png';
 import AE from '../public/american_express.png';
 import CU from '../public/china_union.png';
+import Flag from '../public/flag.svg';
+import OTP from '../public/OTP.png';
 
 const LogoButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
@@ -99,7 +102,7 @@ export default function Layout({ title, description, children }) {
 
       <Stack sx={{ width: '100%' }} justifyContent="center" spacing={2}>
         <Collapse in={openShipping} sx={{ width: '100%' }}>
-          {/* <Paper
+          <Paper
             variant="outlined"
             sx={(theme) => ({
               background: theme.palette.common.greenBlue,
@@ -115,20 +118,17 @@ export default function Layout({ title, description, children }) {
               <Grid item>
                 <Typography
                   variant="body2"
-                  sx={{ color: '#fff', fontSize: '1.5rem' }}
+                  sx={{ color: '#fff', fontSize: '1.2rem' }}
                 >
-                  We share 20% of our revenue with a selected charity on behalf
-                  of you
+                  20% goes to charity in your name.
                 </Typography>
               </Grid>
 
               <Grid item>
                 <Image src={Stars} alt="stars" width={30} height={30} />
               </Grid>
-
-              
             </Grid>
-          </Paper> */}
+          </Paper>
         </Collapse>
       </Stack>
 
@@ -226,12 +226,14 @@ export default function Layout({ title, description, children }) {
 
       <footer
         style={{
-          backgroundColor: '#C3E6D3',
+          backgroundColor: '#fff',
           marginTop: '15%',
           paddingTop: '4rem',
           paddingBottom: '4rem',
         }}
       >
+        <Divider sx={{ marginBottom: '1rem' }} />
+
         <Grid container alignItems="center">
           <Grid
             item
@@ -246,7 +248,31 @@ export default function Layout({ title, description, children }) {
             </Grid>
 
             <Grid item>
-              <Typography>We accept:</Typography>
+              <Grid
+                container
+                direction="column"
+                alignItems="center"
+                spacing={2}
+              >
+                <Grid item>
+                  <Typography variant="body2" sx={{ fontSize: '1.4rem' }}>
+                    20% goes to
+                  </Typography>
+                </Grid>
+
+                <Grid item>
+                  <Image
+                    src={OTP}
+                    alt="one tree planted"
+                    width={215}
+                    height={50}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+
+            <Grid item>
+              <Typography variant="body2">We accept:</Typography>
             </Grid>
 
             <Grid item container justifyContent="space-evenly">
@@ -269,6 +295,13 @@ export default function Layout({ title, description, children }) {
               <Grid item>
                 <Image src={CU} alt="visa" width={32} height={32} />
               </Grid>
+            </Grid>
+
+            <Grid item>
+              <Typography align="center">
+                Currency: USD{' '}
+                <Image src={Flag} alt="USD" width={32} height={16} />
+              </Typography>{' '}
             </Grid>
           </Grid>
 

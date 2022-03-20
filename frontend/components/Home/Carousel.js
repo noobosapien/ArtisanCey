@@ -377,55 +377,53 @@ export default function Carousel({ products }) {
 
         <Grid item>
           <Card elevation={10}>
-            <CardActionArea>
-              <Grid container direction="column" alignItems="center">
-                <Grid item>
-                  <CardContent>
-                    <Typography
-                      align="center"
-                      variant="body2"
-                      sx={{ fontSize: '2rem' }}
-                    >
-                      We donate 20% of our earnings to the cause
-                    </Typography>
-                  </CardContent>
-                </Grid>
-
-                <Grid item>
-                  <Image height="50" width={215} src={OTP.src} alt="OTP" />
-                </Grid>
-
-                <Grid item>
-                  <CardContent>
-                    <Grid
-                      container
-                      direction="column"
-                      alignItems="center"
-                      spacing={4}
-                    >
-                      <Grid item>
-                        <Typography
-                          align="center"
-                          variant="body2"
-                          sx={{ fontSize: '2rem' }}
-                        >
-                          every month
-                        </Typography>
-                      </Grid>
-
-                      <Grid item>
-                        <Button
-                          variant="outlined"
-                          onClick={(e) => router.push('/about')}
-                        >
-                          Learn more
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Grid>
+            <Grid container direction="column" alignItems="center">
+              <Grid item>
+                <CardContent>
+                  <Typography
+                    align="center"
+                    variant="body2"
+                    sx={{ fontSize: '2rem' }}
+                  >
+                    We donate 20% of our earnings to the cause
+                  </Typography>
+                </CardContent>
               </Grid>
-            </CardActionArea>
+
+              <Grid item>
+                <Image height="50" width={215} src={OTP.src} alt="OTP" />
+              </Grid>
+
+              <Grid item>
+                <CardContent>
+                  <Grid
+                    container
+                    direction="column"
+                    alignItems="center"
+                    spacing={4}
+                  >
+                    <Grid item>
+                      <Typography
+                        align="center"
+                        variant="body2"
+                        sx={{ fontSize: '2rem' }}
+                      >
+                        every month
+                      </Typography>
+                    </Grid>
+
+                    <Grid item>
+                      <Button
+                        variant="outlined"
+                        onClick={(e) => router.push('/about')}
+                      >
+                        Learn more
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Grid>
+            </Grid>
           </Card>
         </Grid>
 

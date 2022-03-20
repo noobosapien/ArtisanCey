@@ -21,7 +21,6 @@ export default function SideCart({ shipping, order }) {
   const { state, dispatch } = useContext(Store);
   const [items, setItems] = useState([]);
   const [shippingOption, setShippingOption] = useState({});
-  console.log(shippingOption);
 
   const {
     cart: { cartItems },

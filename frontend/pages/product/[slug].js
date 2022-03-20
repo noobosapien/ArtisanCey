@@ -199,6 +199,8 @@ export default function ProductPage(props) {
                     sx={(theme) => ({
                       color: theme.palette.common.black,
                       fontSize: '2.0rem',
+                      fontFamily: 'Roboto',
+                      fontWeight: '600',
                     })}
                   >
                     ${prodInfo.price ? prodInfo.price.toFixed(2) : '0.00'}

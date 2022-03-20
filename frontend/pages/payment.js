@@ -14,7 +14,7 @@ import PaymentCard from '../components/Payment/PaymentCard';
 
 const stripePromise = loadStripe(
   process.env.STRIPE_PK ||
-    'pk_test_51KZWxzCO54trWcxUEnAX0DLPrQ9RQiEsiS18J91VsGzQowzxVGkXfdKDSAVfxZv3BghPGssvRliujs4beVXMkxCa001yQk4gFs'
+    'pk_live_51KZWxzCO54trWcxUUi780flRPxcdmmp0fUWLD5SxVLd1k9XOsDNktTph9r451GNRvI5Gd8TPQKgw0hYicAaOENpG00YGJ2lMJZ'
 );
 
 export default function Checkout() {

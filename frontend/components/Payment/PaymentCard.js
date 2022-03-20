@@ -471,7 +471,6 @@ export default function PaymentCard({ loading, setLoading }) {
         });
 
         if (order.message === 'success') {
-          console.log(order.auth);
           dispatch({ type: 'CART_CLEAR' });
 
           router.push(`/order/${order.link}?auth=${order.auth}`);

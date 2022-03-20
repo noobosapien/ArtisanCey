@@ -36,10 +36,7 @@ export default class MyDocument extends Document {
           />
 
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-          />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
             href="https://fonts.googleapis.com/css2?family=Monoton&family=Rancho&family=Ranga&display=swap"
             rel="stylesheet"
@@ -49,6 +46,21 @@ export default class MyDocument extends Document {
             async
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAof8CggK9UO4Fd7OdnnRp0R52P_F2KL4&libraries=places&callback=initMap"
           ></script>
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-TPS9GFNC27"
+          />
+
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-TPS9GFNC27', { page_path: window.location.pathname });
+            `,
+            }}
+          />
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {this.props.emotionStyleTags}
         </Head>

@@ -1,5 +1,7 @@
 import '../styles/globals.css';
 import * as React from 'react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@mui/material/styles';
@@ -15,6 +17,21 @@ const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+  const router = useRouter();
+
+  const handleRouteChange = (url) => {
+    window.gtag('config', 'G-TPS9GFNC27', {
+      page_path: url,
+    });
+  };
+
+  useEffect(() => {
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <StoreProvider>

@@ -70,6 +70,8 @@ module.exports = {
           id: item.id,
           name: item.name,
           quantity: item.quantity,
+          img: item.img,
+          price: item.price,
         });
       });
 
@@ -126,6 +128,19 @@ module.exports = {
       var order = await strapi.services.order.create(orderObject);
 
       order = sanitizeEntity(order, { model: strapi.models.order });
+
+      const confirmation = await strapi.services.order.confirmationEmail(
+        orderObject
+      );
+
+      await strapi.plugins["email"].services.email.send({
+        to: shippingAddress.email.value,
+        from: "sales@artisancey.com",
+        replyTo: "sales@artisancey.com",
+        subject: "ArtisanCey order confirmation",
+        text: "We recieved your order!",
+        html: confirmation,
+      });
 
       await strapi.services.guests.update(
         { id: guest.id },

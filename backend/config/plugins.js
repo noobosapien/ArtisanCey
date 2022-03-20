@@ -14,11 +14,12 @@ module.exports = ({ env }) => ({
   email: {
     provider: "sendgrid",
     providerOptions: {
-      apiKey: env("SENDGRID_KEY"),
+      apiKey: env("SENDGRID_API_KEY"),
     },
     settings: {
       defaultForm: "sales@artisancey.com",
       defaultTo: "sales@artisancey.com",
+      defaultReplyTo: "sales@artisancey.com",
     },
   },
 });

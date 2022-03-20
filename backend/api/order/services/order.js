@@ -17,8 +17,6 @@ module.exports = {
       ? JSON.parse(order.shippingOption)
       : order.shippingOption;
 
-    console.log(shippingAddress);
-
     return `<html xmlns="http://www.w3.org/1999/xhtml">
       <head>
         <meta name="x-apple-disable-message-reformatting" />

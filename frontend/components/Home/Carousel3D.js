@@ -47,7 +47,16 @@ export default function Carousel3D({ slides }) {
 
       slides.forEach((sl, i) => {
         const card = (
-          <CustomImg elevation={10} sx={{ margin: '0 5rem', width: '10rem' }}>
+          <CustomImg
+            elevation={10}
+            sx={(theme) => ({
+              margin: '0 5rem',
+              width: '10rem',
+              [theme.breakpoints.up('sm')]: {
+                width: '20rem',
+              },
+            })}
+          >
             <CardActionArea
               onClick={(e) => {
                 router.push(`/product/${sl.slug}`);

@@ -65,7 +65,7 @@ export default function Carousel({ products }) {
         alignItems="center"
         xs={12}
         lg={4}
-        sx={{ marginBottom: '40vh' }}
+        sx={{ marginBottom: '30vh' }}
       >
         <Grid item alignSelf="center">
           <Typography variant="h3">Most viewed items</Typography>
@@ -74,11 +74,11 @@ export default function Carousel({ products }) {
         <Grid
           item
           sx={(theme) => ({
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('sm')]: {
               marginTop: '40vh',
             },
-            [theme.breakpoints.down('xs')]: {
-              marginTop: '80vh',
+            [theme.breakpoints.down('sm')]: {
+              marginTop: '30vh',
             },
           })}
         >

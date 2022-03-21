@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 export default function SmallProductCard({ product, noReviews }) {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function SmallProductCard({ product, noReviews }) {
   return (
     <Grid container direction="column">
       <Grid item>
-        <Card>
+        <Card sx={{ width: '120px' }}>
           <CardActionArea
             onClick={(e) => {
               router.push(`/product/${product.slug}`);

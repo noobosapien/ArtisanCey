@@ -14,7 +14,7 @@ export default function SmallProductCard({ product, noReviews }) {
   const router = useRouter();
 
   return (
-    <Grid container direction="column">
+    <Grid container direction="column" alignItems="center">
       <Grid item>
         <Card sx={{ width: '120px' }}>
           <CardActionArea

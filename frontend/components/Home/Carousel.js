@@ -205,6 +205,7 @@ export default function Carousel({ products }) {
                 elevation={10}
                 style={{
                   transform: `perspective(1000px) rotateY(${rotation1}deg) translateZ(${zTranslate}px)`,
+                  '-webkit-transform': `perspective(1000px) rotateY(${rotation1}deg) translateZ(${zTranslate}px)`,
                   zIndex: z1,
                 }}
               >
@@ -252,6 +253,7 @@ export default function Carousel({ products }) {
                 elevation={10}
                 style={{
                   transform: `perspective(1000px) rotateY(${rotation2}deg) translateZ(${zTranslate}px)`,
+                  '-webkit-transform': `perspective(1000px) rotateY(${rotation1}deg) translateZ(${zTranslate}px)`,
                   zIndex: z2,
                 }}
               >
@@ -299,6 +301,7 @@ export default function Carousel({ products }) {
                 elevation={10}
                 style={{
                   transform: `perspective(1000px) rotateY(${rotation3}deg) translateZ(${zTranslate}px)`,
+                  '-webkit-transform': `perspective(1000px) rotateY(${rotation1}deg) translateZ(${zTranslate}px)`,
                   zIndex: z3,
                 }}
               >

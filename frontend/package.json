@@ -30,7 +30,6 @@
     "react-hook-form": "^7.27.0",
     "react-image-gallery": "^1.2.7",
     "react-places-autocomplete": "^7.3.0",
-    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.3",
     "uuid": "^8.3.2"
   },

@@ -1,45 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import Clean from '../../public/nature.svg';
-import Tree from '../../public/Tree.svg';
-import Shell from '../../public/shell_bowl.jpg';
-import Image from 'next/image';
 import loadable from '@loadable/component';
 import { styled } from '@mui/system';
 
 import {
-  Button,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
-  Rating,
   Typography,
 } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useRouter } from 'next/router';
 
 const Carousel = loadable(() => import('react-spring-3d-carousel'));
 
 const CustomImg = styled(Card)(({ theme }) => ({
-  [theme.breakpoints.down('xl')]: {
-    // width: '187.5px',
-    // height: '350px',
-  },
-
-  [theme.breakpoints.down('sm')]: {
-    // width: '150px',
-    // height: '200px',
-  },
-
-  backgroundColor: '#3a8783cc',
+  backgroundColor: '#3a8783',
   borderRadius: '2rem',
 }));
 
 const CustomTyp = styled(Typography)(({ theme }) => ({
-  backgroundColor: '#474747cc',
   color: '#fff',
-  borderRadius: '2rem',
+  fontFamily: 'Rancho',
+  fontSize: '1.0rem',
 }));
 
 export default function Carousel3D({ slides }) {
@@ -54,7 +36,7 @@ export default function Carousel3D({ slides }) {
       } else {
         setSlide(slide + 1);
       }
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [slide]);
@@ -74,34 +56,12 @@ export default function Carousel3D({ slides }) {
               <CardMedia component="img" image={sl.image} />
               <CardContent>
                 <CustomTyp align="center">{sl.name}</CustomTyp>
-                <Rating
-                  name="product1"
-                  size="small"
-                  defaultValue={sl.rating}
-                  precision={0.5}
-                  readOnly
-                  sx={{
-                    backgroundColor: '#3a8783cc',
-                    borderRadius: '2rem',
-                  }}
-                />
-                <CustomTyp align="center">({sl.noofreviews}) reviews</CustomTyp>
+
                 <CustomTyp align="center" variant="h6">
                   ${sl.price}
                 </CustomTyp>
               </CardContent>
             </CardActionArea>
-
-            <CardActions>
-              <Button
-                size="small"
-                variant="contained"
-                color="secondary"
-                sx={{ borderRadius: '2rem' }}
-              >
-                <AddShoppingCartIcon />
-              </Button>
-            </CardActions>
           </CustomImg>
         );
 

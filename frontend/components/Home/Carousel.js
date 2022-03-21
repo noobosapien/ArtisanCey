@@ -20,6 +20,7 @@ import { getTopRated } from '../../helpers/getTopRated';
 import SmallProductCard from '../common/SmallProductCard';
 import { useRouter } from 'next/router';
 import OTP from '../../public/OTP.png';
+import Carousel3D from './Carousel3D';
 
 const CustomImg = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down('xl')]: {
@@ -178,13 +179,27 @@ export default function Carousel({ products }) {
         alignItems="center"
         xs={12}
         lg={4}
-        sx={{ marginBottom: '60vh' }}
+        sx={{ marginBottom: '40vh' }}
       >
         <Grid item alignSelf="center">
           <Typography variant="h3">Most viewed items</Typography>
         </Grid>
 
-        <Grid item>
+        <Grid
+          item
+          sx={(theme) => ({
+            [theme.breakpoints.up('xs')]: {
+              marginTop: '40vh',
+            },
+            [theme.breakpoints.down('xs')]: {
+              marginTop: '80vh',
+            },
+          })}
+        >
+          <Carousel3D slides={slides} />
+        </Grid>
+
+        {/* <Grid item>
           <div
             style={{
               marginLeft: '10%',
@@ -346,7 +361,7 @@ export default function Carousel({ products }) {
               </CustomImg>
             </div>
           </div>
-        </Grid>
+        </Grid> */}
       </Grid>
 
       <Grid item xs={12} lg={4} container direction="column" spacing={10}>

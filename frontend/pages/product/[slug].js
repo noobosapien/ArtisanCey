@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertTitle,
   AppBar,
   BottomNavigation,
   BottomNavigationAction,
@@ -16,6 +18,7 @@ import {
   Rating,
   TextField,
   Toolbar,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
@@ -39,6 +42,8 @@ import { Store } from '../../utils/store';
 import { getProductInfo } from '../../helpers/getProductInfo';
 import Message from '../../components/common/Message';
 import OTP from '../../public/OTP.png';
+import Coconut from '../../public/coconut.svg';
+import Eco from '../../public/eco.svg';
 
 export default function ProductPage(props) {
   const { product } = props;
@@ -62,17 +67,6 @@ export default function ProductPage(props) {
     control,
     formState: { errors },
   } = useForm();
-
-  const submitHandler = async ({ rating, name, email, text }) => {
-    try {
-      setShowForm(false);
-      const abortController = new AbortController();
-      const signal = abortController.signal;
-      await setReview(product[0]._id, rating, name, email, text, signal);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const prodInfo = product instanceof Array && product.length ? product[0] : {};
 
@@ -109,7 +103,6 @@ export default function ProductPage(props) {
 
   const handleNumberChange = (e) => {
     const value = e.target.value.replace(/[e\+\-]/gi, '1');
-    console.log(value);
     setAmount(value);
   };
 
@@ -171,12 +164,62 @@ export default function ProductPage(props) {
           {/* Product */}
           <Grid container justifyContent="space-evenly" spacing={3}>
             <Grid item>
-              <ImageGallery
-                items={images}
-                showFullscreenButton={false}
-                showPlayButton={false}
-                thumbnailPosition={'left'}
-              />
+              <Grid container direction="column" spacing={4}>
+                <Grid item>
+                  <ImageGallery
+                    items={images}
+                    showFullscreenButton={false}
+                    showPlayButton={false}
+                    thumbnailPosition={'left'}
+                  />
+                </Grid>
+
+                <Grid item>
+                  <Grid container justifyContent="space-evenly" spacing={4}>
+                    <Grid item>
+                      {prodInfo.tags && prodInfo.tags.coconut ? (
+                        <Grid container direction="column">
+                          <Grid item>
+                            <IconButton>
+                              <Image src={Coconut} height={64} width={64} />
+                            </IconButton>
+                          </Grid>
+
+                          <Grid item>
+                            <Typography variant="body2">
+                              Coconut based
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      ) : (
+                        <></>
+                      )}
+                    </Grid>
+
+                    <Grid item>
+                      {prodInfo.tags && prodInfo.tags.eco ? (
+                        <Grid container direction="column" alignItems="center">
+                          <Grid item>
+                            <IconButton>
+                              <Image src={Eco} height={64} width={64} />
+                            </IconButton>
+                          </Grid>
+
+                          <Grid item>
+                            <Typography variant="body2">
+                              Eco-friendly
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      ) : (
+                        <></>
+                      )}
+                    </Grid>
+                  </Grid>
+
+                  {/* tags */}
+                </Grid>
+              </Grid>
             </Grid>
 
             <Grid item xs={10} lg={5}>
@@ -309,6 +352,54 @@ export default function ProductPage(props) {
                     {prodInfo.description}
                   </Typography>
                 </Grid>
+
+                {prodInfo.quotes instanceof Array ? (
+                  <Grid item>
+                    <Grid container direction="column" spacing={2}>
+                      {prodInfo.quotes.map((quote) => (
+                        <>
+                          <Grid item>
+                            <Typography
+                              sx={(theme) => ({
+                                fontFamily: 'Ranga',
+                                fontSize: '1.4rem',
+                                color: theme.palette.common.lightGray,
+                              })}
+                              align={quote.left ? 'left' : 'right'}
+                            >
+                              {quote.text}
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              sx={(theme) => ({
+                                fontFamily: 'Ranga',
+                                fontSize: '1.4rem',
+                                fontWeight: '600',
+                                color: theme.palette.common.lightGray,
+                              })}
+                              align={quote.left ? 'left' : 'right'}
+                            >
+                              -{quote.author}-
+                            </Typography>
+                          </Grid>
+                        </>
+                      ))}
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <></>
+                )}
+
+                {prodInfo.alert ? (
+                  <Grid item>
+                    <Alert variant="standard" severity={prodInfo.alert.type}>
+                      {prodInfo.alert.text}
+                    </Alert>
+                  </Grid>
+                ) : (
+                  <></>
+                )}
 
                 <Grid item>
                   {product instanceof Array ? (

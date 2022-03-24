@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/debugs",
+      "handler": "debug.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/debugs/count",
+      "handler": "debug.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/debugs/:id",
+      "handler": "debug.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/debugs",
+      "handler": "debug.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/debugs/:id",
+      "handler": "debug.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/debugs/:id",
+      "handler": "debug.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -38,9 +38,6 @@
     "width": {
       "type": "decimal"
     },
-    "description2": {
-      "type": "text"
-    },
     "images": {
       "collection": "file",
       "via": "related",
@@ -77,6 +74,15 @@
       "collection": "product"
     },
     "additionalInfo": {
+      "type": "json"
+    },
+    "quotes": {
+      "type": "json"
+    },
+    "alert": {
+      "type": "json"
+    },
+    "tags": {
       "type": "json"
     }
   }

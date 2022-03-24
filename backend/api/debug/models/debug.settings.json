@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "debugs",
+  "info": {
+    "name": "Debug"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "data": {
+      "type": "json"
+    }
+  }
+}

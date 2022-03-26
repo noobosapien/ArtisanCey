@@ -353,6 +353,24 @@ export default function ProductPage(props) {
                   </Typography>
                 </Grid>
 
+                {prodInfo.description2 ? (
+                  <Grid item>
+                    <Typography
+                      align="center"
+                      paragraph
+                      variant="body2"
+                      sx={(theme) => ({
+                        fontSize: '1.3rem',
+                        color: theme.palette.common.lightGray,
+                      })}
+                    >
+                      {prodInfo.description2}
+                    </Typography>
+                  </Grid>
+                ) : (
+                  <></>
+                )}
+
                 {prodInfo.quotes instanceof Array ? (
                   <Grid item>
                     <Grid container direction="column" spacing={2}>

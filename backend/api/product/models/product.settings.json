@@ -84,6 +84,9 @@
     },
     "tags": {
       "type": "json"
+    },
+    "description2": {
+      "type": "text"
     }
   }
 }

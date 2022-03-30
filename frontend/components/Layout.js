@@ -221,7 +221,7 @@ export default function Layout({ title, description, children }) {
       </AppBar>
 
       <TopMenu />
-
+      {/* changes */}
       {children}
 
       <footer

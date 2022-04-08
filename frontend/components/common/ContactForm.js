@@ -42,6 +42,11 @@ export default function ContactForm() {
       setSeverity('success');
       setOpenMsg(true);
       setLoading(false);
+
+      setEmail('');
+      setFName('');
+      setLName('');
+      setText('');
     } catch (e) {
       setMsg('Message not sent please try again later!');
       setSeverity('error');

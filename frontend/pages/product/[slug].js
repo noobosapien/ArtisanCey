@@ -40,6 +40,7 @@ import Reviews from '../../components/Product/Reviews';
 import InfoTable from '../../components/Product/InfoTable';
 import { Store } from '../../utils/store';
 import { getProductInfo } from '../../helpers/getProductInfo';
+import { setDebug } from '../../helpers/setDebug';
 import Message from '../../components/common/Message';
 import OTP from '../../public/OTP.png';
 import Coconut from '../../public/coconut.svg';
@@ -71,7 +72,7 @@ export default function ProductPage(props) {
   const prodInfo = product instanceof Array && product.length ? product[0] : {};
 
   useEffect(() => {
-    const updateReviews = async () => {
+    const updateReviewsAndDebug = async () => {
       try {
         const info = await getProductInfo(product[0]?.id);
         prodInfo.noofreviews =
@@ -81,11 +82,15 @@ export default function ProductPage(props) {
         prodInfo.rating =
           info instanceof Array && info[0].rating ? info[0].rating : 0;
         setUpdate(update + 1);
+
+        await setDebug({
+          page: prodInfo.slug,
+        });
       } catch (e) {
         console.log(e);
       }
     };
-    updateReviews();
+    updateReviewsAndDebug();
   }, []);
 
   const images = [];

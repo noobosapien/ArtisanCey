@@ -22,6 +22,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { v4 as uuidv4 } from 'uuid';
 import { processOrder } from '../../helpers/processOrder';
 import { placeOrder } from '../../helpers/placeOrder';
+import { setDebug } from '../../helpers/setDebug';
 import countries from '../../utils/countries';
 import BillingAddress from './BillingAddress';
 import Cookies from 'js-cookie';
@@ -300,6 +301,12 @@ export default function PaymentCard({ loading, setLoading }) {
           setClientSecret(result.client_secret);
         }
       } catch (e) {
+        await setDebug({
+          error: 'Cannot process order',
+          ...shippingAddress,
+          ...shippingCountry,
+        });
+
         console.log(e);
       }
     };
@@ -429,6 +436,11 @@ export default function PaymentCard({ loading, setLoading }) {
       setMessage('Payment failed, please try again.');
       setSeverity('error');
       setOpenMessage(true);
+      await setDebug({
+        error: 'Payment failed',
+        ...shippingAddress,
+        ...shippingCountry,
+      });
       setLoading(false);
     } else if (result.paymentIntent.status === 'succeeded') {
       setMessage(
@@ -479,6 +491,11 @@ export default function PaymentCard({ loading, setLoading }) {
         setMessage(
           'SOMETHING WENT WRONG, PLEASE CONTACT SUPPORT, YOUR ORDER HAS NOT BEING PLACED.'
         );
+        await setDebug({
+          error: 'Cannot place order on the server',
+          ...shippingAddress,
+          ...shippingCountry,
+        });
         setSeverity('error');
         setOpenMessage(true);
       }

@@ -71,6 +71,7 @@ export default function ContactForm() {
       <Grid item>
         <TextField
           onChange={(e) => setEmail(e.target.value)}
+          value={email}
           size="small"
           placeholder="Email"
           required
@@ -83,6 +84,7 @@ export default function ContactForm() {
         <Grid item xs={12} md={5}>
           <TextField
             onChange={(e) => setFName(e.target.value)}
+            value={fName}
             size="small"
             placeholder="First Name"
             required
@@ -94,6 +96,7 @@ export default function ContactForm() {
         <Grid item xs={12} md={5}>
           <TextField
             onChange={(e) => setLName(e.target.value)}
+            value={lName}
             size="small"
             placeholder="Last Name"
             required
@@ -106,6 +109,7 @@ export default function ContactForm() {
       <Grid item>
         <TextField
           onChange={(e) => setText(e.target.value)}
+          value={text}
           multiline
           rows={5}
           fullWidth

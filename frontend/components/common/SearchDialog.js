@@ -72,7 +72,6 @@ export default function SearchDialog({ openSearch, setOpenSearch }) {
 
       const items = result instanceof Array ? [...result] : [];
 
-      console.log(items);
       // const updatedList = [];
 
       // items instanceof Array &&

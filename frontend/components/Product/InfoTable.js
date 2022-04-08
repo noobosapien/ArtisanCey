@@ -20,7 +20,6 @@ export default function InfoTable({ product }) {
     } else {
       setRows([]);
     }
-    console.log(product.additionalInfo);
   }, [product]);
 
   return (

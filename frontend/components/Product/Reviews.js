@@ -26,7 +26,6 @@ const mdReviews = (
   reviews,
   handleAddPage
 ) => {
-  console.log(reviews);
   return (
     <>
       <Grid container direction="column" spacing={4} alignItems="center">

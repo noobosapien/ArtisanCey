@@ -54,13 +54,10 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case 'OPEN_TOP_MENU': {
-      console.log('Here');
-
       return { ...state, topMenu: { open: true } };
     }
 
     case 'CLOSE_TOP_MENU': {
-      console.log('Here');
       return { ...state, topMenu: { open: false } };
     }
 

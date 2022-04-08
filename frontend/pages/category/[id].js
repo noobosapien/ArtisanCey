@@ -207,7 +207,6 @@ export async function getStaticProps(context) {
     );
 
     const products = await res.json();
-    console.log(param);
 
     return {
       props: {

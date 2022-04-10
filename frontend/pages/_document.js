@@ -49,7 +49,7 @@ export default class MyDocument extends Document {
 
           <script
             async
-            src="https://www.googletagmanager.com/gtag/js?id=G-TPS9GFNC27"
+            src="https://www.googletagmanager.com/gtag/js?id=UA-223410216-1"
           />
 
           <script
@@ -58,7 +58,7 @@ export default class MyDocument extends Document {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-TPS9GFNC27', { page_path: window.location.pathname });
+              gtag('config', 'UA-223410216-1', { page_path: window.location.pathname });
             `,
             }}
           />

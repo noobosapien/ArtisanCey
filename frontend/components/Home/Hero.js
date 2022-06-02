@@ -82,6 +82,29 @@ function Hero2() {
   );
 }
 
+function Hero4() {
+  useEffect(() => {}, []);
+
+  return (
+    <>
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: '-100',
+          // clipPath: 'polygon(100% 0, 100% 38%, 100% 100%, 0 11%, 0 0)',
+          clipPath: 'circle(50.5% at 100% 1%)',
+          background:
+            'linear-gradient(0deg, rgba(58,135,131,0.3984944319524685) 0%, rgba(58,135,99,0.33126754119616597) 100%)',
+        }}
+      ></div>
+    </>
+  );
+}
+
 export default function Hero() {
   const theme = useTheme();
   const router = useRouter();
@@ -102,6 +125,7 @@ export default function Hero() {
 
   return (
     <>
+      <Hero4 />
       <Hero2 />
 
       <Grid

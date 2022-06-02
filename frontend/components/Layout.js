@@ -100,38 +100,6 @@ export default function Layout({ title, description, children }) {
         {description && <meta name="description" content={description} />}
       </Head>
 
-      <Stack sx={{ width: '100%' }} justifyContent="center" spacing={2}>
-        <Collapse in={openShipping} sx={{ width: '100%' }}>
-          <Paper
-            variant="outlined"
-            sx={(theme) => ({
-              background: theme.palette.common.greenBlue,
-              borderRadius: 0,
-            })}
-          >
-            <Grid
-              container
-              justifyContent="center"
-              alignItems="center"
-              spacing={3}
-            >
-              <Grid item>
-                <Typography
-                  variant="body2"
-                  sx={{ color: '#fff', fontSize: '1.2rem' }}
-                >
-                  20% goes to charity in your name.
-                </Typography>
-              </Grid>
-
-              <Grid item>
-                <Image src={Stars} alt="stars" width={30} height={30} />
-              </Grid>
-            </Grid>
-          </Paper>
-        </Collapse>
-      </Stack>
-
       <SearchDialog openSearch={openSearch} setOpenSearch={setOpenSearch} />
 
       <AppBar position="static" elevation={0} color="transparent">
@@ -220,7 +188,7 @@ export default function Layout({ title, description, children }) {
         </Toolbar>
       </AppBar>
 
-      <TopMenu />
+      {/* <TopMenu /> */}
       {/* changes */}
       {children}
 

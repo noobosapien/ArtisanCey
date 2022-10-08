@@ -44,7 +44,7 @@ export default class MyDocument extends Document {
 
           <script
             async
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAof8CggK9UO4Fd7OdnnRp0R52P_F2KL4&libraries=places&callback=initMap"
+            src="https://maps.googleapis.com/maps/api/js?key=[API_KEY]&libraries=places&callback=initMap"
           ></script>
 
           <script

@@ -204,7 +204,7 @@ export default function BillingAddress({
                             ? '#41b6e6'
                             : '#fff',
                           marginBottom: '10px',
-                          fontFamily: 'Roboto',
+                          fontFamily: 'Montserrat',
                         };
                         return (
                           <div

@@ -15,7 +15,7 @@ const StyledInputElement = styled('input')(
   ({ theme }) => `
   width: 100%;
   font-size: 1.2rem;
-  font-family: Roboto;
+  font-family: Montserrat;
   font-weight: 400;
   line-height: 1.5;
   color: ${theme.palette.common.black};
@@ -98,7 +98,7 @@ export default function SearchDialog({ openSearch, setOpenSearch }) {
         open={openSearch}
         onClose={closeSearchHandler}
         sx={(theme) => ({
-          '& .MuiDrawer-paperAnchorTop': {
+          '& .MuiDrawer-papeMontserratrTop': {
             // background:
             //   'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(58,135,131,1) 50%, rgba(255,255,255,1) 100%)',
           },

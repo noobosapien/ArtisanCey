@@ -396,7 +396,7 @@ export default function Checkout() {
                   title="Contact information"
                   sx={(theme) => ({
                     '& 	.MuiCardHeader-title': {
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                       fontSize: '1rem',
                       color: theme.palette.common.greenBlue,
                     },
@@ -425,7 +425,7 @@ export default function Checkout() {
                   title="Shipping address"
                   sx={(theme) => ({
                     '& 	.MuiCardHeader-title': {
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                       fontSize: '1rem',
                       color: theme.palette.common.greenBlue,
                     },

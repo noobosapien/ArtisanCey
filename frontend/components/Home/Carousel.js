@@ -91,7 +91,7 @@ export default function Carousel({ products }) {
           <Grid item>
             <Typography
               sx={(theme) => ({
-                fontFamily: 'Ranga',
+                fontFamily: 'Montserrat',
                 fontSize: '1.5rem',
               })}
             >
@@ -99,7 +99,7 @@ export default function Carousel({ products }) {
             </Typography>
             <Typography
               sx={(theme) => ({
-                fontFamily: 'Monoton',
+                fontFamily: 'Montserrat',
                 fontSize: '1.0rem',
               })}
             >
@@ -171,7 +171,7 @@ export default function Carousel({ products }) {
           <Grid item>
             <Typography
               sx={(theme) => ({
-                fontFamily: 'Ranga',
+                fontFamily: 'Montserrat',
                 fontSize: '1.5rem',
               })}
             >
@@ -179,7 +179,7 @@ export default function Carousel({ products }) {
             </Typography>
             <Typography
               sx={(theme) => ({
-                fontFamily: 'Monoton',
+                fontFamily: 'Montserrat',
                 fontSize: '1.0rem',
               })}
             >

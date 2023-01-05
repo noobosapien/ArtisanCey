@@ -20,7 +20,7 @@ const CustomImg = styled(Card)(({ theme }) => ({
 
 const CustomTyp = styled(Typography)(({ theme }) => ({
   color: '#fff',
-  fontFamily: 'Rancho',
+  fontFamily: 'Montserrat',
   fontSize: '1.0rem',
 }));
 

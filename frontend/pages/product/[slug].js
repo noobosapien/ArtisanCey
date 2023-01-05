@@ -251,7 +251,7 @@ export default function ProductPage(props) {
                     sx={(theme) => ({
                       color: theme.palette.common.black,
                       fontSize: '2.0rem',
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                       fontWeight: '600',
                     })}
                   >
@@ -384,7 +384,7 @@ export default function ProductPage(props) {
                           <Grid item>
                             <Typography
                               sx={(theme) => ({
-                                fontFamily: 'Ranga',
+                                fontFamily: 'Montserrat',
                                 fontSize: '1.4rem',
                                 color: theme.palette.common.lightGray,
                               })}
@@ -396,7 +396,7 @@ export default function ProductPage(props) {
                           <Grid item>
                             <Typography
                               sx={(theme) => ({
-                                fontFamily: 'Ranga',
+                                fontFamily: 'Montserrat',
                                 fontSize: '1.4rem',
                                 fontWeight: '600',
                                 color: theme.palette.common.lightGray,
@@ -501,7 +501,7 @@ export default function ProductPage(props) {
         >
           <Grid item>
             <Button
-              sx={{ fontSize: '1.2rem', fontFamily: 'Rancho' }}
+              sx={{ fontSize: '1.2rem', fontFamily: 'Montserrat' }}
               endIcon={
                 showRelated ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />
               }

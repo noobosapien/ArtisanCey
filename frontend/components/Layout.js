@@ -41,11 +41,14 @@ import Flag from '../public/flag.svg';
 import OTP from '../public/OTP.png';
 
 const LogoButton = styled(Button)(({ theme }) => ({
+  [theme.breakpoints.down('xs')]: {
+    width: '11rem !important',
+  },
   [theme.breakpoints.up('xs')]: {
-    width: '8rem !important',
+    width: '11rem !important',
   },
   [theme.breakpoints.up('sm')]: {
-    width: '10rem !important',
+    width: '18rem !important',
   },
   [theme.breakpoints.up('md')]: {
     width: '18rem !important',

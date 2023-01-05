@@ -36,9 +36,9 @@ export default function Home({ featured }) {
       description={'Artisan Cey hand crafted and delivered'}
     >
       <Hero />
-      <Carousel products={featured} />
-      <LatestProducts />
-      <Satisfaction />
+      {/* <Carousel products={featured} /> */}
+      {/* <LatestProducts />
+      <Satisfaction /> */}
     </Layout>
   );
 }
@@ -53,5 +53,9 @@ export async function getStaticProps() {
         featured,
       },
     };
-  } catch (e) {}
+  } catch (e) {
+    return {
+      props: {},
+    };
+  }
 }

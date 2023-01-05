@@ -11,7 +11,7 @@ const MyTypo = styled(Typography)({
   backgroundColor: 'aliceblue',
   borderRadius: 4,
   fontSize: '1.4rem',
-  fontFamily: 'Roboto',
+  fontFamily: 'Montserrat',
 });
 
 export default function About() {
@@ -48,7 +48,7 @@ export default function About() {
               <Grid item>
                 <Typography
                   sx={{
-                    fontFamily: 'Rancho',
+                    fontFamily: 'Montserrat',
                     fontSize: '2rem',
                   }}
                 >
@@ -83,7 +83,7 @@ export default function About() {
                   borderRadius: '40%',
                   fontSize: '2.5rem',
                   padding: '1rem',
-                  fontFamily: 'Ranga',
+                  fontFamily: 'Montserrat',
                   color: '#fff',
                 }}
               >
@@ -94,7 +94,7 @@ export default function About() {
             <Grid item>
               <Typography
                 align="center"
-                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+                sx={{ fontSize: '1.5rem', fontFamily: 'Montserrat' }}
               >
                 All of our products are eco-friendly it is a characteristic of
                 who we are.
@@ -104,7 +104,7 @@ export default function About() {
             <Grid item>
               <Typography
                 align="center"
-                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+                sx={{ fontSize: '1.5rem', fontFamily: 'Montserrat' }}
               >
                 We are a start up who firmly believes that time to act against
                 the worsening environment is right now and we also know that we
@@ -115,7 +115,7 @@ export default function About() {
             <Grid item>
               <Typography
                 align="center"
-                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+                sx={{ fontSize: '1.5rem', fontFamily: 'Montserrat' }}
               >
                 We want our customers to be a part of it as well.
               </Typography>
@@ -124,7 +124,7 @@ export default function About() {
             <Grid item>
               <Typography
                 align="center"
-                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+                sx={{ fontSize: '1.5rem', fontFamily: 'Montserrat' }}
               >
                 We will be donating{' '}
                 <span style={{ fontSize: '2rem', color: '#3a8783' }}>20%</span>{' '}
@@ -139,7 +139,7 @@ export default function About() {
             <Grid item>
               <Typography
                 align="center"
-                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+                sx={{ fontSize: '1.5rem', fontFamily: 'Montserrat' }}
               >
                 you can learn more about them{' '}
                 <a
@@ -170,7 +170,7 @@ export default function About() {
                   borderRadius: '20%',
                   fontSize: '2.5rem',
                   padding: '1rem',
-                  fontFamily: 'Ranga',
+                  fontFamily: 'Montserrat',
                   color: '#fff',
                 }}
               >
@@ -181,7 +181,7 @@ export default function About() {
             <Grid item>
               <Typography
                 align="center"
-                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+                sx={{ fontSize: '1.5rem', fontFamily: 'Montserrat' }}
               >
                 One of the pillars that hold us up are our customers, we deeply
                 care about how our products impact the lives of our customers.
@@ -191,7 +191,7 @@ export default function About() {
             <Grid item>
               <Typography
                 align="center"
-                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+                sx={{ fontSize: '1.5rem', fontFamily: 'Montserrat' }}
               >
                 It is our solemn duty to provide something to be proud of and
                 make you feel you've done something more than just buy an item;
@@ -216,7 +216,7 @@ export default function About() {
                   borderRadius: '20%',
                   fontSize: '2.5rem',
                   padding: '1rem',
-                  fontFamily: 'Ranga',
+                  fontFamily: 'Montserrat',
                   color: '#fff',
                 }}
               >
@@ -227,7 +227,7 @@ export default function About() {
             <Grid item>
               <Typography
                 align="center"
-                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+                sx={{ fontSize: '1.5rem', fontFamily: 'Montserrat' }}
               >
                 The ones who make all this possible.
               </Typography>
@@ -236,7 +236,7 @@ export default function About() {
             <Grid item>
               <Typography
                 align="center"
-                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+                sx={{ fontSize: '1.5rem', fontFamily: 'Montserrat' }}
               >
                 Our artisans strive for uniqueness and quality, we could even
                 call it perfection, we find it a privilege to work with such
@@ -247,7 +247,7 @@ export default function About() {
             <Grid item>
               <Typography
                 align="center"
-                sx={{ fontSize: '1.5rem', fontFamily: 'Rancho' }}
+                sx={{ fontSize: '1.5rem', fontFamily: 'Montserrat' }}
               >
                 Our duty to them is to provide a platform to share what they
                 create and make sure that they are appreciated for what they are

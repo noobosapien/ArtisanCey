@@ -168,7 +168,7 @@ export default function SideCart({ shipping, order }) {
                   <Typography
                     variant="h5"
                     sx={(theme) => ({
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                       fontSize: shipping ? '1.2rem' : '1.4rem',
                       color: shipping
                         ? theme.palette.common.black
@@ -198,7 +198,7 @@ export default function SideCart({ shipping, order }) {
                   <Typography
                     variant="h5"
                     sx={(theme) => ({
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                       fontSize: shipping ? '1.2rem' : '1.4rem',
                       color: shipping
                         ? theme.palette.common.black
@@ -248,7 +248,7 @@ export default function SideCart({ shipping, order }) {
                   <Typography
                     variant="h5"
                     sx={(theme) => ({
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                       color: theme.palette.common.white,
                     })}
                   >
@@ -291,7 +291,7 @@ export default function SideCart({ shipping, order }) {
                   <Typography
                     variant="h5"
                     sx={(theme) => ({
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                       color: theme.palette.common.white,
                     })}
                   >

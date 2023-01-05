@@ -151,7 +151,7 @@ export default function ProductCard({ product }) {
                   <Typography
                     variant="body2"
                     sx={(theme) => ({
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                       fontWeight: '700',
                       color: theme.palette.common.lightGray,
                     })}

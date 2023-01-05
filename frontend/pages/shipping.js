@@ -165,7 +165,7 @@ export default function Checkout() {
                   title="Shipping method"
                   sx={(theme) => ({
                     '& 	.MuiCardHeader-title': {
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                       fontSize: '1rem',
                       color: theme.palette.common.greenBlue,
                     },

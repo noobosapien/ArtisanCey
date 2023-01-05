@@ -376,7 +376,7 @@ export default function TwoCheckout() {
           title="Billing Address"
           sx={(theme) => ({
             '& 	.MuiCardHeader-title': {
-              fontFamily: 'Roboto',
+              fontFamily: 'Montserrat',
               fontSize: '1rem',
               color: theme.palette.common.greenBlue,
             },
@@ -402,7 +402,7 @@ export default function TwoCheckout() {
           title="Payment method"
           sx={(theme) => ({
             '& 	.MuiCardHeader-title': {
-              fontFamily: 'Roboto',
+              fontFamily: 'Montserrat',
               fontSize: '1rem',
               color: theme.palette.common.greenBlue,
             },

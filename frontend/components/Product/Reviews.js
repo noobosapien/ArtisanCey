@@ -156,7 +156,7 @@ const mdReviews = (
                     sx={(theme) => ({
                       fontSize: '1.2rem',
                       color: theme.palette.common.black,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                     })}
                   >
                     {review.text ? review.text : ''}
@@ -247,7 +247,7 @@ const xsReviews = (
                   <Grid item>
                     <Typography
                       sx={(theme) => ({
-                        fontFamily: 'Rancho',
+                        fontFamily: 'Montserrat',
                         fontSize: '2rem',
                       })}
                     >
@@ -284,7 +284,7 @@ const xsReviews = (
                     sx={(theme) => ({
                       fontSize: '1.4rem',
                       color: theme.palette.common.lightGray,
-                      fontFamily: 'Rancho',
+                      fontFamily: 'Montserrat',
                     })}
                   >
                     {review.heading ? review.heading : ''}
@@ -296,7 +296,7 @@ const xsReviews = (
                     sx={(theme) => ({
                       fontSize: '1.0rem',
                       color: theme.palette.common.black,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Montserrat',
                     })}
                   >
                     {review.text ? review.text : ''}

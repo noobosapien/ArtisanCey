@@ -524,7 +524,7 @@ export default function PaymentCard({ loading, setLoading }) {
           style: {
             base: {
               fontSize: '1.0rem',
-              fontFamily: 'Roboto',
+              fontFamily: 'Montserrat',
               color: '#474747',
             },
           },
@@ -614,7 +614,7 @@ export default function PaymentCard({ loading, setLoading }) {
         title="Billing Address"
         sx={(theme) => ({
           '& 	.MuiCardHeader-title': {
-            fontFamily: 'Roboto',
+            fontFamily: 'Montserrat',
             fontSize: '1rem',
             color: theme.palette.common.greenBlue,
           },
@@ -640,7 +640,7 @@ export default function PaymentCard({ loading, setLoading }) {
         title="Payment method"
         sx={(theme) => ({
           '& 	.MuiCardHeader-title': {
-            fontFamily: 'Roboto',
+            fontFamily: 'Montserrat',
             fontSize: '1rem',
             color: theme.palette.common.greenBlue,
           },

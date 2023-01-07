@@ -11,6 +11,8 @@ import Satisfaction from '../components/Home/Satisfaction';
 import Layout from '../components/Layout';
 import { setDebug } from '../helpers/setDebug';
 import styles from '../styles/Home.module.css';
+import Choose from '../components/Home/Choose';
+import Quiz from '../components/Home/Quiz';
 
 export default function Home({ featured }) {
   useEffect(() => {
@@ -36,9 +38,8 @@ export default function Home({ featured }) {
       description={'Artisan Cey hand crafted and delivered'}
     >
       <Hero />
-      {/* <Carousel products={featured} /> */}
-      {/* <LatestProducts />
-      <Satisfaction /> */}
+      <Choose />
+      <Quiz />
     </Layout>
   );
 }

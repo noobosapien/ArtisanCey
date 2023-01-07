@@ -7,7 +7,7 @@ import HeroImageWords from '../../public/Hero1words.png';
 import HeroImageCacti from '../../public/Hero1cacti.png';
 import DownArrow from '../../public/downarrow.png';
 import Image from 'next/image';
-import { Grid, Grow, Typography } from '@mui/material';
+import { Button, Grid, Grow, Typography } from '@mui/material';
 
 const Animation = styled('div')(({ theme }) => ({
   position: 'absolute',
@@ -109,7 +109,9 @@ function Select() {
         />
       </div>
 
-      <Typography sx={{ position: 'absolute', bottom: '4vh', left: '50%' }}>
+      <Typography
+        sx={{ position: 'absolute', bottom: '4vh', left: 'calc(50%)' }}
+      >
         Or
       </Typography>
 
@@ -122,6 +124,24 @@ function Select() {
         />
       </div>
     </div>
+  );
+}
+
+function Select2() {
+  return (
+    <>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-evenly',
+          gap: '10px',
+        }}
+      >
+        <Button size="small">Select your cactus.</Button>
+
+        <Button size="small">Let the cactus choose you.</Button>
+      </div>
+    </>
   );
 }
 
@@ -171,7 +191,7 @@ function Hero3({ matchesMD }) {
         <></>
       )}
 
-      {matchesMD ? <Select /> : <></>}
+      {matchesMD ? <Select2 /> : <></>}
     </div>
   );
 }

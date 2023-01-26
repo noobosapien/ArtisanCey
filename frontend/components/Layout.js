@@ -219,30 +219,6 @@ export default function Layout({ title, description, children }) {
             </Grid>
 
             <Grid item>
-              <Grid
-                container
-                direction="column"
-                alignItems="center"
-                spacing={2}
-              >
-                <Grid item>
-                  <Typography variant="body2" sx={{ fontSize: '1.4rem' }}>
-                    20% goes to
-                  </Typography>
-                </Grid>
-
-                <Grid item>
-                  <Image
-                    src={OTP}
-                    alt="one tree planted"
-                    width={215}
-                    height={50}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-
-            <Grid item>
               <Typography variant="body2">We accept:</Typography>
             </Grid>
 

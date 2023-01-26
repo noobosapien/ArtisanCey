@@ -16,55 +16,168 @@ import {
   Typography,
   Zoom,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import React, { useState } from 'react';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-function ChooseAnswer() {
+function ChooseAnswer({ allQuestions, setAllQuestions, number, rightClicked }) {
+  var notAnswered = true;
+
+  const onClick = (value) => (e) => {
+    var newAllQs = [...allQuestions];
+
+    for (var i = 0; i < newAllQs.length; i++) {
+      if (newAllQs[i].number === number) {
+        newAllQs[i].answer = value;
+        if (number !== 7) {
+          rightClicked(250)();
+        } else {
+          newAllQs.every((quest) => {
+            if (quest.answer === 0) {
+              console.log('Please answer all the questions');
+              notAnswered = true;
+              return false;
+            }
+
+            notAnswered = false;
+          });
+
+          if (!notAnswered) {
+            console.log('Your cactus is: ');
+          }
+        }
+      }
+    }
+
+    setAllQuestions([...newAllQs]);
+  };
+
   return (
     <>
       <FormControl>
-        {/* <FormLabel id="demo-form-control-label-placement">
-          Label placement
-        </FormLabel> */}
         <RadioGroup
           row
           aria-labelledby="answer"
           name="position"
-          defaultValue="top"
+          defaultValue=""
         >
           <FormControlLabel
+            onClick={onClick(1)}
+            sx={{
+              margin: 0,
+            }}
             value="sda"
-            control={<Radio />}
-            label="Strongly Disagree"
-            labelPlacement="bottom"
-          />
-
-          <FormControlLabel
-            value="da"
-            control={<Radio />}
+            control={
+              <Radio
+                sx={{
+                  color: '#ff3842',
+                  '&.Mui-checked': {
+                    color: '#ff3842',
+                  },
+                  '& .MuiSvgIcon-root': {
+                    fontSize: 40,
+                  },
+                }}
+              />
+            }
+            // label=""
             label="Disagree"
             labelPlacement="bottom"
           />
 
           <FormControlLabel
+            onClick={onClick(2)}
+            sx={{
+              margin: 0,
+            }}
+            value="da"
+            control={
+              <Radio
+                sx={{
+                  color: '#ff9197',
+                  '&.Mui-checked': {
+                    color: '#ff9197',
+                  },
+                  '& .MuiSvgIcon-root': {
+                    fontSize: 32,
+                  },
+                }}
+              />
+            }
+            label=""
+            // label="Disagree"
+            labelPlacement="bottom"
+          />
+
+          <FormControlLabel
+            onClick={onClick(3)}
+            sx={{
+              margin: 0,
+            }}
             value="neut"
-            control={<Radio />}
+            control={
+              <Radio
+                sx={{
+                  color: '#636363',
+                  '&.Mui-checked': {
+                    color: '#636363',
+                  },
+                  '& .MuiSvgIcon-root': {
+                    fontSize: 24,
+                  },
+                }}
+              />
+            }
+            // label=""
             label="Neutral"
             labelPlacement="bottom"
           />
 
           <FormControlLabel
+            onClick={onClick(4)}
+            sx={{
+              margin: 0,
+            }}
             value="a"
-            control={<Radio />}
-            label="Agree"
+            control={
+              <Radio
+                sx={{
+                  color: '#91ffb9',
+                  '&.Mui-checked': {
+                    color: '#91ffb9',
+                  },
+                  '& .MuiSvgIcon-root': {
+                    fontSize: 32,
+                  },
+                }}
+              />
+            }
+            label=""
+            // label="Agree"
             labelPlacement="bottom"
           />
 
           <FormControlLabel
+            onClick={onClick(5)}
+            sx={{
+              margin: 0,
+            }}
             value="sa"
-            control={<Radio />}
-            label="Strongly Agree"
+            control={
+              <Radio
+                sx={{
+                  color: '#00ff5e',
+                  '&.Mui-checked': {
+                    color: '#00ff5e',
+                  },
+                  '& .MuiSvgIcon-root': {
+                    fontSize: 40,
+                  },
+                }}
+              />
+            }
+            label="Agree"
             labelPlacement="bottom"
           />
         </RadioGroup>
@@ -73,18 +186,47 @@ function ChooseAnswer() {
   );
 }
 
-function Questions({ active, containerRef, goLeft }) {
+function Questions({ active, containerRef, goLeft, rightClicked }) {
   //Get random questions from server
   //Send back answers to server and get the cactus
-  const allQuestions = [
-    'Question 1',
-    'Question 2',
-    'Question 3',
-    'Question 4',
-    'Question 5',
-    'Question 6',
-    'Question 7',
-  ];
+  const [allQuestions, setAllQuestions] = useState([
+    {
+      number: 1,
+      question: 'You are calm under pressure',
+      answer: 0,
+    },
+    {
+      number: 2,
+      question: 'You are more inclined to follow your head than your heart',
+      answer: 0,
+    },
+    {
+      number: 3,
+      question:
+        'You enjoy helping others accomplish things than your own accomplishments',
+      answer: 0,
+    },
+    {
+      number: 4,
+      question: 'You are pessimistic rather than optimistic',
+      answer: 0,
+    },
+    {
+      number: 5,
+      question: 'You are an artistic type of person',
+      answer: 0,
+    },
+    {
+      number: 6,
+      question: 'You tend to avoid drawing attention to yourself',
+      answer: 0,
+    },
+    {
+      number: 7,
+      question: 'You enjoy art museums',
+      answer: 0,
+    },
+  ]);
 
   return (
     <>
@@ -95,13 +237,26 @@ function Questions({ active, containerRef, goLeft }) {
           in={active === i}
           container={containerRef.current}
         >
-          <Grid item container direction="column" alignItems="center">
+          <Grid
+            item
+            container
+            direction="column"
+            alignItems="center"
+            spacing={6}
+          >
             <Grid item>
-              <Typography textAlign="center">{quest}</Typography>
+              <Typography textAlign="center" variant="h6">
+                {quest.question}
+              </Typography>
             </Grid>
 
-            <Grid item>
-              <ChooseAnswer />
+            <Grid item alignSelf={'center'}>
+              <ChooseAnswer
+                allQuestions={allQuestions}
+                setAllQuestions={setAllQuestions}
+                number={quest.number}
+                rightClicked={rightClicked}
+              />
             </Grid>
           </Grid>
         </Slide>
@@ -115,11 +270,13 @@ function QuizCard({ start }) {
   const [active, setActive] = useState(0);
   const [goLeft, setGoLeft] = useState(true);
 
-  const rightClicked = () => {
-    if (active < 6) {
-      setActive(active + 1);
-      setGoLeft(true);
-    }
+  const rightClicked = (timeout) => () => {
+    setTimeout(() => {
+      if (active < 6) {
+        setActive(active + 1);
+        setGoLeft(true);
+      }
+    }, timeout);
   };
 
   const leftClicked = () => {
@@ -134,35 +291,50 @@ function QuizCard({ start }) {
       <Zoom in={start}>
         <Card ref={containerRef}>
           <CardContent>
-            <Grid container direction="row" alignItems="center">
-              <Grid item>
-                <IconButton
-                  color="primary"
-                  aria-label="left"
-                  component="label"
-                  onClick={leftClicked}
-                >
-                  <KeyboardArrowLeftIcon />
-                </IconButton>
-              </Grid>
-
+            <Grid
+              container
+              direction="column"
+              alignItems="center"
+              justifyContent="space-between"
+              spacing={6}
+            >
               <Grid item>
                 <Questions
                   goLeft={goLeft}
                   active={active}
                   containerRef={containerRef}
+                  rightClicked={rightClicked}
                 />
               </Grid>
 
-              <Grid item>
-                <IconButton
-                  color="primary"
-                  aria-label="left"
-                  component="label"
-                  onClick={rightClicked}
-                >
-                  <KeyboardArrowRightIcon />
-                </IconButton>
+              <Grid
+                item
+                container
+                direction="row"
+                justifyContent="center"
+                spacing={6}
+              >
+                <Grid item>
+                  <IconButton
+                    color="primary"
+                    aria-label="left"
+                    component="label"
+                    onClick={leftClicked}
+                  >
+                    <KeyboardArrowLeftIcon />
+                  </IconButton>
+                </Grid>
+
+                <Grid item>
+                  <IconButton
+                    color="primary"
+                    aria-label="left"
+                    component="label"
+                    onClick={rightClicked(0)}
+                  >
+                    <KeyboardArrowRightIcon />
+                  </IconButton>
+                </Grid>
               </Grid>
             </Grid>
           </CardContent>
@@ -192,13 +364,15 @@ export default function Quiz() {
         }}
       >
         <Grid item>
-          <Typography>Quiz</Typography>
+          <Typography>
+            Let the cactus choose you after answering these 7 questions
+          </Typography>
         </Grid>
 
         <Grid item>
-          {/* <Zoom in={!start} sx={{ display: start ? 'block' : 'hidden' }}> */}
-          <Button onClick={startClicked}>Start the quiz</Button>
-          {/* </Zoom> */}
+          <Zoom in={!start} sx={{ display: start ? 'block' : 'hidden' }}>
+            <Button onClick={startClicked}>Start the quiz</Button>
+          </Zoom>
         </Grid>
 
         <Grid item>

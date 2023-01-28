@@ -21,7 +21,13 @@ import React, { useState } from 'react';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-function ChooseAnswer({ allQuestions, setAllQuestions, number, rightClicked }) {
+function ChooseAnswer({
+  setChosen,
+  allQuestions,
+  setAllQuestions,
+  number,
+  rightClicked,
+}) {
   var notAnswered = true;
 
   const onClick = (value) => (e) => {
@@ -44,7 +50,15 @@ function ChooseAnswer({ allQuestions, setAllQuestions, number, rightClicked }) {
           });
 
           if (!notAnswered) {
-            console.log('Your cactus is: ');
+            let total = 0;
+            newAllQs.forEach((quest) => {
+              total += quest.answer;
+            });
+
+            console.log('Your cactus is: ', total % 9);
+            setTimeout(() => {
+              setChosen(total % 9);
+            }, 500);
           }
         }
       }
@@ -186,9 +200,17 @@ function ChooseAnswer({ allQuestions, setAllQuestions, number, rightClicked }) {
   );
 }
 
-function Questions({ active, containerRef, goLeft, rightClicked }) {
+function Questions({
+  active,
+  containerRef,
+  goLeft,
+  rightClicked,
+  chosen,
+  setChosen,
+}) {
   //Get random questions from server
   //Send back answers to server and get the cactus
+
   const [allQuestions, setAllQuestions] = useState([
     {
       number: 1,
@@ -230,45 +252,55 @@ function Questions({ active, containerRef, goLeft, rightClicked }) {
 
   return (
     <>
-      {allQuestions.map((quest, i) => (
-        <Slide
-          sx={{ display: active === i ? 'block' : 'none' }}
-          direction={goLeft ? 'left' : 'right'}
-          in={active === i}
-          container={containerRef.current}
-        >
-          <Grid
-            item
-            container
-            direction="column"
-            alignItems="center"
-            spacing={6}
+      {chosen === -1 ? (
+        allQuestions.map((quest, i) => (
+          <Slide
+            sx={{ display: active === i ? 'block' : 'none' }}
+            direction={goLeft ? 'left' : 'right'}
+            in={active === i}
+            container={containerRef.current}
           >
-            <Grid item>
-              <Typography textAlign="center" variant="h6">
-                {quest.question}
-              </Typography>
-            </Grid>
+            <Grid
+              item
+              container
+              direction="column"
+              alignItems="center"
+              spacing={6}
+            >
+              <Grid item>
+                <Typography textAlign="center" variant="h6">
+                  {quest.question}
+                </Typography>
+              </Grid>
 
-            <Grid item alignSelf={'center'}>
-              <ChooseAnswer
-                allQuestions={allQuestions}
-                setAllQuestions={setAllQuestions}
-                number={quest.number}
-                rightClicked={rightClicked}
-              />
+              <Grid item alignSelf={'center'}>
+                <ChooseAnswer
+                  setChosen={setChosen}
+                  allQuestions={allQuestions}
+                  setAllQuestions={setAllQuestions}
+                  number={quest.number}
+                  rightClicked={rightClicked}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </Slide>
-      ))}
+          </Slide>
+        ))
+      ) : (
+        <></>
+      )}
     </>
   );
 }
 
-function QuizCard({ start }) {
+function QuizCard({ start, setChosen, chosen }) {
   const containerRef = React.useRef(null);
   const [active, setActive] = useState(0);
   const [goLeft, setGoLeft] = useState(true);
+
+  const reset = (event) => {
+    setActive(0);
+    setChosen(-1);
+  };
 
   const rightClicked = (timeout) => () => {
     setTimeout(() => {
@@ -304,38 +336,52 @@ function QuizCard({ start }) {
                   active={active}
                   containerRef={containerRef}
                   rightClicked={rightClicked}
+                  setChosen={setChosen}
+                  chosen={chosen}
                 />
               </Grid>
+              {chosen === -1 ? (
+                <Grid
+                  item
+                  container
+                  direction="row"
+                  justifyContent="center"
+                  spacing={6}
+                >
+                  <Grid item>
+                    <IconButton
+                      color="primary"
+                      aria-label="left"
+                      component="label"
+                      onClick={leftClicked}
+                    >
+                      <KeyboardArrowLeftIcon />
+                    </IconButton>
+                  </Grid>
 
-              <Grid
-                item
-                container
-                direction="row"
-                justifyContent="center"
-                spacing={6}
-              >
-                <Grid item>
-                  <IconButton
-                    color="primary"
-                    aria-label="left"
-                    component="label"
-                    onClick={leftClicked}
-                  >
-                    <KeyboardArrowLeftIcon />
-                  </IconButton>
+                  <Grid item>
+                    <IconButton
+                      color="primary"
+                      aria-label="left"
+                      component="label"
+                      onClick={rightClicked(0)}
+                    >
+                      <KeyboardArrowRightIcon />
+                    </IconButton>
+                  </Grid>
                 </Grid>
-
-                <Grid item>
-                  <IconButton
-                    color="primary"
-                    aria-label="left"
-                    component="label"
-                    onClick={rightClicked(0)}
-                  >
-                    <KeyboardArrowRightIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
+              ) : (
+                <>
+                  <Grid item container direction="column">
+                    <Grid item>
+                      <Typography>Your catus is {chosen}</Typography>
+                    </Grid>
+                    <Grid item>
+                      <Button onClick={reset}>Retry quiz.</Button>
+                    </Grid>
+                  </Grid>
+                </>
+              )}
             </Grid>
           </CardContent>
         </Card>
@@ -346,6 +392,7 @@ function QuizCard({ start }) {
 
 export default function Quiz() {
   const [start, setStart] = useState(false);
+  const [chosen, setChosen] = useState(-1);
 
   const startClicked = () => {
     // setStart(true);
@@ -362,21 +409,41 @@ export default function Quiz() {
         sx={{
           marginTop: '4rem',
         }}
+        spacing={10}
       >
         <Grid item>
-          <Typography>
-            Let the cactus choose you after answering these 7 questions
-          </Typography>
+          <Typography variant="h2">-OR-</Typography>
+        </Grid>
+        <Grid item container direction="column" alignItems="center" spacing={6}>
+          <Grid item>
+            <Typography variant="h3" textAlign="center">
+              Let the cactus choose you
+            </Typography>
+          </Grid>
+
+          <Grid item>
+            <Typography variant="h5" textAlign="center">
+              Answer the 7 questions
+            </Typography>
+          </Grid>
         </Grid>
 
-        <Grid item>
-          <Zoom in={!start} sx={{ display: start ? 'block' : 'hidden' }}>
-            <Button onClick={startClicked}>Start the quiz</Button>
+        <Box component={Grid} item display={!start ? 'block' : 'none'}>
+          <Zoom in={!start}>
+            {/* <Zoom in={true} sx={{ display: false ? 'block' : 'hidden' }}> */}
+            <div className="box">
+              <Button
+                onClick={startClicked}
+                sx={{ fontSize: '1.5rem', fontWeight: 400 }}
+              >
+                Start the quiz
+              </Button>
+            </div>
           </Zoom>
-        </Grid>
+        </Box>
 
         <Grid item>
-          <QuizCard start={start} />
+          <QuizCard start={start} chosen={chosen} setChosen={setChosen} />
         </Grid>
       </Grid>
     </>

@@ -43,7 +43,7 @@ const theme = createTheme({
     h1: {
       fontSize: '4.5rem',
       fontFamily: 'Montserrat',
-      fontStyle: 'italic',
+      // fontStyle: 'italic',
       // fontWeight: 700,
       color: greenBlue,
     },
@@ -51,7 +51,7 @@ const theme = createTheme({
       fontFamily: 'Montserrat',
       fontSize: '3rem',
       // fontWeight: 500,
-      color: black,
+      color: greenBlue,
     },
     h3: {
       fontFamily: 'Montserrat',

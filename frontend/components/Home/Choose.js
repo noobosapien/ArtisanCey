@@ -16,12 +16,28 @@ const cacti = [
 export default function Choose() {
   return (
     <>
-      <Grid container justifyContent="space-evenly" spacing={4}>
-        {cacti.map(() => (
-          <Grid item>
-            <CactusCard />
-          </Grid>
-        ))}
+      <Grid conteiner direction={'column'} alignItems={'center'}>
+        <Grid item sx={{ marginBottom: '8rem' }}>
+          <Typography
+            textAlign="center"
+            variant="h2"
+            sx={(theme) => ({
+              [theme.breakpoints.down['md']]: {
+                fontSize: '1rem',
+                color: theme.palette.common.greenBlue,
+              },
+            })}
+          >
+            - All The Cacti -
+          </Typography>
+        </Grid>
+        <Grid item container justifyContent="center" spacing={10}>
+          {cacti.map(() => (
+            <Grid item>
+              <CactusCard />
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
     </>
   );

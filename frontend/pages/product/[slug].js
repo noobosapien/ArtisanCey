@@ -1,6 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
-import { AppBar, Button, Grid, Toolbar, Typography } from '@mui/material';
+import {
+  AppBar,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import Image from 'next/image';
 import Example from '../../public/example.png';
 import { Box } from '@mui/material';
@@ -16,7 +25,17 @@ export default function ProductPage(props) {
         spacing={10}
       >
         <Grid item>
-          <Image src={Example} layout="intrinsic" />
+          {/* <Image src={Example} layout="intrinsic" /> */}
+          <Card sx={{ borderRadius: '0rem', maxWidth: '40rem' }}>
+            {/* <CardContent> */}
+            <CardMedia
+              component="img"
+              height="auto"
+              image={Example.src}
+              alt="example"
+            />
+            {/* </CardContent> */}
+          </Card>
         </Grid>
 
         <Grid item>

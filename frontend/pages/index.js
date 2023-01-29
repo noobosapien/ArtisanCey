@@ -38,8 +38,8 @@ export default function Home({ featured }) {
 
 export async function getStaticProps() {
   try {
-    const res = await fetch(process.env.STRAPI_BASE + 'products?featured=true');
-    const featured = await res.json();
+    // const res = await fetch(process.env.STRAPI_BASE + 'products?featured=true');
+    // const featured = await res.json();
 
     return {
       props: {

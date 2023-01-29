@@ -115,7 +115,11 @@ export default function Layout({ title, description, children }) {
           >
             <Grid item>
               <NextLink href="/" passHref>
-                <LogoButton disableRipple component={Link}>
+                <LogoButton
+                  disableRipple
+                  component={Link}
+                  // onClick={(event) => router.push('/')}
+                >
                   <CustomLogo src={Logo} alt="Logo" />
                 </LogoButton>
               </NextLink>

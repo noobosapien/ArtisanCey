@@ -20,6 +20,7 @@ import { styled } from '@mui/material/styles';
 import React, { useState } from 'react';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import ChosenCactus from './ChosenCactus';
 
 function ChooseAnswer({
   setChosen,
@@ -69,133 +70,132 @@ function ChooseAnswer({
 
   return (
     <>
-      <FormControl>
-        <RadioGroup
-          row
-          aria-labelledby="answer"
-          name="position"
-          defaultValue=""
-        >
-          <FormControlLabel
-            onClick={onClick(1)}
-            sx={{
-              margin: 0,
-            }}
-            value="sda"
-            control={
-              <Radio
-                sx={{
-                  color: '#ff3842',
-                  '&.Mui-checked': {
-                    color: '#ff3842',
-                  },
-                  '& .MuiSvgIcon-root': {
-                    fontSize: 40,
-                  },
-                }}
-              />
-            }
-            // label=""
-            label="Disagree"
-            labelPlacement="bottom"
-          />
+      {/* <FormControl> */}
+      <RadioGroup
+        column
+        aria-labelledby="answer"
+        name="answer"
+        defaultValue=""
+        sx={{}}
+      >
+        <FormControlLabel
+          onClick={onClick(5)}
+          sx={{
+            margin: 0,
+          }}
+          value="sa"
+          control={
+            <Radio
+              sx={{
+                color: '#3a8783',
+                '&.Mui-checked': {
+                  color: '#3a8783',
+                },
+                '& .MuiSvgIcon-root': {
+                  fontSize: 40,
+                },
+              }}
+            />
+          }
+          label="Agree"
+          labelPlacement="bottom"
+        />
 
-          <FormControlLabel
-            onClick={onClick(2)}
-            sx={{
-              margin: 0,
-            }}
-            value="da"
-            control={
-              <Radio
-                sx={{
-                  color: '#ff9197',
-                  '&.Mui-checked': {
-                    color: '#ff9197',
-                  },
-                  '& .MuiSvgIcon-root': {
-                    fontSize: 32,
-                  },
-                }}
-              />
-            }
-            label=""
-            // label="Disagree"
-            labelPlacement="bottom"
-          />
-
-          <FormControlLabel
-            onClick={onClick(3)}
-            sx={{
-              margin: 0,
-            }}
-            value="neut"
-            control={
-              <Radio
-                sx={{
+        <FormControlLabel
+          onClick={onClick(4)}
+          sx={{
+            margin: 0,
+          }}
+          value="a"
+          control={
+            <Radio
+              sx={{
+                color: '#3a8783aa',
+                '&.Mui-checked': {
+                  color: '#3a8783aa',
+                },
+                '& .MuiSvgIcon-root': {
+                  fontSize: 32,
+                },
+              }}
+            />
+          }
+          label=""
+          // label="Agree"
+          labelPlacement="bottom"
+        />
+        <FormControlLabel
+          onClick={onClick(3)}
+          sx={{
+            margin: 0,
+          }}
+          value="neut"
+          control={
+            <Radio
+              sx={{
+                color: '#636363',
+                '&.Mui-checked': {
                   color: '#636363',
-                  '&.Mui-checked': {
-                    color: '#636363',
-                  },
-                  '& .MuiSvgIcon-root': {
-                    fontSize: 24,
-                  },
-                }}
-              />
-            }
-            // label=""
-            label="Neutral"
-            labelPlacement="bottom"
-          />
+                },
+                '& .MuiSvgIcon-root': {
+                  fontSize: 24,
+                },
+              }}
+            />
+          }
+          // label=""
+          label="Neutral"
+          labelPlacement="bottom"
+        />
 
-          <FormControlLabel
-            onClick={onClick(4)}
-            sx={{
-              margin: 0,
-            }}
-            value="a"
-            control={
-              <Radio
-                sx={{
-                  color: '#91ffb9',
-                  '&.Mui-checked': {
-                    color: '#91ffb9',
-                  },
-                  '& .MuiSvgIcon-root': {
-                    fontSize: 32,
-                  },
-                }}
-              />
-            }
-            label=""
-            // label="Agree"
-            labelPlacement="bottom"
-          />
-
-          <FormControlLabel
-            onClick={onClick(5)}
-            sx={{
-              margin: 0,
-            }}
-            value="sa"
-            control={
-              <Radio
-                sx={{
-                  color: '#00ff5e',
-                  '&.Mui-checked': {
-                    color: '#00ff5e',
-                  },
-                  '& .MuiSvgIcon-root': {
-                    fontSize: 40,
-                  },
-                }}
-              />
-            }
-            label="Agree"
-            labelPlacement="bottom"
-          />
-        </RadioGroup>
-      </FormControl>
+        <FormControlLabel
+          onClick={onClick(2)}
+          sx={{
+            margin: 0,
+          }}
+          value="da"
+          control={
+            <Radio
+              sx={{
+                color: '#ff6b6baa',
+                '&.Mui-checked': {
+                  color: '#ff6b6baa',
+                },
+                '& .MuiSvgIcon-root': {
+                  fontSize: 32,
+                },
+              }}
+            />
+          }
+          label=""
+          // label="Disagree"
+          labelPlacement="bottom"
+        />
+        <FormControlLabel
+          onClick={onClick(1)}
+          sx={{
+            margin: 0,
+          }}
+          value="sda"
+          control={
+            <Radio
+              sx={{
+                color: '#ff6b6b',
+                '&.Mui-checked': {
+                  color: '#ff6b6b',
+                },
+                '& .MuiSvgIcon-root': {
+                  fontSize: 40,
+                },
+              }}
+            />
+          }
+          // label=""
+          label="Disagree"
+          labelPlacement="bottom"
+        />
+      </RadioGroup>
+      {/* </FormControl> */}
     </>
   );
 }
@@ -321,7 +321,7 @@ function QuizCard({ start, setChosen, chosen }) {
   return (
     <>
       <Zoom in={start}>
-        <Card ref={containerRef}>
+        <Card ref={containerRef} sx={{ border: 0 }} variant="outlined">
           <CardContent>
             <Grid
               container
@@ -345,6 +345,7 @@ function QuizCard({ start, setChosen, chosen }) {
                   item
                   container
                   direction="row"
+                  alignItems="center"
                   justifyContent="center"
                   spacing={6}
                 >
@@ -360,6 +361,10 @@ function QuizCard({ start, setChosen, chosen }) {
                   </Grid>
 
                   <Grid item>
+                    <Typography>{active + 1}/7</Typography>
+                  </Grid>
+
+                  <Grid item>
                     <IconButton
                       color="primary"
                       aria-label="left"
@@ -372,12 +377,29 @@ function QuizCard({ start, setChosen, chosen }) {
                 </Grid>
               ) : (
                 <>
-                  <Grid item container direction="column">
+                  <Grid
+                    item
+                    container
+                    direction="column"
+                    alignItems="center"
+                    spacing={10}
+                  >
                     <Grid item>
-                      <Typography>Your catus is {chosen}</Typography>
+                      <Typography variant="h6">
+                        Your catus is {chosen}
+                      </Typography>
                     </Grid>
                     <Grid item>
-                      <Button onClick={reset}>Retry quiz.</Button>
+                      <ChosenCactus number={chosen} />
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="outlined"
+                        onClick={reset}
+                        sx={{ fontSize: '1.2rem' }}
+                      >
+                        Retry quiz.
+                      </Button>
                     </Grid>
                   </Grid>
                 </>

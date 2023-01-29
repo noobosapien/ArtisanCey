@@ -1,13 +1,5 @@
-import { Grid, Stack } from '@mui/material';
-import Head from 'next/head';
-import Image from 'next/image';
 import { useEffect } from 'react';
-import Adornment from '../components/Home/Adornment';
-import Carousel from '../components/Home/Carousel';
-import CategoryMenu from '../components/Home/CategoryMenu';
 import Hero from '../components/Home/Hero';
-import LatestProducts from '../components/Home/LatestProducts';
-import Satisfaction from '../components/Home/Satisfaction';
 import Layout from '../components/Layout';
 import { setDebug } from '../helpers/setDebug';
 import styles from '../styles/Home.module.css';

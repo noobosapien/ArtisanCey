@@ -9,14 +9,17 @@ import {
 } from '@mui/material';
 import React from 'react';
 import Example from '../../public/example.png';
+import { useRouter } from 'next/router';
 
 export default function CactusCard() {
+  const router = useRouter();
+
   return (
     <>
       <Grid container direction="column" alignItems="center" spacing={0}>
         <Grid item>
           <Card sx={{ borderRadius: '2rem' }}>
-            <CardActionArea>
+            <CardActionArea onClick={(e) => router.push('/product/example')}>
               <CardMedia
                 component="img"
                 height="340"

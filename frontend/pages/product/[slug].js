@@ -26,7 +26,7 @@ export default function ProductPage(props) {
       >
         <Grid item>
           {/* <Image src={Example} layout="intrinsic" /> */}
-          <Card sx={{ borderRadius: '0rem', maxWidth: '40rem' }}>
+          <Card sx={{ borderRadius: '0rem', maxWidth: '25rem' }}>
             {/* <CardContent> */}
             <CardMedia
               component="img"

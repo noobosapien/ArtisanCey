@@ -5,9 +5,6 @@ module.exports = withImages();
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: [
-      'artisancey.s3.ap-southeast-2.amazonaws.com',
-      'www.shift4shop.com',
-    ],
+    domains: ['puppetinos.s3.us-west-1.amazonaws.com', 'www.shift4shop.com'],
   },
 };

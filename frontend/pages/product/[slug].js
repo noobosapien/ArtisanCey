@@ -11,10 +11,12 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
-import Example from '../../public/example.png';
-import { Box } from '@mui/material';
 
-export default function ProductPage(props) {
+import { Box } from '@mui/material';
+import ProductCarousel from '../../components/Product/ProductCarousel';
+import InfoTable from '../../components/Product/InfoTable';
+
+export default function ProductPage({ product }) {
   return (
     <Layout>
       <Grid
@@ -24,31 +26,32 @@ export default function ProductPage(props) {
         sx={{ marginTop: '4rem' }}
         spacing={10}
       >
-        <Grid item>
-          {/* <Image src={Example} layout="intrinsic" /> */}
-          <Card sx={{ borderRadius: '0rem', maxWidth: '25rem' }}>
-            {/* <CardContent> */}
-            <CardMedia
-              component="img"
-              height="auto"
-              image={Example.src}
-              alt="example"
-            />
-            {/* </CardContent> */}
-          </Card>
+        <Grid item md={5}>
+          <ProductCarousel product={product} />
         </Grid>
 
-        <Grid item>
-          <Grid container direction="column" alignItems="center">
+        <Grid item md={5}>
+          <Grid container direction="column" alignItems="center" spacing={5}>
             <Grid item>
-              <Typography variant="h3">Name</Typography>
+              <Typography variant="h3">{product.name}</Typography>
             </Grid>
             <Grid item>
-              <Typography>description</Typography>
+              <Typography
+                sx={{ padding: '2rem', fontSize: '1rem' }}
+                textAlign="center"
+              >
+                {product.description}
+              </Typography>
             </Grid>
 
             <Grid item>
-              <Typography sx={{ fontSize: '2rem' }}>$9.99</Typography>
+              <InfoTable product={product} />
+            </Grid>
+
+            <Grid item>
+              <Typography sx={{ fontSize: '2rem' }}>
+                NZ${product.price}
+              </Typography>
             </Grid>
 
             <Box
@@ -92,13 +95,13 @@ export default function ProductPage(props) {
 
 export async function getStaticPaths() {
   try {
-    // const res = await fetch(process.env.STRAPI_BASE + `products`);
-    // const products = await res.json();
+    const res = await fetch(process.env.STRAPI_BASE + `artisanceyproducts`);
+    const products = await res.json();
 
-    const names = ['/product/example'];
-    // products.forEach((prod) => {
-    //   names.push('/product/' + prod.slug); //This has the first letter capital
-    // });
+    const names = [];
+    products.forEach((prod) => {
+      names.push('/product/' + prod.slug); //This has the first letter capital
+    });
 
     return {
       paths: names,
@@ -109,17 +112,19 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   try {
-    // const { params } = context;
-    // const { slug } = params;
+    const { params } = context;
+    const { slug } = params;
 
-    // var param = slug.toLowerCase();
+    var param = slug.toLowerCase();
 
-    // const res = await fetch(process.env.STRAPI_BASE + `products?slug=${param}`);
-    // const product = await res.json();
+    const res = await fetch(
+      process.env.STRAPI_BASE + `artisanceyproducts?slug=${param}`
+    );
+    const product = await res.json();
 
     return {
       props: {
-        // product,
+        product: product instanceof Array ? product[0] : {},
       },
     };
   } catch (e) {

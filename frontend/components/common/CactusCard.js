@@ -42,7 +42,7 @@ export default function CactusCard() {
 
         <Grid item sx={{ marginTop: '1rem', marginBottom: '0.5rem' }}>
           <Typography sx={{ fontWeight: 300, fontSize: '1.6rem' }}>
-            $9.99
+            NZ$9.99
           </Typography>
         </Grid>
 

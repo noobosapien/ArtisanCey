@@ -3,7 +3,7 @@ import axios from 'axios';
 export async function getSearchResults(query) {
   try {
     const { data } = await axios.get(
-      `https://cms.artisancey.com/products?${query}&_limit=5`
+      `https://cms.puppetinos.com/artisanceyproducts?${query}&_limit=5`
     );
 
     return data;

@@ -27,7 +27,7 @@ export default function BaggedItem({ item, removeItemHandler }) {
                 <CardMedia
                   component="img"
                   height="138rem"
-                  image={item.img}
+                  image={item.images[0].url}
                   alt={item.name}
                 />
               </Grid>
@@ -39,7 +39,7 @@ export default function BaggedItem({ item, removeItemHandler }) {
                   </Grid>
 
                   <Grid item>
-                    <Typography>Each: {item.price.toFixed(2)}</Typography>
+                    <Typography>Each: NZ${item.price.toFixed(2)}</Typography>
                   </Grid>
                 </Grid>
               </Grid>
@@ -61,7 +61,7 @@ export default function BaggedItem({ item, removeItemHandler }) {
 
           <Grid item>
             <Typography variant="body2" sx={{ fontSize: '2rem' }}>
-              $ {(item.price * item.quantity).toFixed(2)}
+              NZ$ {(item.price * item.quantity).toFixed(2)}
             </Typography>
           </Grid>
         </Grid>

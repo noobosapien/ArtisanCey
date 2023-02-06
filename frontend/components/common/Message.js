@@ -20,9 +20,10 @@ export default function Message({ text, severity, open, setOpen }) {
   return (
     <div>
       <Snackbar
+        sx={{ bottom: { xs: 150, sm: 100 } }}
         anchorOrigin={
           matchesMD
-            ? { vertical: 'top', horizontal: 'center' }
+            ? { vertical: 'bottom', horizontal: 'center' }
             : { vertical: 'bottom', horizontal: 'left' }
         }
         open={open}

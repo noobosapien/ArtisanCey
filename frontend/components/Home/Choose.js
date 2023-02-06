@@ -13,7 +13,7 @@ const cacti = [
   'Cactus 8',
   'Cactus 9',
 ];
-export default function Choose() {
+export default function Choose({ products }) {
   return (
     <>
       <Grid conteiner direction={'column'} alignItems={'center'}>
@@ -32,11 +32,15 @@ export default function Choose() {
           </Typography>
         </Grid>
         <Grid item container justifyContent="center" spacing={10}>
-          {cacti.map(() => (
-            <Grid item>
-              <CactusCard />
-            </Grid>
-          ))}
+          {products instanceof Array ? (
+            products.map((product) => (
+              <Grid item>
+                <CactusCard product={product} />
+              </Grid>
+            ))
+          ) : (
+            <></>
+          )}
         </Grid>
       </Grid>
     </>

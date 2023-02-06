@@ -3,7 +3,7 @@ import axios from 'axios';
 export async function getProductInfo(id) {
   try {
     const { data } = await axios.get(
-      `https://cms.artisancey.com/products?id=${id}`
+      `https://cms.puppetinos.com/artisanceyproducts?id=${id}`
     );
 
     return data;

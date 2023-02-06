@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.css';
 import Choose from '../components/Home/Choose';
 import Quiz from '../components/Home/Quiz';
 
-export default function Home({ featured }) {
+export default function Home({ products }) {
   useEffect(() => {
     const sendDebug = async () => {
       try {
@@ -30,20 +30,20 @@ export default function Home({ featured }) {
       description={'Artisan Cey hand crafted and delivered'}
     >
       <Hero />
-      <Choose />
-      <Quiz />
+      <Choose products={products} />
+      <Quiz products={products} />
     </Layout>
   );
 }
 
 export async function getStaticProps() {
   try {
-    // const res = await fetch(process.env.STRAPI_BASE + 'products?featured=true');
-    // const featured = await res.json();
+    const res = await fetch(process.env.STRAPI_BASE + 'artisanceyproducts');
+    const products = await res.json();
 
     return {
       props: {
-        featured,
+        products,
       },
     };
   } catch (e) {

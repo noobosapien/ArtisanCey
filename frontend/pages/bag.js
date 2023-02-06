@@ -96,12 +96,20 @@ function Cart() {
               <Card>
                 <List>
                   <ListItem>
-                    <Typography variant="h6">
+                    <Typography
+                      variant="h6"
+                      sx={(theme) => ({
+                        color: theme.palette.common.lightGray,
+                      })}
+                    >
                       Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}){' '}
-                      item(s) : $
-                      {cartItems
-                        .reduce((a, c) => a + c.quantity * c.price, 0)
-                        .toFixed(2)}
+                      item(s) :
+                      <span style={{ color: '#454545' }}>
+                        NZ$
+                        {cartItems
+                          .reduce((a, c) => a + c.quantity * c.price, 0)
+                          .toFixed(2)}
+                      </span>
                     </Typography>
                   </ListItem>
 

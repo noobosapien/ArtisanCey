@@ -15,8 +15,25 @@ import Image from 'next/image';
 import { Box } from '@mui/material';
 import ProductCarousel from '../../components/Product/ProductCarousel';
 import InfoTable from '../../components/Product/InfoTable';
+import { Store } from '../../utils/store';
+import Message from '../../components/common/Message';
 
 export default function ProductPage({ product }) {
+  const { state, dispatch } = useContext(Store);
+  const [openMessage, setOpenMessage] = useState(false);
+
+  const handleAddToCart = async (e) => {
+    const existItem = state.cart.cartItems.find((x) => x.id === product.id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity },
+    });
+
+    setOpenMessage(true);
+  };
+
   return (
     <Layout>
       <Grid
@@ -64,13 +81,23 @@ export default function ProductPage({ product }) {
               })}
             >
               <Button
-                variant="outlined"
+                variant="contained"
                 sx={{ paddingLeft: '10rem', paddingRight: '10rem' }}
+                onClick={handleAddToCart}
               >
                 Get it now
               </Button>
             </Box>
           </Grid>
+        </Grid>
+
+        <Grid item>
+          <Message
+            text={`Added ${product.name} to the bag!`}
+            severity="success"
+            open={openMessage}
+            setOpen={setOpenMessage}
+          />
         </Grid>
       </Grid>
 
@@ -84,7 +111,12 @@ export default function ProductPage({ product }) {
         })}
       >
         <Toolbar>
-          <Button fullWidth variant="contained" color="secondary">
+          <Button
+            fullWidth
+            variant="contained"
+            color="secondary"
+            onClick={handleAddToCart}
+          >
             Get it now
           </Button>
         </Toolbar>

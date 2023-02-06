@@ -88,7 +88,7 @@ export default function SideCart({ shipping, order }) {
                       <ListItem
                         secondaryAction={
                           <Typography sx={{ fontSize: '1.5rem' }}>
-                            ${(item.price * item.quantity).toFixed(2)}
+                            NZ${(item.price * item.quantity).toFixed(2)}
                           </Typography>
                         }
                       >
@@ -102,7 +102,7 @@ export default function SideCart({ shipping, order }) {
                             }}
                           >
                             <Avatar
-                              src={item.img}
+                              src={item.images[0].url}
                               alt={item.name}
                               sx={{ width: 100, height: 100 }}
                             ></Avatar>
@@ -110,7 +110,7 @@ export default function SideCart({ shipping, order }) {
                         </ListItemAvatar>
                         <ListItemText
                           primary={item.name}
-                          secondary={`Each: $${item.price.toFixed(2)}`}
+                          secondary={`Each: NZ$${item.price.toFixed(2)}`}
                         />
                       </ListItem>
                       <Divider variant="inset" component="li" />
@@ -122,7 +122,7 @@ export default function SideCart({ shipping, order }) {
                         key={item.id}
                         secondaryAction={
                           <Typography sx={{ fontSize: '1.5rem' }}>
-                            ${(item.price * item.quantity).toFixed(2)}
+                            NZ${(item.price * item.quantity).toFixed(2)}
                           </Typography>
                         }
                       >
@@ -136,7 +136,7 @@ export default function SideCart({ shipping, order }) {
                             }}
                           >
                             <Avatar
-                              src={item.img}
+                              src={item.images[0].url}
                               alt={item.name}
                               sx={{ width: 100, height: 100 }}
                             ></Avatar>
@@ -144,7 +144,7 @@ export default function SideCart({ shipping, order }) {
                         </ListItemAvatar>
                         <ListItemText
                           primary={item.name}
-                          secondary={`Each: $${item.price.toFixed(2)}`}
+                          secondary={`Each: NZ$${item.price.toFixed(2)}`}
                         />
                       </ListItem>
                       <Divider variant="inset" component="li" />
@@ -175,7 +175,7 @@ export default function SideCart({ shipping, order }) {
                         : theme.palette.common.white,
                     })}
                   >
-                    Subtotal: $
+                    Subtotal: NZ$
                     {items
                       .reduce((a, c) => a + c.quantity * c.price, 0)
                       .toFixed(2)}
@@ -205,7 +205,7 @@ export default function SideCart({ shipping, order }) {
                         : theme.palette.common.white,
                     })}
                   >
-                    Subtotal: $
+                    Subtotal: NZ$
                     {cartItems
                       .reduce((a, c) => a + c.quantity * c.price, 0)
                       .toFixed(2)}
@@ -231,7 +231,9 @@ export default function SideCart({ shipping, order }) {
                   <Grid item>
                     <Typography variant="body2">
                       Shipping:{' '}
-                      {shippingOption.label === 'standard' ? '$5.00' : '$20.00'}
+                      {shippingOption.label === 'standard'
+                        ? 'NZ$5.00'
+                        : 'NZ$20.00'}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -252,7 +254,7 @@ export default function SideCart({ shipping, order }) {
                       color: theme.palette.common.white,
                     })}
                   >
-                    Total: $
+                    Total: NZ$
                     {(
                       items.reduce((a, c) => a + c.quantity * c.price, 0) +
                       (shippingOption.label === 'standard' ? 5 : 20)
@@ -274,7 +276,8 @@ export default function SideCart({ shipping, order }) {
                   </Grid>
                   <Grid item>
                     <Typography variant="body2">
-                      Shipping: {shipping === 'standard' ? '$5.00' : '$20.00'}
+                      Shipping:{' '}
+                      {shipping === 'standard' ? 'NZ$5.00' : 'NZ$20.00'}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -295,7 +298,7 @@ export default function SideCart({ shipping, order }) {
                       color: theme.palette.common.white,
                     })}
                   >
-                    Total: $
+                    Total: NZ$
                     {(
                       cartItems.reduce((a, c) => a + c.quantity * c.price, 0) +
                       (shipping === 'standard' ? 5 : 20)

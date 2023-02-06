@@ -120,7 +120,7 @@ export default function ShowBaggedItems({ shipping, order, auth }) {
                       <ListItem
                         secondaryAction={
                           <Typography sx={{ fontSize: '1.5rem' }}>
-                            ${(item.price * item.quantity).toFixed(2)}
+                            NZ${(item.price * item.quantity).toFixed(2)}
                           </Typography>
                         }
                       >
@@ -133,12 +133,15 @@ export default function ShowBaggedItems({ shipping, order, auth }) {
                               horizontal: 'left',
                             }}
                           >
-                            <Avatar src={item.img} alt={item.name}></Avatar>
+                            <Avatar
+                              src={item.images[0].url}
+                              alt={item.name}
+                            ></Avatar>
                           </Badge>
                         </ListItemAvatar>
                         <ListItemText
                           primary={item.name}
-                          secondary={`Each: $${item.price.toFixed(2)}`}
+                          secondary={`Each: NZ$${item.price.toFixed(2)}`}
                         />
                       </ListItem>
                       <Divider variant="inset" component="li" />
@@ -149,7 +152,7 @@ export default function ShowBaggedItems({ shipping, order, auth }) {
                       <ListItem
                         secondaryAction={
                           <Typography sx={{ fontSize: '1.5rem' }}>
-                            ${(item.price * item.quantity).toFixed(2)}
+                            NZ${(item.price * item.quantity).toFixed(2)}
                           </Typography>
                         }
                       >
@@ -162,12 +165,15 @@ export default function ShowBaggedItems({ shipping, order, auth }) {
                               horizontal: 'left',
                             }}
                           >
-                            <Avatar src={item.img} alt={item.name}></Avatar>
+                            <Avatar
+                              src={item.images[0].url}
+                              alt={item.name}
+                            ></Avatar>
                           </Badge>
                         </ListItemAvatar>
                         <ListItemText
                           primary={item.name}
-                          secondary={`Each: $${item.price.toFixed(2)}`}
+                          secondary={`Each: NZ$${item.price.toFixed(2)}`}
                         />
                       </ListItem>
                       <Divider variant="inset" component="li" />
@@ -200,7 +206,7 @@ export default function ShowBaggedItems({ shipping, order, auth }) {
                   : theme.palette.common.white,
             })}
           >
-            Subtotal: $
+            Subtotal: NZ$
             {order && orderSTotal
               ? orderSTotal.toFixed(2)
               : cartItems
@@ -226,12 +232,12 @@ export default function ShowBaggedItems({ shipping, order, auth }) {
                   Shipping:{' '}
                   {order
                     ? orderShipping === 'standard'
-                      ? '$5.00'
+                      ? 'NZ$5.00'
                       : orderShipping === 'express'
-                      ? '$20.00'
+                      ? 'NZ$20.00'
                       : ''
                     : ''}
-                  {!order && (shipping === 'standard' ? '$5.00' : '$20.00')}
+                  {!order && (shipping === 'standard' ? 'NZ$5.00' : 'NZ$20.00')}
                 </Typography>
               </Grid>
             </Grid>
@@ -252,7 +258,7 @@ export default function ShowBaggedItems({ shipping, order, auth }) {
                   color: theme.palette.common.white,
                 })}
               >
-                Total: $
+                Total: NZ$
                 {order && orderTotal
                   ? orderTotal.toFixed(2)
                   : (

@@ -21,6 +21,7 @@ import React, { useState } from 'react';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ChosenCactus from './ChosenCactus';
+import Message from '../common/Message';
 
 function ChooseAnswer({
   setChosen,
@@ -29,6 +30,8 @@ function ChooseAnswer({
   number,
   rightClicked,
 }) {
+  const [openMessage, setOpenMessage] = useState(false);
+
   var notAnswered = true;
 
   const onClick = (value) => (e) => {
@@ -37,31 +40,32 @@ function ChooseAnswer({
     for (var i = 0; i < newAllQs.length; i++) {
       if (newAllQs[i].number === number) {
         newAllQs[i].answer = value;
-        if (number !== 7) {
-          rightClicked(250)();
-        } else {
-          newAllQs.every((quest) => {
-            if (quest.answer === 0) {
-              console.log('Please answer all the questions');
-              notAnswered = true;
-              return false;
-            }
+      }
+    }
 
-            notAnswered = false;
-          });
-
-          if (!notAnswered) {
-            let total = 0;
-            newAllQs.forEach((quest) => {
-              total += quest.answer;
-            });
-
-            console.log('Your cactus is: ', total % 9);
-            setTimeout(() => {
-              setChosen(total % 9);
-            }, 500);
-          }
+    if (number !== 7) {
+      rightClicked(250)();
+    } else {
+      for (var j = 0; j < newAllQs.length; j++) {
+        if (newAllQs[j].answer === 0) {
+          notAnswered = true;
+          break;
         }
+
+        notAnswered = false;
+      }
+
+      if (!notAnswered) {
+        let total = 0;
+        newAllQs.forEach((quest) => {
+          total += quest.answer;
+        });
+
+        setTimeout(() => {
+          setChosen(total % 9);
+        }, 500);
+      } else {
+        setOpenMessage(true);
       }
     }
 
@@ -196,6 +200,13 @@ function ChooseAnswer({
         />
       </RadioGroup>
       {/* </FormControl> */}
+
+      <Message
+        text={`Please answer all questions!`}
+        severity="warning"
+        open={openMessage}
+        setOpen={setOpenMessage}
+      />
     </>
   );
 }
@@ -292,7 +303,7 @@ function Questions({
   );
 }
 
-function QuizCard({ start, setChosen, chosen }) {
+function QuizCard({ start, setChosen, chosen, products }) {
   const containerRef = React.useRef(null);
   const [active, setActive] = useState(0);
   const [goLeft, setGoLeft] = useState(true);
@@ -385,12 +396,10 @@ function QuizCard({ start, setChosen, chosen }) {
                     spacing={10}
                   >
                     <Grid item>
-                      <Typography variant="h6">
-                        Your catus is {chosen}
-                      </Typography>
+                      <Typography variant="h6">Your catus is</Typography>
                     </Grid>
                     <Grid item>
-                      <ChosenCactus number={chosen} />
+                      <ChosenCactus products={products} number={chosen} />
                     </Grid>
                     <Grid item>
                       <Button
@@ -412,7 +421,7 @@ function QuizCard({ start, setChosen, chosen }) {
   );
 }
 
-export default function Quiz() {
+export default function Quiz({ products }) {
   const [start, setStart] = useState(false);
   const [chosen, setChosen] = useState(-1);
 
@@ -465,7 +474,12 @@ export default function Quiz() {
         </Box>
 
         <Grid item>
-          <QuizCard start={start} chosen={chosen} setChosen={setChosen} />
+          <QuizCard
+            start={start}
+            chosen={chosen}
+            setChosen={setChosen}
+            products={products}
+          />
         </Grid>
       </Grid>
     </>

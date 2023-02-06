@@ -1,22 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Layout from '../../components/Layout';
-import {
-  AppBar,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import Image from 'next/image';
+import { AppBar, Button, Grid, Toolbar, Typography } from '@mui/material';
 
 import { Box } from '@mui/material';
 import ProductCarousel from '../../components/Product/ProductCarousel';
 import InfoTable from '../../components/Product/InfoTable';
 import { Store } from '../../utils/store';
 import Message from '../../components/common/Message';
+import axios from 'axios';
 
 export default function ProductPage({ product }) {
   const { state, dispatch } = useContext(Store);
@@ -50,14 +41,14 @@ export default function ProductPage({ product }) {
         <Grid item md={5}>
           <Grid container direction="column" alignItems="center" spacing={5}>
             <Grid item>
-              <Typography variant="h3">{product.name}</Typography>
+              <Typography variant="h3">{product && product.name}</Typography>
             </Grid>
             <Grid item>
               <Typography
                 sx={{ padding: '2rem', fontSize: '1rem' }}
                 textAlign="center"
               >
-                {product.description}
+                {product && product.description}
               </Typography>
             </Grid>
 
@@ -67,7 +58,7 @@ export default function ProductPage({ product }) {
 
             <Grid item>
               <Typography sx={{ fontSize: '2rem' }}>
-                NZ${product.price}
+                NZ${product && product.price}
               </Typography>
             </Grid>
 
@@ -93,7 +84,7 @@ export default function ProductPage({ product }) {
 
         <Grid item>
           <Message
-            text={`Added ${product.name} to the bag!`}
+            text={`Added ${product && product.name} to the bag!`}
             severity="success"
             open={openMessage}
             setOpen={setOpenMessage}
@@ -127,8 +118,9 @@ export default function ProductPage({ product }) {
 
 export async function getStaticPaths() {
   try {
-    const res = await fetch(process.env.STRAPI_BASE + `artisanceyproducts`);
-    const products = await res.json();
+    const res = await axios.get(process.env.STRAPI_BASE + `artisanceyproducts`);
+    // const res = await fetch(process.env.STRAPI_BASE + `artisanceyproducts`);
+    const products = await res.data;
 
     const names = [];
     products.forEach((prod) => {
@@ -149,14 +141,15 @@ export async function getStaticProps(context) {
 
     var param = slug.toLowerCase();
 
-    const res = await fetch(
+    const res = await axios.get(
       process.env.STRAPI_BASE + `artisanceyproducts?slug=${param}`
     );
-    const product = await res.json();
+    const product = res.data[0];
 
     return {
       props: {
-        product: product instanceof Array ? product[0] : {},
+        // product: product instanceof Array ? product[0] : {},
+        product: product,
       },
     };
   } catch (e) {

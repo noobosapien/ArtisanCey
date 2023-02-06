@@ -6,7 +6,7 @@ export default function ProductCarousel({ product }) {
   const [mainImage, setMainImage] = useState('');
 
   useEffect(() => {
-    product.images instanceof Array
+    product && product.images instanceof Array
       ? setMainImage(product.images[0].url)
       : undefined;
   }, [product]);
@@ -31,7 +31,7 @@ export default function ProductCarousel({ product }) {
 
         <Grid item>
           <Grid container justifyContent="space-evenly" spacing={6}>
-            {product.images instanceof Array ? (
+            {product && product.images instanceof Array ? (
               product.images.map((image) => (
                 <Grid item xs={3}>
                   <Card sx={{ borderRadius: '0rem', maxWidth: '5rem' }}>

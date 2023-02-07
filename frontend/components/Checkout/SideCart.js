@@ -29,7 +29,7 @@ export default function SideCart({ shipping, order }) {
   useEffect(() => {
     const getItemsFromServer = async () => {
       if (order && order.items) {
-        if (order.shippingInfo.firstName) {
+        if (order.shippingAddress.firstName) {
           var allItems = [];
           const parsed = order.items;
           const parsedShipping = order.shippingOption;

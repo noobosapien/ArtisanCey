@@ -19,13 +19,14 @@ function Order({ params, query }) {
   useEffect(() => {
     const getOrderFromServer = async () => {
       const result = await getOrder(params.id, query.auth);
+      console.log('Result: ', result);
 
-      if (result && result.shippingInfo) {
+      if (result && result.shippingAddress) {
         var sInfo = '';
-        if (result.shippingInfo.firstName) {
-          sInfo = result.shippingInfo;
+        if (result.shippingAddress.firstName) {
+          sInfo = result.shippingAddress;
         } else {
-          sInfo = JSON.parse(result.shippingInfo);
+          sInfo = JSON.parse(result.shippingAddress);
         }
 
         setOrder(result);
@@ -71,7 +72,9 @@ function Order({ params, query }) {
             md={5}
           >
             <Grid item>
-              <Typography variant="h3">Thank you {name}</Typography>
+              <Typography variant="h3" textAlign="center">
+                Thank you {name}
+              </Typography>
             </Grid>
 
             <Grid item>

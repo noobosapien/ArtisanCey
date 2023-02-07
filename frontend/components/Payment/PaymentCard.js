@@ -297,6 +297,8 @@ export default function PaymentCard({ loading, setLoading }) {
           shippingAddress,
         });
 
+        // console.log(result);
+
         if (result.client_secret) {
           setClientSecret(result.client_secret);
         }

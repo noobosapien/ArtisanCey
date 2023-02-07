@@ -2,9 +2,9 @@ import axios from 'axios';
 
 export async function getOrder(link, auth) {
   try {
-    const { data } = await axios.get(
-      `https://cms.artisancey.com/orders/getOrder?order=${link}&auth=${auth}`
-      // `http://localhost:1337/orders/getOrder?order=${link}&auth=${auth}`
+    const { data } = await axios.post(
+      `https://cms.puppetinos.com/artisanceyorders/getOrder?order=${link}&auth=${auth}`
+      // `http://localhost:1337/artisanceyorders/getOrder?order=${link}&auth=${auth}`
     );
 
     return data;

@@ -105,7 +105,12 @@ export default function Layout({ title, description, children }) {
 
       <SearchDialog openSearch={openSearch} setOpenSearch={setOpenSearch} />
 
-      <AppBar position="static" elevation={0} color="transparent">
+      <AppBar
+        position="static"
+        elevation={0}
+        color="transparent"
+        sx={{ marginBottom: '1rem' }}
+      >
         <Toolbar disableGutters>
           <Grid
             container

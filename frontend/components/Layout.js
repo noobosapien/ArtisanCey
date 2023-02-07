@@ -255,8 +255,8 @@ export default function Layout({ title, description, children }) {
 
             <Grid item>
               <Typography align="center">
-                Currency: USD{' '}
-                <Image src={Flag} alt="USD" width={32} height={16} />
+                Currency: NZD{' '}
+                <Image src={Flag} alt="NZD" width={32} height={16} />
               </Typography>{' '}
             </Grid>
           </Grid>

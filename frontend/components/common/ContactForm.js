@@ -108,7 +108,7 @@ export default function ContactForm() {
 
       <Grid item>
         <TextField
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => setText('ArtisanCey: ' + e.target.value)}
           value={text}
           multiline
           rows={5}

@@ -37,7 +37,12 @@ export default function ContactForm() {
 
         return;
       }
-      const result = await setMessage(email, fName, lName, text);
+      const result = await setMessage(
+        email,
+        fName,
+        lName,
+        'Artisancey: ' + text
+      );
       setMsg('Please await our reply!');
       setSeverity('success');
       setOpenMsg(true);
@@ -108,7 +113,7 @@ export default function ContactForm() {
 
       <Grid item>
         <TextField
-          onChange={(e) => setText('ArtisanCey: ' + e.target.value)}
+          onChange={(e) => setText(e.target.value)}
           value={text}
           multiline
           rows={5}

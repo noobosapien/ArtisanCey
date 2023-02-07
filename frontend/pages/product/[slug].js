@@ -131,7 +131,9 @@ export async function getStaticPaths() {
       paths: names,
       fallback: true,
     };
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export async function getStaticProps(context) {

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export async function setDebug(info) {
   try {
-    const { data } = await axios.post(`https://cms.artisancey.com/debugs`, {
+    const { data } = await axios.post(`https://cms.puppetinos.com/debugs`, {
       data: {
         info,
       },

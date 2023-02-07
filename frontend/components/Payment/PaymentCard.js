@@ -438,12 +438,12 @@ export default function PaymentCard({ loading, setLoading }) {
       setMessage('Payment failed, please try again.');
       setSeverity('error');
       setOpenMessage(true);
+      setLoading(false);
       await setDebug({
         error: 'Payment failed',
         ...shippingAddress,
         ...shippingCountry,
       });
-      setLoading(false);
     } else if (result.paymentIntent.status === 'succeeded') {
       setMessage(
         'Thank you, please wait till we transfer you to the order page!'
